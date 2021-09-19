@@ -10,7 +10,7 @@ public class SlotLine : MonoBehaviour
     [SerializeField]
     RectTransform m_lineBottom = default;
     int m_crrentNum = 0;
-    int m_slotSize = 100;
+    int m_slotSize = 150;
     float m_rotationTime = 1f;
     public float RotationTime
     {
@@ -33,6 +33,10 @@ public class SlotLine : MonoBehaviour
     }
     public void StartSlot()
     {
+        if (Move)
+        {
+            return;
+        }
         if (m_line.Count < 3)
         {
             Debug.Log("設定数未満");
@@ -61,6 +65,7 @@ public class SlotLine : MonoBehaviour
             if (posY < -m_slotSize)
             {
                 posY = 0;
+                m_line[m_crrentNum].SlotRect.transform.position = m_base.position;
                 m_crrentNum++;
                 if (m_crrentNum >= m_line.Count)
                 {
@@ -79,6 +84,26 @@ public class SlotLine : MonoBehaviour
                 }
             }
             yield return null;
+        }
+        if (posY < -m_slotSize / 2)
+        {
+            m_line[m_crrentNum].SlotRect.transform.position = m_base.position;
+            m_crrentNum++;
+            if (m_crrentNum >= m_line.Count)
+            {
+                m_crrentNum = 0;
+            }
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            if (i + m_crrentNum >= m_line.Count)
+            {
+                m_line[i + m_crrentNum - m_line.Count].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
+            }
+            else
+            {
+                m_line[i + m_crrentNum].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
+            }
         }
     }
 }
