@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0281b49e4cef6f24aaa68800e79d0e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_type: 1
   m_testDebagEffect: 3
   m_rect: {fileID: 2656186941505260068}
 --- !u!1 &2656186942041657380

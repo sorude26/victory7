@@ -106,4 +106,19 @@ public class SlotLine : MonoBehaviour
             }
         }
     }
+    public Slot GetSlot(int target)
+    {
+        if (Move || target > 2 || target < 0)
+        {
+            return null;
+        }
+        if (target + m_crrentNum >= m_line.Count)
+        {
+            return m_line[target + m_crrentNum - m_line.Count];
+        }
+        else
+        {
+            return m_line[target + m_crrentNum];
+        }
+    }
 }

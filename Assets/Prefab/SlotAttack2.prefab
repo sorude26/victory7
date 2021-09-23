@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0281b49e4cef6f24aaa68800e79d0e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_type: 1
   m_testDebagEffect: 2
   m_rect: {fileID: 2743720436271891751}
 --- !u!1 &6606584996189579965
