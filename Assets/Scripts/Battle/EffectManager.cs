@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EffectManager : MonoBehaviour
+namespace victory7
 {
-    // Start is called before the first frame update
-    void Start()
+    public class EffectManager : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public static EffectManager Instance { get; private set; }
+        [SerializeField]
+        ViewText m_viewText = default;
+        public ViewText Text { get => m_viewText; }
+        private void Awake()
+        {
+            Instance = this;
+        }
     }
 }

@@ -14,27 +14,31 @@ namespace victory7
         bool m_view = false;
         public void View(string text)
         {
-            if (m_view)
-            {
-                return;
-            }
+            if (m_view) { return; }
+            m_view = true;
             m_text.text = text;
             StartCoroutine(View());
         }
         public void View(string text,float time)
         {
+            if (m_view) { return; }
+            m_view = true;
             m_text.text = text;
             m_viewTime = time;
             StartCoroutine(View());
         }
         public void View(string text,Color color)
         {
+            if (m_view) { return; }
+            m_view = true;
             m_text.text = text;
             m_text.color = color;
             StartCoroutine(View());
         }
         public void View(string text, Color color,float time)
         {
+            if (m_view) { return; }
+            m_view = true;
             m_text.text = text;
             m_text.color = color;
             m_viewTime = time;
@@ -42,6 +46,8 @@ namespace victory7
         }
         public void View(string text, Color color,int size)
         {
+            if (m_view) { return; }
+            m_view = true;
             m_text.text = text;
             m_text.color = color;
             m_text.fontSize = size;
@@ -49,6 +55,8 @@ namespace victory7
         }
         public void View(string text, Color color, int size,float time)
         {
+            if (m_view) { return; }
+            m_view = true;
             m_text.text = text;
             m_text.color = color;
             m_text.fontSize = size;

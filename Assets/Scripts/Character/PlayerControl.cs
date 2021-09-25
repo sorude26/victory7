@@ -58,6 +58,9 @@ namespace victory7
             {
                 m_gp = m_parameter.MaxGp;
             }
+            var view = Instantiate(EffectManager.Instance.Text);
+            view.transform.position = this.transform.position;
+            view.View("+" + m_parameter.Guard[slotPower].ToString(), Color.blue);
             CharacterUpdate();
         }
         public void HeelPlayer(int slotPower)
@@ -67,6 +70,9 @@ namespace victory7
             {
                 CurrentHP = m_parameter.MaxHP;
             }
+            var view = Instantiate(EffectManager.Instance.Text);
+            view.transform.position = this.transform.position;
+            view.View("+" + m_parameter.Heel[slotPower].ToString(), Color.green);
             CharacterUpdate();
         }
         public void Charge(int slotPower)
@@ -76,6 +82,10 @@ namespace victory7
             {
                 m_sp = m_parameter.MaxSp;
             }
+
+            var view = Instantiate(EffectManager.Instance.Text);
+            view.transform.position = this.transform.position;
+            view.View("+" + m_parameter.Charge[slotPower].ToString(), Color.yellow);
             CharacterUpdate();
         }
     }
