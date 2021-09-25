@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_type: 1
-  m_testDebagEffect: 3
+  m_testDebagEffect: 2
   m_rect: {fileID: 2656186941505260068}
 --- !u!1 &2656186942041657380
 GameObject:

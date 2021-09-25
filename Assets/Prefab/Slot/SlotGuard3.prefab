@@ -219,5 +219,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_type: 2
-  m_testDebagEffect: 3
+  m_testDebagEffect: 2
   m_rect: {fileID: 6450643909515395639}
