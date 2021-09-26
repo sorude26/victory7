@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TestPlayer Parameter
   m_EditorClassIdentifier: 
   m_name: "\u307E\u308B\u304A"
-  m_maxHP: 70
-  m_maxSp: 50
+  m_maxHP: 100
+  m_maxSp: 100
   m_maxGp: 50
   m_power: 0a000000140000001e000000
   m_guard: 050000000a0000000f000000

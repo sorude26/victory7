@@ -709,6 +709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5840761502835672958}
   - component: {fileID: 9115865222570363195}
+  - component: {fileID: 8386056817602486726}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Untagged
@@ -745,9 +746,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hpGauge: {fileID: 5840761502628875623}
+  m_animation: {fileID: 8386056817602486726}
   m_parameter: {fileID: 11400000, guid: 17ffb6d087d5a7e4f8cea5fedf463dfe, type: 2}
   m_spGauge: {fileID: 5840761502513672654}
   m_guardGauge: {fileID: 4646526796861362413}
+--- !u!95 &8386056817602486726
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5840761502835672953}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25f344c8a8a8be044b068085fd18621c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5840761502941512034
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,4 +15,4 @@ MonoBehaviour:
   m_name: "\u30C6\u30B9\u30C8\u6575"
   m_maxHP: 100
   m_rtbGaugeTime: 5
-  m_attackPower: 2
+  m_attackPower: 5
