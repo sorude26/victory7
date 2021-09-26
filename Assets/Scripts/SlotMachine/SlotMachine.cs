@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,11 +27,15 @@ namespace victory7
         Slider m_slider = default;
         [SerializeField]
         Text m_speedText = default;
-        bool m_chack = false;
-        void Start()
-        {
-            StartSet();
-        }
+        [SerializeField]
+        bool m_sevenSlot = false;
+        public bool Chack { get; private set; } = false;
+        public bool Stop { get; private set; } = false;
+        public Action StopSlot;
+        //void Start()
+        //{
+        //    StartSet();
+        //}
         public void StartSet()
         {
             if (m_slider)
@@ -41,17 +46,35 @@ namespace victory7
             {
                 m_speedText.text = $"一回転時間:{m_slider.value}秒";
             }
-            foreach (var item in m_testSlotL)
+            if (m_sevenSlot)
             {
-                m_leftLine.SetSlot(item);
+                foreach (var item in m_testSlotL)
+                {
+                    m_leftLine.SetSlot(item);
+                }
+                foreach (var item in m_testSlotL)
+                {
+                    m_centerLine.SetSlot(item);
+                }
+                foreach (var item in m_testSlotL)
+                {
+                    m_rightLine.SetSlot(item);
+                }
             }
-            foreach (var item in m_testSlotC)
+            else
             {
-                m_centerLine.SetSlot(item);
-            }
-            foreach (var item in m_testSlotR)
-            {
-                m_rightLine.SetSlot(item);
+                foreach (var item in m_testSlotL)
+                {
+                    m_leftLine.SetSlot(item);
+                }
+                foreach (var item in m_testSlotC)
+                {
+                    m_centerLine.SetSlot(item);
+                }
+                foreach (var item in m_testSlotR)
+                {
+                    m_rightLine.SetSlot(item);
+                }
             }
             StartSlot();
             m_leftLine.Move = false;
@@ -81,7 +104,7 @@ namespace victory7
             {
                 StopCenterLine();
             }
-            if (Input.GetButtonDown("Jump") && !m_chack)
+            if (Input.GetButtonDown("Jump") && !Chack)
             {
                 StartSlot();
             }
@@ -104,6 +127,7 @@ namespace victory7
                 m_centerLine.RotationTime = m_oneRotaionTime;
                 m_rightLine.RotationTime = m_oneRotaionTime;
             }
+            Stop = false;
             m_leftLine.StartSlot();
             m_centerLine.StartSlot();
             m_rightLine.StartSlot();
@@ -112,35 +136,65 @@ namespace victory7
         {
             m_leftLine.RotationTime = m_slider.value;
             m_centerLine.RotationTime = m_slider.value;
-            m_rightLine.RotationTime = m_slider.value; 
+            m_rightLine.RotationTime = m_slider.value;
             if (m_speedText)
             {
                 m_speedText.text = $"一回転時間:{m_slider.value}秒";
             }
         }
+        public void StopAll()
+        {
+            m_leftLine.Move = false;
+            m_centerLine.Move = false;
+            m_rightLine.Move = false;
+            StartCoroutine(StopAllSlot());
+        }
+        IEnumerator StopAllSlot()
+        {
+            while (m_leftLine.SlotMove || m_centerLine.SlotMove || m_rightLine.SlotMove)
+            {
+                yield return null;
+            }
+            Stop = true;
+        }
         public void StopLeftLine()
         {
-            if (m_chack)
+            if (Chack || Stop)
             {
                 return;
+            }
+            if (m_sevenSlot)
+            {
+                m_centerLine.Move = false;
+                m_rightLine.Move = false;
             }
             m_leftLine.Move = false;
             CheckSlot();
         }
         public void StopCenterLine()
         {
-            if (m_chack)
+            if (Chack || Stop)
             {
                 return;
+            }
+            if (m_sevenSlot)
+            {
+                m_leftLine.Move = false;
+                m_rightLine.Move = false;
             }
             m_centerLine.Move = false;
             CheckSlot();
         }
         public void StopRightLine()
         {
-            if (m_chack)
+            if (Chack || Stop)
             {
                 return;
+            }
+            if (m_sevenSlot)
+            {
+                m_centerLine.Move = false;
+                m_leftLine.Move = false;
             }
             m_rightLine.Move = false;
             CheckSlot();
@@ -151,7 +205,7 @@ namespace victory7
             {
                 return;
             }
-            m_chack = true;
+            Chack = true;
             StartCoroutine(Check());
         }
         IEnumerator Check()
@@ -180,7 +234,8 @@ namespace victory7
             yield return new WaitForSeconds(0.5f);
             StartSlot();
             yield return new WaitForSeconds(0.5f);
-            m_chack = false;
+            Chack = false;
+            StopSlot?.Invoke();
         }
         bool CheckLine(int lineNum)
         {

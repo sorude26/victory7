@@ -29,6 +29,10 @@ namespace victory7
             switch (m_type)
             {
                 case SlotType.Seven:
+                    BattleManager.Instance?.ChargeFeverTime();
+                    var message = Instantiate(EffectManager.Instance.Text);
+                    message.transform.position = new Vector2(0, -4f);
+                    message.View("Fever！！", new Color(1f, 0, 0.7f), 200, 3f);
                     break;
                 case SlotType.Attack:
                     BattleManager.Instance?.AttackEnemy(m_testDebagEffect);
