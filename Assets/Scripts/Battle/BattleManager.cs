@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace victory7
 {
@@ -35,6 +35,10 @@ namespace victory7
             {
                 enemy?.CharacterUpdate();
             }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Player.UseSkill();
+            }
         }
 
         void StartSet()
@@ -51,8 +55,9 @@ namespace victory7
         }
         public void AttackEnemy(int slotPower)
         {
-            int r = Random.Range(0, m_enemys.Length);
-            m_enemys[r].Damage(m_player.GetPower(slotPower));
+            var enemys = m_enemys.Where(e => !e.IsDead).ToArray();
+            int r = Random.Range(0, enemys.Length);
+            enemys[r].Damage(m_player.GetPower(slotPower));
         }
         public void AttackPlayer(int damege)
         {
@@ -65,6 +70,24 @@ namespace victory7
         void AddCount()
         {
             m_feverCount++;
+        }
+        public void CheckBattle()
+        {
+            if (Player.CurrentHP <= 0)
+            {
+                Debug.Log("ゲームオーバー");
+            }
+            else
+            {
+                foreach (var enemy in m_enemys)
+                {
+                    if (!enemy.IsDead)
+                    {
+                        return;
+                    }
+                }
+                Debug.Log("ステージClear");
+            }
         }
         IEnumerator FeverMode()
         {

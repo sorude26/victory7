@@ -29,9 +29,12 @@ namespace victory7
         Text m_speedText = default;
         [SerializeField]
         bool m_sevenSlot = false;
+        [SerializeField]
+        float m_stopSpan = 0.5f;
         public bool Chack { get; private set; } = false;
         public bool Stop { get; private set; } = false;
         public Action StopSlot;
+
         //void Start()
         //{
         //    StartSet();
@@ -165,8 +168,8 @@ namespace victory7
             }
             if (m_sevenSlot)
             {
-                m_centerLine.Move = false;
-                m_rightLine.Move = false;
+                StartCoroutine(SpanStop1());
+                return;
             }
             m_leftLine.Move = false;
             CheckSlot();
@@ -179,8 +182,8 @@ namespace victory7
             }
             if (m_sevenSlot)
             {
-                m_leftLine.Move = false;
-                m_rightLine.Move = false;
+                StartCoroutine(SpanStop3());
+                return;
             }
             m_centerLine.Move = false;
             CheckSlot();
@@ -193,10 +196,43 @@ namespace victory7
             }
             if (m_sevenSlot)
             {
-                m_centerLine.Move = false;
-                m_leftLine.Move = false;
+                StartCoroutine(SpanStop2());
+                return;
             }
             m_rightLine.Move = false;
+            CheckSlot();
+        }
+        IEnumerator SpanStop1()
+        {
+            Chack = true;
+            yield return new WaitForSeconds(m_stopSpan);
+            m_leftLine.Move = false;
+            yield return new WaitForSeconds(m_stopSpan);
+            m_centerLine.TargetStop(m_leftLine.CrrentNum);
+            yield return new WaitForSeconds(m_stopSpan);
+            m_rightLine.TargetStop(m_leftLine.CrrentNum);
+            CheckSlot();
+        }
+        IEnumerator SpanStop2()
+        {
+            Chack = true;
+            yield return new WaitForSeconds(m_stopSpan);
+            m_rightLine.Move = false;
+            yield return new WaitForSeconds(m_stopSpan);
+            m_centerLine.TargetStop(m_rightLine.CrrentNum);
+            yield return new WaitForSeconds(m_stopSpan);
+            m_leftLine.TargetStop(m_rightLine.CrrentNum);
+            CheckSlot();
+        }
+        IEnumerator SpanStop3()
+        {
+            Chack = true;
+            yield return new WaitForSeconds(m_stopSpan);
+            m_centerLine.Move = false;
+            yield return new WaitForSeconds(m_stopSpan);
+            m_leftLine.TargetStop(m_centerLine.CrrentNum);
+            yield return new WaitForSeconds(m_stopSpan);
+            m_rightLine.TargetStop(m_centerLine.CrrentNum);
             CheckSlot();
         }
         public void CheckSlot()

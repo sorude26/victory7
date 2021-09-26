@@ -12,6 +12,7 @@ namespace victory7
         [SerializeField]
         protected Slider m_rtgGauge = default;
         protected float m_rbtTimer = default;
+        public bool IsDead { get; protected set; }
         public void StartSet()
         {
             if (!m_parameter)
@@ -25,6 +26,10 @@ namespace victory7
         }
         public override void CharacterUpdate()
         {
+            if (IsDead)
+            {
+                return;
+            }
             m_rbtTimer += Time.deltaTime;
             if (m_rbtTimer >= m_parameter.RtbGaugeTime)
             {
@@ -37,6 +42,11 @@ namespace victory7
                 }
             }
             m_rtgGauge.value = m_rbtTimer / m_parameter.RtbGaugeTime;
+        }
+        protected override void Dead()
+        {
+            IsDead = true;
+            gameObject.SetActive(false);
         }
     } 
 }

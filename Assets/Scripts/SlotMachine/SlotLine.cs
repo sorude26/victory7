@@ -11,7 +11,7 @@ namespace victory7
         RectTransform m_base = default;
         [SerializeField]
         RectTransform m_lineBottom = default;
-        int m_crrentNum = 0;
+        public int CrrentNum { get; private set; } = 0;
         int m_slotSize = 150;
         float m_rotationTime = 1f;
         public bool SlotMove { get; private set; }
@@ -47,13 +47,13 @@ namespace victory7
             }
             for (int i = 0; i < 4; i++)
             {
-                if (i + m_crrentNum >= m_line.Count)
+                if (i + CrrentNum >= m_line.Count)
                 {
-                    m_line[i + m_crrentNum - m_line.Count].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
+                    m_line[i + CrrentNum - m_line.Count].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
                 }
                 else
                 {
-                    m_line[i + m_crrentNum].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
+                    m_line[i + CrrentNum].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
                 }
             }
             StartCoroutine(MoveSlot());
@@ -69,46 +69,64 @@ namespace victory7
                 if (posY < -m_slotSize)
                 {
                     posY = 0;
-                    m_line[m_crrentNum].SlotRect.transform.position = m_base.position;
-                    m_crrentNum++;
-                    if (m_crrentNum >= m_line.Count)
+                    m_line[CrrentNum].SlotRect.transform.position = m_base.position;
+                    CrrentNum++;
+                    if (CrrentNum >= m_line.Count)
                     {
-                        m_crrentNum = 0;
+                        CrrentNum = 0;
                     }
                 }
                 for (int i = 0; i < 4; i++)
                 {
-                    if (i + m_crrentNum >= m_line.Count)
+                    if (i + CrrentNum >= m_line.Count)
                     {
-                        m_line[i + m_crrentNum - m_line.Count].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i + new Vector3(0, posY, 0);
+                        m_line[i + CrrentNum - m_line.Count].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i + new Vector3(0, posY, 0);
                     }
                     else
                     {
-                        m_line[i + m_crrentNum].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i + new Vector3(0, posY, 0);
+                        m_line[i + CrrentNum].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i + new Vector3(0, posY, 0);
                     }
                 }
                 yield return null;
             }
             if (posY < -m_slotSize / 2)
             {
-                m_line[m_crrentNum].SlotRect.transform.position = m_base.position;
-                m_crrentNum++;
-                if (m_crrentNum >= m_line.Count)
+                m_line[CrrentNum].SlotRect.transform.position = m_base.position;
+                CrrentNum++;
+                if (CrrentNum >= m_line.Count)
                 {
-                    m_crrentNum = 0;
+                    CrrentNum = 0;
                 }
             }
             for (int i = 0; i < 4; i++)
             {
-                if (i + m_crrentNum >= m_line.Count)
+                if (i + CrrentNum >= m_line.Count)
                 {
-                    m_line[i + m_crrentNum - m_line.Count].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
+                    m_line[i + CrrentNum - m_line.Count].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
                 }
                 else
                 {
-                    m_line[i + m_crrentNum].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
+                    m_line[i + CrrentNum].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
                 }
             }
+            SlotMove = false;
+        }
+        public void TargetStop(int target)
+        {
+            StopAllCoroutines();
+            CrrentNum = target;
+            for (int i = 0; i < 4; i++)
+            {
+                if (i + CrrentNum >= m_line.Count)
+                {
+                    m_line[i + CrrentNum - m_line.Count].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
+                }
+                else
+                {
+                    m_line[i + CrrentNum].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
+                }
+            }
+            Move = false;
             SlotMove = false;
         }
         public Slot GetSlot(int target)
@@ -117,13 +135,13 @@ namespace victory7
             {
                 return null;
             }
-            if (target + m_crrentNum >= m_line.Count)
+            if (target + CrrentNum >= m_line.Count)
             {
-                return m_line[target + m_crrentNum - m_line.Count];
+                return m_line[target + CrrentNum - m_line.Count];
             }
             else
             {
-                return m_line[target + m_crrentNum];
+                return m_line[target + CrrentNum];
             }
         }
     }
