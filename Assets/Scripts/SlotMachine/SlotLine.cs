@@ -14,6 +14,7 @@ namespace victory7
         int m_crrentNum = 0;
         int m_slotSize = 150;
         float m_rotationTime = 1f;
+        public bool SlotMove { get; private set; }
         public float RotationTime
         {
             get => m_rotationTime;
@@ -61,6 +62,7 @@ namespace victory7
         {
             float posY = 0;
             Move = true;
+            SlotMove = true;
             while (Move)
             {
                 posY -= m_slotSize * m_line.Count / RotationTime * Time.deltaTime;
@@ -107,6 +109,7 @@ namespace victory7
                     m_line[i + m_crrentNum].transform.position = m_lineBottom.position + Vector3.up * m_slotSize * i;
                 }
             }
+            SlotMove = false;
         }
         public Slot GetSlot(int target)
         {
