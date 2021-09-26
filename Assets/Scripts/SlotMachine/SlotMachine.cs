@@ -29,6 +29,10 @@ namespace victory7
         bool m_chack = false;
         void Start()
         {
+            StartSet();
+        }
+        public void StartSet()
+        {
             if (m_slider)
             {
                 m_slider.value = m_oneRotaionTime;
@@ -54,7 +58,6 @@ namespace victory7
             m_centerLine.Move = false;
             m_rightLine.Move = false;
         }
-
         private void Update()
         {
             if (Input.GetButtonDown("Horizontal"))
