@@ -13,6 +13,8 @@ namespace victory7
         protected Slider m_spGauge = default;
         [SerializeField]
         protected Slider m_guardGauge = default;
+        [SerializeField]
+        protected SkillType m_skillType = default;
         protected int m_sp = default;
         protected int m_gp = default;
 
@@ -43,9 +45,24 @@ namespace victory7
                     base.Damage(-m_gp);
                     m_gp = 0;
                 }
+                CharacterUpdate();
                 return;
             }
             base.Damage(damage);
+        }
+        protected override void Dead()
+        {
+            gameObject.SetActive(false);
+            BattleManager.Instance.CheckBattle();
+        }
+        public void UseSkill()
+        {
+            if (m_sp >= m_parameter.MaxSp)
+            {
+                m_sp = 0;
+                SkillController.Skill(m_skillType, 3);
+                CharacterUpdate();
+            }
         }
         public int GetPower(int slotPower)
         {

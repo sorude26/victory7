@@ -24,8 +24,10 @@ namespace victory7
             if (CurrentHP <= 0)
             {
                 CurrentHP = 0;
+                Dead();
             }
             m_hpGauge.value = CurrentHP / (float)m_maxHP;
         }
+        protected abstract void Dead();
     }
 }
