@@ -19,6 +19,7 @@ namespace victory7
         [SerializeField]
         int m_maxFeverCount = 5;
         int m_feverCount = 0;
+        public bool BattleEnd { get; private set; }
         public PlayerControl Player { get => m_player; }
         private void Awake()
         {
@@ -31,6 +32,10 @@ namespace victory7
 
         void Update()
         {
+            if (BattleEnd)
+            {
+                return;
+            }
             foreach (var enemy in m_enemys)
             {
                 enemy?.CharacterUpdate();
@@ -76,6 +81,7 @@ namespace victory7
             if (Player.CurrentHP <= 0)
             {
                 Debug.Log("ゲームオーバー");
+                BattleEnd = true;
             }
             else
             {
@@ -87,6 +93,7 @@ namespace victory7
                     }
                 }
                 Debug.Log("ステージClear");
+                BattleEnd = true;
             }
         }
         IEnumerator FeverMode()

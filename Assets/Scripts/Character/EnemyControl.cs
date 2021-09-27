@@ -47,6 +47,7 @@ namespace victory7
         {
             IsDead = true;
             gameObject.SetActive(false);
+            BattleManager.Instance.CheckBattle();
         }
     } 
 }

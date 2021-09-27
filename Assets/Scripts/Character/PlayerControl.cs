@@ -53,6 +53,7 @@ namespace victory7
         protected override void Dead()
         {
             gameObject.SetActive(false);
+            BattleManager.Instance.CheckBattle();
         }
         public void UseSkill()
         {
