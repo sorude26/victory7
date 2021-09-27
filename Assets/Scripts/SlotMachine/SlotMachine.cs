@@ -51,30 +51,30 @@ namespace victory7
             }
             if (m_sevenSlot)
             {
-                foreach (var item in m_testSlotL)
+                foreach (var item in SlotData.SevenSlotData)
                 {
                     m_leftLine.SetSlot(item);
                 }
-                foreach (var item in m_testSlotL)
+                foreach (var item in SlotData.SevenSlotData)
                 {
                     m_centerLine.SetSlot(item);
                 }
-                foreach (var item in m_testSlotL)
+                foreach (var item in SlotData.SevenSlotData)
                 {
                     m_rightLine.SetSlot(item);
                 }
             }
             else
             {
-                foreach (var item in m_testSlotL)
+                foreach (var item in SlotData.LeftSlotData)
                 {
                     m_leftLine.SetSlot(item);
                 }
-                foreach (var item in m_testSlotC)
+                foreach (var item in SlotData.CenterSlotData)
                 {
                     m_centerLine.SetSlot(item);
                 }
-                foreach (var item in m_testSlotR)
+                foreach (var item in SlotData.RightSlotData)
                 {
                     m_rightLine.SetSlot(item);
                 }
@@ -86,6 +86,10 @@ namespace victory7
         }
         private void Update()
         {
+            if (BattleManager.Instance.BattleEnd)
+            {
+                return;
+            }
             if (Input.GetButtonDown("Horizontal"))
             {
                 var i = Input.GetAxisRaw("Horizontal");
