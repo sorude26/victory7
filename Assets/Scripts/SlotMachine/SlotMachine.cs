@@ -12,12 +12,6 @@ namespace victory7
         [SerializeField]
         float m_oneRotaionTime = 0.85f;
         [SerializeField]
-        Slot[] m_testSlotL = default;
-        [SerializeField]
-        Slot[] m_testSlotC = default;
-        [SerializeField]
-        Slot[] m_testSlotR = default;
-        [SerializeField]
         SlotLine m_leftLine = default;
         [SerializeField]
         SlotLine m_centerLine = default;
@@ -110,11 +104,7 @@ namespace victory7
             if (Input.GetButtonDown("Vertical"))
             {
                 StopCenterLine();
-            }
-            if (Input.GetButtonDown("Jump") && !Chack)
-            {
-                StartSlot();
-            }
+            }           
         }
         public void StartSlot()
         {
