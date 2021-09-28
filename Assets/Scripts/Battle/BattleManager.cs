@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace victory7
 {
@@ -17,6 +18,8 @@ namespace victory7
         [SerializeField]
         SlotMachine m_sevenSlot = default;
         [SerializeField]
+        BuildControl buildControl = default;
+        [SerializeField]
         int m_maxFeverCount = 5;
         int m_feverCount = 0;
         public bool BattleEnd { get; private set; }
@@ -28,24 +31,33 @@ namespace victory7
         void Start()
         {
             StartSet();
+            buildControl.StartSet();
+            FadeController.Instance.StartFadeIn(StartBattle);
         }
-
-        void Update()
+        void StartBattle()
         {
-            if (BattleEnd)
+            var m = Instantiate(EffectManager.Instance.Text);
+            m.transform.position = new Vector2(1, 0);
+            m.View("Start!!",Color.red,50);
+            StartCoroutine(Battle());
+        }
+        
+        IEnumerator Battle()
+        {
+            m_normalSlot.StartSlot();
+            while (!BattleEnd)
             {
-                return;
-            }
-            foreach (var enemy in m_enemys)
-            {
-                enemy?.CharacterUpdate();
-            }
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                Player.UseSkill();
+                foreach (var enemy in m_enemys)
+                {
+                    enemy?.CharacterUpdate();
+                }
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    Player.UseSkill();
+                }
+                yield return null;
             }
         }
-
         void StartSet()
         {
             m_normalSlot.StartSet();
@@ -82,6 +94,7 @@ namespace victory7
             {
                 Debug.Log("ゲームオーバー");
                 BattleEnd = true;
+                return;
             }
             else
             {
@@ -95,6 +108,7 @@ namespace victory7
                 Debug.Log("ステージClear");
                 BattleEnd = true;
             }
+            buildControl.gameObject.SetActive(true);
         }
         IEnumerator FeverMode()
         {
@@ -110,6 +124,7 @@ namespace victory7
             }
             m_normalSlot.gameObject.SetActive(false);
             m_sevenSlot.gameObject.SetActive(true);
+            m_sevenSlot.StartSlot();
             while (m_feverCount < m_maxFeverCount)
             {
                 yield return null;
@@ -121,6 +136,15 @@ namespace victory7
             }
             m_normalSlot.gameObject.SetActive(true);
             m_sevenSlot.gameObject.SetActive(false);
+            m_normalSlot.StartSlot();
+        }
+        public void NextScene()
+        {
+            FadeController.Instance.StartFadeOut(Next);
+        }
+        void Next()
+        {
+            SceneManager.LoadScene("BattleTest");
         }
     }
 }
