@@ -16,7 +16,9 @@ namespace victory7
         [SerializeField]
         protected SkillType m_skillType = default;
         protected int m_sp = default;
+        public int CurrentSP { get => m_sp; }
         protected int m_gp = default;
+        public int CurrentGP { get => m_gp; }
 
         public void StartSet()
         {
@@ -26,7 +28,9 @@ namespace victory7
                 return;
             }
             m_maxHP = m_parameter.MaxHP;
-            CurrentHP = m_parameter.MaxHP;
+            CurrentHP = PlayerData.CurrentHP;
+            m_sp = PlayerData.CurrentSP;
+            m_gp = PlayerData.CurrentGP;
             CharacterUpdate();
         }
         public override void CharacterUpdate()

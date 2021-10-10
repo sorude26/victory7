@@ -57,6 +57,7 @@ namespace victory7
                 }
                 yield return null;
             }
+            PlayerData.SetData(m_player.CurrentHP, m_player.CurrentSP, m_player.CurrentGP);
         }
         void StartSet()
         {
