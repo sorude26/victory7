@@ -27,6 +27,7 @@ namespace victory7
             {
                 SlotData.ShuffleSlot(i);
             }
+            PlayerData.StartSet(m_startParameter);
         }
     }
 }
