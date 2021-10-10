@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: TestEnemy Parameter 1
   m_EditorClassIdentifier: 
   m_name: "\u30C6\u30B9\u30C8\u65752"
-  m_maxHP: 200
-  m_rtbGaugeTime: 9
-  m_attackPower: 10
+  m_maxHP: 120
+  m_attackData:
+  - {x: 5, y: 2}
+  - {x: 5, y: 4}
+  - {x: 20, y: 9}

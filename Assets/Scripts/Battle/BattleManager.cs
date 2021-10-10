@@ -45,19 +45,28 @@ namespace victory7
         IEnumerator Battle()
         {
             m_normalSlot.StartSlot();
+            m_normalSlot.StopSlot += EnemyUpdate;
             while (!BattleEnd)
             {
-                foreach (var enemy in m_enemys)
-                {
-                    enemy?.CharacterUpdate();
-                }
+                //foreach (var enemy in m_enemys)
+                //{
+                //    enemy?.CharacterUpdate();
+                //}
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
                     Player.UseSkill();
                 }
                 yield return null;
             }
+            m_normalSlot.StopSlot -= EnemyUpdate;
             PlayerData.SetData(m_player.CurrentHP, m_player.CurrentSP, m_player.CurrentGP);
+        }
+        void EnemyUpdate()
+        {
+            foreach (var enemy in m_enemys)
+            {
+                enemy?.CharacterUpdate();
+            }
         }
         void StartSet()
         {

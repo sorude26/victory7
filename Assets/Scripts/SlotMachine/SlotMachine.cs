@@ -27,7 +27,7 @@ namespace victory7
         float m_stopSpan = 0.5f;
         public bool Chack { get; private set; } = false;
         public bool Stop { get; private set; } = false;
-        public Action StopSlot;
+        public event Action StopSlot;
 
         //void Start()
         //{
