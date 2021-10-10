@@ -19,7 +19,7 @@ namespace victory7
         {
             CurrentHP = hp;
             CurrentSP = sp;
-            CurrentGP = gp;
+            CurrentGP = 0;
         }
     }
 }
