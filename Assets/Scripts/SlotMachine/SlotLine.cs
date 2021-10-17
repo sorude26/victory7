@@ -14,6 +14,7 @@ namespace victory7
         public int CrrentNum { get; private set; } = 0;
         int m_slotSize = 150;
         float m_rotationTime = 1f;
+        float m_slotSpeed = 1f;
         public bool SlotMove { get; private set; }
         public float RotationTime
         {
@@ -23,6 +24,17 @@ namespace victory7
                 if (value > 0)
                 {
                     m_rotationTime = value;
+                }
+            }
+        }
+        public float SlotSpeed
+        {
+            get => m_slotSpeed;
+            set
+            {
+                if (value > 0)
+                {
+                    m_slotSpeed = value;
                 }
             }
         }
@@ -65,7 +77,7 @@ namespace victory7
             SlotMove = true;
             while (Move)
             {
-                posY -= m_slotSize * m_line.Count / RotationTime * Time.deltaTime;
+                posY -= m_slotSize * m_line.Count * m_slotSpeed / RotationTime * Time.deltaTime;
                 if (posY < -m_slotSize)
                 {
                     posY = 0;
