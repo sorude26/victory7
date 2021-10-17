@@ -11,6 +11,9 @@ namespace victory7
         [Header("一回転に掛かる時間")]
         [SerializeField]
         float m_oneRotaionTime = 0.85f;
+        [Header("１スロットの速度倍率")]
+        [SerializeField]
+        float m_oneSlotSpeed = 1f;
         [SerializeField]
         SlotLine m_leftLine = default;
         [SerializeField]
@@ -104,7 +107,7 @@ namespace victory7
             if (Input.GetButtonDown("Vertical"))
             {
                 StopCenterLine();
-            }           
+            }
         }
         public void StartSlot()
         {
@@ -121,8 +124,11 @@ namespace victory7
             else
             {
                 m_leftLine.RotationTime = m_oneRotaionTime;
+                m_leftLine.SlotSpeed = m_oneSlotSpeed;
                 m_centerLine.RotationTime = m_oneRotaionTime;
+                m_centerLine.SlotSpeed = m_oneSlotSpeed;
                 m_rightLine.RotationTime = m_oneRotaionTime;
+                m_rightLine.SlotSpeed = m_oneSlotSpeed;
             }
             Stop = false;
             m_leftLine.StartSlot();
