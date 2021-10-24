@@ -10,6 +10,7 @@ namespace victory7
         GameObject m_player = default;
         [SerializeField]
         GameObject m_target = default;
+        [Header("配置ラインデータ")]
         [SerializeField]
         MapLine[] m_mapLines = default;
         [SerializeField]
