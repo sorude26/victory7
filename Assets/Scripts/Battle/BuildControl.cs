@@ -7,7 +7,7 @@ namespace victory7
     public class BuildControl : MonoBehaviour
     {
         [SerializeField]
-        Slot[] popSlot = default;
+        Slot[] m_popSlot = default;
         [SerializeField]
         RectTransform[] m_slotPos = default;
         [SerializeField]
@@ -19,19 +19,23 @@ namespace victory7
         int m_targetNum = 0;
         int m_slotNum = 0;
         bool lineMode = false;
-        
+       
         public void StartSet()
         {
-            for (int i = 0; i < popSlot.Length; i++)
+            if (BattleData.PopSlot != null && BattleData.PopSlot.Length > 0)
             {
-                int r = Random.Range(0, popSlot.Length);
-                Slot a = popSlot[i];
-                popSlot[i] = popSlot[r];
-                popSlot[r] = a;
+                m_popSlot = BattleData.PopSlot;
+            }
+            for (int i = 0; i < m_popSlot.Length; i++)
+            {
+                int r = Random.Range(0, m_popSlot.Length);
+                Slot a = m_popSlot[i];
+                m_popSlot[i] = m_popSlot[r];
+                m_popSlot[r] = a;
             }
             for (int i = 0; i < 3; i++)
             {
-                var oneSlot = Instantiate(popSlot[i]);
+                var oneSlot = Instantiate(m_popSlot[i]);
                 oneSlot.SlotRect.transform.position = m_slotPos[i].position;
                 oneSlot.transform.SetParent(m_slotPos[i]);
             }
@@ -93,7 +97,7 @@ namespace victory7
                 }
                 else
                 {
-                    SlotData.AddSlot(popSlot[m_slotNum], m_targetNum);
+                    SlotData.AddSlot(m_popSlot[m_slotNum], m_targetNum);
                     BattleManager.Instance.NextScene();
                     gameObject.SetActive(false);
                 }

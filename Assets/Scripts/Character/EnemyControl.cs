@@ -23,6 +23,7 @@ namespace victory7
                 Debug.Log("パラメータがセットされていません");
                 return;
             }
+            gameObject.SetActive(true);
             m_maxHP = m_parameter.MaxHP;
             CurrentHP = m_parameter.MaxHP;
             m_hpGauge.value = CurrentHP / (float)m_maxHP;
