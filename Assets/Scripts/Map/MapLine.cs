@@ -10,10 +10,10 @@ namespace victory7
         [Header("この横列に存在する全てのマス")]
         [SerializeField]
         MapPoint[] m_points = default;
-        [Header("設定したマスの数だけ用意する。この縦列からみて左ラインの何処に繋げるか。")]
+        [Header("設定したマスの数だけ用意する。この列からみて上ラインの何処に繋げるか。")]
         [SerializeField]
         int[] m_targetPointU = default;
-        [Header("設定したマスの数だけ用意する。この縦列からみて右ラインの何処に繋げるか。")]
+        [Header("設定したマスの数だけ用意する。この列からみて下ラインの何処に繋げるか。")]
         [SerializeField]
         int[] m_targetPointD = default;
         public MapPoint[] Points { get => m_points; }
