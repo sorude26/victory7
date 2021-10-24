@@ -12,6 +12,8 @@ namespace victory7
         [SerializeField]
         PlayerControl m_player = default;
         [SerializeField]
+        Transform[] m_enemyPos = default;
+        [SerializeField]
         EnemyControl[] m_enemys = default;
         [SerializeField]
         SlotMachine m_normalSlot = default;
@@ -70,6 +72,16 @@ namespace victory7
         }
         void StartSet()
         {
+            if (BattleData.Enemys != null && BattleData.Enemys.Length > 0)
+            {
+                m_enemys = new EnemyControl[BattleData.Enemys.Length];
+                for (int i = 0; i < BattleData.Enemys.Length; i++)
+                {
+                    var enemy = Instantiate(BattleData.Enemys[i]);
+                    enemy.transform.position = m_enemyPos[i].position;
+                    m_enemys[i] = enemy;
+                }
+            }
             m_normalSlot.StartSet();
             m_sevenSlot.StartSet();
             m_sevenSlot.StopSlot += AddCount;
@@ -154,7 +166,7 @@ namespace victory7
         }
         void Next()
         {
-            SceneManager.LoadScene("BattleTest");
+            SceneManager.LoadScene("MapScene");
         }
     }
 }

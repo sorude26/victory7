@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d30ba09b168a6cb4197f8efb2138c7a3, type: 3}
-  m_Name: TestEnemy Parameter
+  m_Name: TestEnemy1
   m_EditorClassIdentifier: 
   m_name: "\u30C6\u30B9\u30C8\u6575"
   m_maxHP: 50

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace victory7
 {
-    public enum PointType
+    public enum MapPointType
     {
         Enemy,
         Heel,
@@ -12,9 +12,13 @@ namespace victory7
     public class MapPoint : MonoBehaviour
     {
         [SerializeField]
-        PointType m_type = PointType.Enemy;
+        MapPointType m_type = MapPointType.Enemy;
+        [SerializeField]
+        int m_typeNumber = 0;
         [SerializeField]
         LineRenderer m_renderer = default;
+        public MapPointType Type { get => m_type; }
+        public int TypeNumber { get => m_typeNumber; }
         public int LineNumber { get; private set; }
         public int PosNumber { get; private set; }
         public int UpTarget { get; private set; }

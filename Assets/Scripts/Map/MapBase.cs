@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace victory7
 {
@@ -23,12 +24,31 @@ namespace victory7
         int m_currentPos = 0;
         List<MapPoint> m_targetPos = default;
         Vector2 m_bossPos = default;
+        bool m_create = default;
+        Vector2Int m_playerPos = default;
+        bool m_load = default;
+        [Header("通常戦闘パターンデータ")]
+        [SerializeField]
+        MapPointData[] m_battlePointData = default;
+        [Header("ボス戦闘パターンデータ")]
+        [SerializeField]
+        MapPointData m_bossPointData = default;
+        bool m_gard = false;
         private void Start()
         {
-            CreateMap();
+            m_create = MapData.Create;
+            m_playerPos = MapData.PlayerPos;
+            CreateMap(); 
+            LodeMap();
+            FadeController.Instance.StartFadeIn(() => m_gard = false);
+            m_gard = true;
         }
         private void Update()
         {
+            if (m_gard || m_load)
+            {
+                return;
+            }
             if (Input.GetButtonDown("Vertical"))
             {
                 if (Input.GetAxisRaw("Vertical") > 0)
@@ -47,11 +67,15 @@ namespace victory7
         }
         void Next()
         {
-            if (m_targetPos.Count <= 0)
+            if (m_targetPos.Count <= 0 || m_load)
             {
                 m_player.transform.position = m_bossPos;
+                MapData.Reset();
+                BattleData.SetData(m_bossPointData);
+                FadeController.Instance.StartFadeOut(Battle);
                 return;
             }
+            m_load = true;
             var map = m_targetPos[m_currentPos];
             m_player.transform.position = map.transform.position;
             m_targetPos.Clear();
@@ -76,6 +100,14 @@ namespace victory7
             {
                 m_target.transform.position = m_bossPos;
             }
+            MapData.SetData(new Vector2Int(map.LineNumber, map.PosNumber));
+            int b = map.TypeNumber;
+            if (b >= m_battlePointData.Length)
+            {
+                b = 0;
+            }
+            BattleData.SetData(m_battlePointData[b]);
+            FadeController.Instance.StartFadeOut(Battle);
         }
         void TargetChange(int a)
         {
@@ -164,9 +196,50 @@ namespace victory7
                         }
                     }
                 }
-                m_targetPos.Add(m_mapData[i][0]);
+                if (!m_create)
+                {
+                    m_targetPos.Add(m_mapData[i][0]);
+                }
             }
-            m_target.transform.position = m_targetPos[0].transform.position;
+            if (!m_create)
+            {
+                m_target.transform.position = m_targetPos[0].transform.position;
+            }
+        }
+        void LodeMap()
+        {
+            if (!m_create)
+            {
+                return;
+            }
+            m_targetPos = new List<MapPoint>();
+            var map = m_mapData[m_playerPos.x][m_playerPos.y];
+            m_player.transform.position = map.transform.position;
+            if (map.PosNumber < m_mapData[map.LineNumber].Count - 1)
+            {
+                m_targetPos.Add(m_mapData[map.LineNumber][map.PosNumber + 1]);
+                if (map.LineNumber < m_mapData.Length - 1 && map.UpTarget > 0)
+                {
+                    m_targetPos.Add(m_mapData[map.LineNumber + 1][map.UpTarget]);
+                }
+                if (map.LineNumber > 0 && map.DownTarget > 0)
+                {
+                    m_targetPos.Add(m_mapData[map.LineNumber - 1][map.DownTarget]);
+                }
+            }
+            m_currentPos = 0;
+            if (m_targetPos.Count > 0)
+            {
+                m_target.transform.position = m_targetPos[m_currentPos].transform.position;
+            }
+            else
+            {
+                m_target.transform.position = m_bossPos;
+            }
+        }
+        void Battle()
+        {
+            SceneManager.LoadScene("BattleTest");
         }
     }
 }
