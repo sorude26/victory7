@@ -45,3 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_viewText: {fileID: 1445577957806475921, guid: 0774fbaa02a3d7446976ad4096543322,
     type: 3}
+  m_effectPrefabs:
+  - {fileID: 6858464442332423904, guid: a631a77493cafa94a9c22e8924e72a83, type: 3}
+  - {fileID: 5574340617896198994, guid: 8c298992b11e7ea43a5787afbf0bf59f, type: 3}
+  - {fileID: 6318024227102945243, guid: 9586a1e18c2d3cf4f9611287b9e0a0d3, type: 3}
+  - {fileID: 4260910242115451349, guid: 2614eec6367b6084ba116b219d5f66a7, type: 3}
+  - {fileID: 2838487633637653567, guid: 008ad14b6a73c78429478f9eeb584e03, type: 3}
+  - {fileID: 6274435623373687941, guid: 641d7ec95fc2c5f4b84c7baa595da191, type: 3}
