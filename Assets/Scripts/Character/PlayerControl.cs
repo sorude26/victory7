@@ -49,6 +49,7 @@ namespace victory7
                     base.Damage(-m_gp);
                     m_gp = 0;
                 }
+                EffectManager.Instance.PlayEffect(EffectType.Damage2, transform.position);
                 CharacterUpdate();
                 return;
             }
@@ -56,6 +57,7 @@ namespace victory7
         }
         protected override void Dead()
         {
+            EffectManager.Instance.PlayEffect(EffectType.Damage3, transform.position);
             gameObject.SetActive(false);
             BattleManager.Instance.CheckBattle();
         }
@@ -64,7 +66,7 @@ namespace victory7
             if (m_sp >= m_parameter.MaxSp)
             {
                 m_sp = 0;
-                SkillController.Skill(m_skillType, 3);
+                SkillController.UseSkill(m_skillType, 3);
                 CharacterUpdate();
             }
         }
@@ -80,8 +82,9 @@ namespace victory7
                 m_gp = m_parameter.MaxGp;
             }
             var view = Instantiate(EffectManager.Instance.Text);
-            view.transform.position = this.transform.position;
+            view.transform.position = this.transform.position + Vector3.up;
             view.View("+" + m_parameter.Guard[slotPower].ToString(), Color.blue);
+            EffectManager.Instance.PlayEffect(EffectType.Guard, transform.position);
             CharacterUpdate();
         }
         public void HeelPlayer(int slotPower)
@@ -92,8 +95,9 @@ namespace victory7
                 CurrentHP = m_parameter.MaxHP;
             }
             var view = Instantiate(EffectManager.Instance.Text);
-            view.transform.position = this.transform.position;
+            view.transform.position = this.transform.position + Vector3.up;
             view.View("+" + m_parameter.Heel[slotPower].ToString(), Color.green);
+            EffectManager.Instance.PlayEffect(EffectType.Heel, transform.position);
             CharacterUpdate();
         }
         public void Charge(int slotPower)
@@ -105,8 +109,9 @@ namespace victory7
             }
 
             var view = Instantiate(EffectManager.Instance.Text);
-            view.transform.position = this.transform.position;
+            view.transform.position = this.transform.position + Vector3.up;
             view.View("+" + m_parameter.Charge[slotPower].ToString(), Color.yellow);
+            EffectManager.Instance.PlayEffect(EffectType.Chage, transform.position);
             CharacterUpdate();
         }
     }

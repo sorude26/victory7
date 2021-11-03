@@ -53,11 +53,15 @@ namespace victory7
                 if (m_attackCounts[i] <= 0)
                 {
                     m_attackCounts[i] = m_parameter.AttackData[i].y;
-                    BattleManager.Instance.AttackPlayer(m_parameter.AttackData[i].x);
-                    if (m_animation)
+                    int a = m_parameter.AttackData[i].x;
+                    BattleManager.Instance.BattleActions.Push(() =>
                     {
-                        m_animation.Play("attack");
-                    }
+                        BattleManager.Instance.AttackPlayer(a);
+                        if (m_animation)
+                        {
+                            m_animation.Play("attack");
+                        }
+                    });
                 }
             }
             if (m_count)
@@ -71,6 +75,7 @@ namespace victory7
         }
         protected override void Dead()
         {
+            EffectManager.Instance.PlayEffect(EffectType.Damage3, transform.position);
             IsDead = true;
             gameObject.SetActive(false);
             BattleManager.Instance.CheckBattle();

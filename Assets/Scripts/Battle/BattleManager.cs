@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,9 @@ namespace victory7
         [SerializeField]
         int m_maxFeverCount = 5;
         int m_feverCount = 0;
+        bool m_start = false;
+        Stack<Action> m_battleActions = default;
+        public Stack<Action> BattleActions { get => m_battleActions; }
         public bool BattleEnd { get; private set; }
         public PlayerControl Player { get => m_player; }
         private void Awake()
@@ -36,11 +40,23 @@ namespace victory7
             buildControl.StartSet();
             FadeController.Instance.StartFadeIn(StartBattle);
         }
+        private void Update()
+        {
+            if (BattleEnd)
+            {
+                return;
+            }
+            if (Input.GetKeyDown(KeyCode.Q) && m_start)
+            {
+                Player.UseSkill();
+            }
+        }
         void StartBattle()
         {
             var m = Instantiate(EffectManager.Instance.Text);
             m.transform.position = new Vector2(1, 0);
-            m.View("Start!!",Color.red,50);
+            m.View("Start!!",Color.red,80);
+            m_start = true;
             StartCoroutine(Battle());
         }
         
@@ -50,15 +66,8 @@ namespace victory7
             m_normalSlot.StopSlot += EnemyUpdate;
             while (!BattleEnd)
             {
-                //foreach (var enemy in m_enemys)
-                //{
-                //    enemy?.CharacterUpdate();
-                //}
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    Player.UseSkill();
-                }
-                yield return null;
+                yield return BattleAction();
+                yield return SlotWait();
             }
             m_normalSlot.StopSlot -= EnemyUpdate;
             PlayerData.SetData(m_player.CurrentHP, m_player.CurrentSP, m_player.CurrentGP);
@@ -82,6 +91,7 @@ namespace victory7
                     m_enemys[i] = enemy;
                 }
             }
+            m_battleActions = new Stack<Action>();
             m_normalSlot.StartSet();
             m_sevenSlot.StartSet();
             m_sevenSlot.StopSlot += AddCount;
@@ -95,8 +105,11 @@ namespace victory7
         public void AttackEnemy(int slotPower)
         {
             var enemys = m_enemys.Where(e => !e.IsDead).ToArray();
-            int r = Random.Range(0, enemys.Length);
-            enemys[r].Damage(m_player.GetPower(slotPower));
+            int r = UnityEngine.Random.Range(0, enemys.Length);
+            if (enemys.Length > 0)
+            {
+                enemys[r].Damage(m_player.GetPower(slotPower));
+            }
         }
         public void AttackPlayer(int damege)
         {
@@ -112,9 +125,14 @@ namespace victory7
         }
         public void CheckBattle()
         {
+            if (BattleEnd)
+            {
+                return;
+            }
             if (Player.CurrentHP <= 0)
             {
                 Debug.Log("ゲームオーバー");
+                FadeController.Instance.StartFadeOut(LoadResult);
                 BattleEnd = true;
                 return;
             }
@@ -134,7 +152,7 @@ namespace victory7
         }
         IEnumerator FeverMode()
         {
-            while (m_normalSlot.Chack)
+            while (m_normalSlot.CheckNow)
             {
                 yield return null;
             }
@@ -167,6 +185,25 @@ namespace victory7
         void Next()
         {
             SceneManager.LoadScene("MapScene");
+        }
+        void LoadResult()
+        {
+            SceneManager.LoadScene("Resultα");
+        }
+        IEnumerator BattleAction()
+        {
+            while (m_battleActions.Count > 0)
+            {
+                m_battleActions.Pop()?.Invoke();
+                yield return new WaitForSeconds(1f);
+            }
+        }
+        IEnumerator SlotWait()
+        {
+            while (m_normalSlot.Stop && m_sevenSlot.Stop)
+            {
+                yield return null;
+            }
         }
     }
 }

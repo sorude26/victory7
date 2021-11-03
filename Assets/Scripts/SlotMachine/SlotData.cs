@@ -12,6 +12,22 @@ namespace victory7
         public static List<Slot> SevenSlotData { get; private set; }
         public static void StartSet(Slot[] left, Slot[] center, Slot[] right,Slot[] seven)
         {
+            if (LeftSlotData != null)
+            {
+                LeftSlotData.Clear();
+            }
+            if (CenterSlotData != null)
+            {
+                CenterSlotData.Clear();
+            }
+            if (RightSlotData != null)
+            {
+                RightSlotData.Clear();
+            }
+            if (SevenSlotData != null)
+            {
+                SevenSlotData.Clear();
+            }
             LeftSlotData = new List<Slot>();
             foreach (var slot in left)
             {

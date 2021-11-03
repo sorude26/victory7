@@ -22,6 +22,33 @@ namespace victory7
                     BattleManager.Instance?.ChargeFeverTime();
                     break;
                 case SkillType.Attack:
+                    BattleManager.Instance.BattleActions.Push(() =>
+                    BattleManager.Instance?.AttackEnemy(effect));
+                    break;
+                case SkillType.Guard:
+                    BattleManager.Instance.BattleActions.Push(() =>
+                    BattleManager.Instance.Player?.AddGuard(effect));
+                    break;
+                case SkillType.Heel:
+                    BattleManager.Instance.BattleActions.Push(() =>
+                    BattleManager.Instance.Player?.HeelPlayer(effect));
+                    break;
+                case SkillType.Charge:
+                    BattleManager.Instance.BattleActions.Push(() =>
+                    BattleManager.Instance.Player?.Charge(effect));
+                    break;
+                default:
+                    break;
+            }
+        }
+        public static void UseSkill(SkillType skillType, int effect)
+        {
+            switch (skillType)
+            {
+                case SkillType.Seven:
+                    BattleManager.Instance?.ChargeFeverTime();
+                    break;
+                case SkillType.Attack:
                     BattleManager.Instance?.AttackEnemy(effect);
                     break;
                 case SkillType.Guard:
