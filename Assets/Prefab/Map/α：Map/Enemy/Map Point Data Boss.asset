@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b257dd306e53b448905ee8ae9d469f1, type: 3}
+  m_Name: Map Point Data Boss
+  m_EditorClassIdentifier: 
+  m_enemys:
+  - {fileID: 6163066223143078542, guid: 7cb66dc83b6988049856e62c5bea17da, type: 3}
+  m_popSlot:
+  - {fileID: 6450643909515395638, guid: a66605e0db98db14ab792ab4abd98dc6, type: 3}
+  - {fileID: 2656186941505260069, guid: 4b497a651710c03439303cdf333d2737, type: 3}
+  - {fileID: 3286767256574736880, guid: 4c065ea6fd5397645a2ecc202dcf5b86, type: 3}
+  - {fileID: 4427164741077570748, guid: 35bdf2a438aeec34ca37e9dd1c9211af, type: 3}
