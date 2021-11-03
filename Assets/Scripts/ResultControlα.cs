@@ -10,12 +10,12 @@ namespace victory7
         bool m_start = false;
         void Start()
         {
-            FadeController.Instance.StartFadeIn();
+            FadeController.Instance.StartFadeIn(() => m_start = true);
         }
 
         void Update()
         {
-            if (m_start)
+            if (!m_start)
             {
                 return;
             }
@@ -26,11 +26,11 @@ namespace victory7
         }
         public void ReturnTitle()
         {
-            if (m_start)
+            if (!m_start)
             {
                 return;
             }
-            m_start = true;
+            m_start = false;
             FadeController.Instance.StartFadeOut(LoadTitle);
         }
         void LoadTitle()

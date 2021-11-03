@@ -10,14 +10,14 @@ namespace victory7
         bool m_start = false;
         void Start()
         {
-            FadeController.Instance.StartFadeIn();
+            FadeController.Instance.StartFadeIn(() => m_start = true);
             GameManager.Instance.StartSet();
             MapData.Reset();
         }
 
         void Update()
         {
-            if (m_start)
+            if (!m_start)
             {
                 return;
             }
@@ -28,11 +28,11 @@ namespace victory7
         }
         public void GamaStart()
         {
-            if (m_start)
+            if (!m_start)
             {
                 return;
             }
-            m_start = true;
+            m_start = false;
             FadeController.Instance.StartFadeOut(LoadMap);
         }
         void LoadMap()
