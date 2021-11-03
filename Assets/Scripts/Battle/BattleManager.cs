@@ -96,7 +96,10 @@ namespace victory7
         {
             var enemys = m_enemys.Where(e => !e.IsDead).ToArray();
             int r = Random.Range(0, enemys.Length);
-            enemys[r].Damage(m_player.GetPower(slotPower));
+            if (enemys.Length > 0)
+            {
+                enemys[r].Damage(m_player.GetPower(slotPower));
+            }
         }
         public void AttackPlayer(int damege)
         {
@@ -112,9 +115,14 @@ namespace victory7
         }
         public void CheckBattle()
         {
+            if (BattleEnd)
+            {
+                return;
+            }
             if (Player.CurrentHP <= 0)
             {
                 Debug.Log("ゲームオーバー");
+                FadeController.Instance.StartFadeOut(LoadResult);
                 BattleEnd = true;
                 return;
             }
@@ -167,6 +175,10 @@ namespace victory7
         void Next()
         {
             SceneManager.LoadScene("MapScene");
+        }
+        void LoadResult()
+        {
+            SceneManager.LoadScene("Resultα");
         }
     }
 }

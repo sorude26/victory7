@@ -22,6 +22,10 @@ namespace victory7
             }
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
+            StartSet();
+        }
+        public void StartSet()
+        {
             SlotData.StartSet(m_slotStart, m_slotStart, m_slotStart, m_slotSeven);
             for (int i = 0; i < 3; i++)
             {

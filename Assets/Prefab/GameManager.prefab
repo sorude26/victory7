@@ -45,11 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_startParameter: {fileID: 11400000, guid: 17ffb6d087d5a7e4f8cea5fedf463dfe, type: 2}
   m_slotStart:
-  - {fileID: 1238082134872538448, guid: f6a873ef96db16745947f0aa6d2e3a5e, type: 3}
+  - {fileID: 8206175632662022187, guid: 9106770d4fc11474ca06f9a91dabd659, type: 3}
   - {fileID: 3268881380637817041, guid: 1fab185930d931546876edb268ce6aa5, type: 3}
   - {fileID: 6983066875947716018, guid: 001c4c63a7fec9646afeff7cba4ae3eb, type: 3}
   - {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309, type: 3}
-  - {fileID: 8206175632662022187, guid: 9106770d4fc11474ca06f9a91dabd659, type: 3}
   m_slotSeven:
   - {fileID: 8109587253676642796, guid: deed7f1d69453a544ab303164769dbae, type: 3}
   - {fileID: 3795590828439321476, guid: c19c36947cc787b4aaf162e1654da020, type: 3}
