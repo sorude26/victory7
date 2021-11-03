@@ -28,7 +28,7 @@ namespace victory7
         bool m_sevenSlot = false;
         [SerializeField]
         float m_stopSpan = 0.5f;
-        public bool Chack { get; private set; } = false;
+        public bool CheckNow { get; private set; } = false;
         public bool Stop { get; private set; } = false;
         public event Action StopSlot;
 
@@ -147,6 +147,7 @@ namespace victory7
         }
         public void StopAll()
         {
+            CheckNow = false;
             m_leftLine.Move = false;
             m_centerLine.Move = false;
             m_rightLine.Move = false;
@@ -162,7 +163,7 @@ namespace victory7
         }
         public void StopLeftLine()
         {
-            if (Chack || Stop)
+            if (CheckNow || Stop)
             {
                 return;
             }
@@ -176,7 +177,7 @@ namespace victory7
         }
         public void StopCenterLine()
         {
-            if (Chack || Stop)
+            if (CheckNow || Stop)
             {
                 return;
             }
@@ -190,7 +191,7 @@ namespace victory7
         }
         public void StopRightLine()
         {
-            if (Chack || Stop)
+            if (CheckNow || Stop)
             {
                 return;
             }
@@ -204,7 +205,7 @@ namespace victory7
         }
         IEnumerator SpanStop1()
         {
-            Chack = true;
+            CheckNow = true;
             yield return new WaitForSeconds(m_stopSpan);
             m_leftLine.Move = false;
             yield return new WaitForSeconds(m_stopSpan);
@@ -215,7 +216,7 @@ namespace victory7
         }
         IEnumerator SpanStop2()
         {
-            Chack = true;
+            CheckNow = true;
             yield return new WaitForSeconds(m_stopSpan);
             m_rightLine.Move = false;
             yield return new WaitForSeconds(m_stopSpan);
@@ -226,7 +227,7 @@ namespace victory7
         }
         IEnumerator SpanStop3()
         {
-            Chack = true;
+            CheckNow = true;
             yield return new WaitForSeconds(m_stopSpan);
             m_centerLine.Move = false;
             yield return new WaitForSeconds(m_stopSpan);
@@ -241,12 +242,13 @@ namespace victory7
             {
                 return;
             }
-            Chack = true;
+            CheckNow = true;
             StartCoroutine(Check());
         }
         IEnumerator Check()
         {
             yield return new WaitForSeconds(0.1f);
+            BattleManager.Instance.BattleActions.Push(StartWaitAction);
             if (CheckLine(1))
             {
                 m_leftLine.GetSlot(1).PlayEffect();
@@ -268,10 +270,23 @@ namespace victory7
                 m_leftLine.GetSlot(0).PlayEffect();
             }
             yield return new WaitForSeconds(0.5f);
-            StartSlot();
-            yield return new WaitForSeconds(0.5f);
-            Chack = false;
+            CheckNow = false;
             StopSlot?.Invoke();
+        }
+        void StartWaitAction()
+        {
+            if (gameObject.activeSelf)
+            {
+                StartCoroutine(StartWait());
+            }
+        }
+        IEnumerator StartWait()
+        {
+            while (CheckNow)
+            {
+                yield return null;
+            }
+            StartSlot();
         }
         bool CheckLine(int lineNum)
         {
