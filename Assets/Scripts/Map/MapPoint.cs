@@ -7,6 +7,7 @@ namespace victory7
     public enum MapPointType
     {
         Enemy,
+        Remove,
         Heel,
     }
     public class MapPoint : MonoBehaviour

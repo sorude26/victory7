@@ -11,10 +11,12 @@ namespace victory7
         RectTransform m_base = default;
         [SerializeField]
         RectTransform m_lineBottom = default;
-        public int CrrentNum { get; private set; } = 0;
         int m_slotSize = 150;
         float m_rotationTime = 1f;
         float m_slotSpeed = 1f;
+        bool m_start = false;
+        public int CrrentNum { get; private set; } = 0;
+        public SEType StopSE { get; set; } = SEType.StopSpin;
         public bool SlotMove { get; private set; }
         public float RotationTime
         {
@@ -122,6 +124,14 @@ namespace victory7
                 }
             }
             SlotMove = false;
+            if (m_start)
+            {
+                SoundManager.Play(StopSE);
+            }
+            else
+            {
+                m_start = true;
+            }
         }
         public void TargetStop(int target)
         {
@@ -140,6 +150,7 @@ namespace victory7
             }
             Move = false;
             SlotMove = false;
+            SoundManager.Play(StopSE);
         }
         public Slot GetSlot(int target)
         {
