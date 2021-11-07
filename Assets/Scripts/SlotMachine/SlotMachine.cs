@@ -312,9 +312,9 @@ namespace victory7
                 Debug.Log("Null!!");
                 return false;
             }
-            if (left.Type == center.Type && left.TestDebagEffect == center.TestDebagEffect)
+            if (left.Type == center.Type && left.EffectID == center.EffectID)
             {
-                if (left.Type == right.Type && left.TestDebagEffect == right.TestDebagEffect)
+                if (left.Type == right.Type && left.EffectID == right.EffectID)
                 {
                     return true;
                 }
@@ -338,9 +338,9 @@ namespace victory7
                 Debug.Log("Null!!");
                 return false;
             }
-            if (left.Type == center.Type && left.TestDebagEffect == center.TestDebagEffect)
+            if (left.Type == center.Type && left.EffectID == center.EffectID)
             {
-                if (left.Type == right.Type && left.TestDebagEffect == right.TestDebagEffect)
+                if (left.Type == right.Type && left.EffectID == right.EffectID)
                 {
                     return true;
                 }
@@ -364,9 +364,9 @@ namespace victory7
                 Debug.Log("Null!!");
                 return false;
             }
-            if (left.Type == center.Type && left.TestDebagEffect == center.TestDebagEffect)
+            if (left.Type == center.Type && left.EffectID == center.EffectID)
             {
-                if (left.Type == right.Type && left.TestDebagEffect == right.TestDebagEffect)
+                if (left.Type == right.Type && left.EffectID == right.EffectID)
                 {
                     return true;
                 }
