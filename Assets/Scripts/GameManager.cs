@@ -13,6 +13,10 @@ namespace victory7
         Slot[] m_slotStart = default;
         [SerializeField]
         Slot[] m_slotSeven = default;
+        [SerializeField]
+        Slot[] m_allSlot = default;
+
+        public Slot[] AllSlot { get => m_allSlot; }
         private void Awake()
         {
             if (Instance)

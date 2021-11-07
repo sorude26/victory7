@@ -15,13 +15,26 @@ namespace victory7 {
         [SerializeField]
         SlotView m_slot = default;
         [SerializeField]
-        Vector2 m_hidePos = new Vector2(2500, 0);
+        Vector2 m_hidePos = new Vector2(2500, 1500);
 
         List<Slot> m_lineSlot = default;
         int m_selectNum = 0;
         RectTransform m_rect = default;
         Vector2 m_startPos =default;
         public RectTransform Center { get => m_center; }
+        public int SlotNum { get => m_lineSlot.Count; }
+        public int SelectNum
+        { 
+            get 
+            {
+                int num = m_selectNum + 1;
+                if (num >= m_lineSlot.Count)
+                {
+                    num -= m_lineSlot.Count;
+                }
+                return num; 
+            } 
+        }
         public void StartSet()
         {
             m_rect = GetComponent<RectTransform>();
