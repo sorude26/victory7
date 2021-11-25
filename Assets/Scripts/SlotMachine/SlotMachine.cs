@@ -28,6 +28,9 @@ namespace victory7
         bool m_sevenSlot = false;
         [SerializeField]
         float m_stopSpan = 0.5f;
+        [SerializeField]
+        SEType m_stopSE = SEType.StopSpin;
+        bool m_start = false;
         public bool CheckNow { get; private set; } = false;
         public bool Stop { get; private set; } = false;
         public event Action StopSlot;
@@ -76,6 +79,9 @@ namespace victory7
                     m_rightLine.SetSlot(item);
                 }
             }
+            m_leftLine.StopSE = m_stopSE;
+            m_centerLine.StopSE = m_stopSE;
+            m_rightLine.StopSE = m_stopSE;
             StartSlot();
             m_leftLine.Move = false;
             m_centerLine.Move = false;
@@ -134,6 +140,14 @@ namespace victory7
             m_leftLine.StartSlot();
             m_centerLine.StartSlot();
             m_rightLine.StartSlot();
+            if (m_start)
+            {
+                SoundManager.Play(SEType.StartSpin);
+            }
+            else
+            {
+                m_start = true;
+            }
         }
         public void SpeedChange()
         {
@@ -298,9 +312,9 @@ namespace victory7
                 Debug.Log("Null!!");
                 return false;
             }
-            if (left.Type == center.Type && left.TestDebagEffect == center.TestDebagEffect)
+            if (left.Type == center.Type && left.EffectID == center.EffectID)
             {
-                if (left.Type == right.Type && left.TestDebagEffect == right.TestDebagEffect)
+                if (left.Type == right.Type && left.EffectID == right.EffectID)
                 {
                     return true;
                 }
@@ -324,9 +338,9 @@ namespace victory7
                 Debug.Log("Null!!");
                 return false;
             }
-            if (left.Type == center.Type && left.TestDebagEffect == center.TestDebagEffect)
+            if (left.Type == center.Type && left.EffectID == center.EffectID)
             {
-                if (left.Type == right.Type && left.TestDebagEffect == right.TestDebagEffect)
+                if (left.Type == right.Type && left.EffectID == right.EffectID)
                 {
                     return true;
                 }
@@ -350,9 +364,9 @@ namespace victory7
                 Debug.Log("Null!!");
                 return false;
             }
-            if (left.Type == center.Type && left.TestDebagEffect == center.TestDebagEffect)
+            if (left.Type == center.Type && left.EffectID == center.EffectID)
             {
-                if (left.Type == right.Type && left.TestDebagEffect == right.TestDebagEffect)
+                if (left.Type == right.Type && left.EffectID == right.EffectID)
                 {
                     return true;
                 }

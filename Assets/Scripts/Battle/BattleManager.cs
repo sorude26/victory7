@@ -67,7 +67,7 @@ namespace victory7
             while (!BattleEnd)
             {
                 yield return BattleAction();
-                yield return SlotWait();
+                yield return SlotWait();                
             }
             m_normalSlot.StopSlot -= EnemyUpdate;
             PlayerData.SetData(m_player.CurrentHP, m_player.CurrentSP, m_player.CurrentGP);
@@ -110,13 +110,16 @@ namespace victory7
             {
                 enemys[r].Damage(m_player.GetPower(slotPower));
             }
+            SoundManager.Play(SEType.PaylineAttack);
         }
         public void AttackPlayer(int damege)
         {
             m_player.Damage(damege);
+            SoundManager.Play(SEType.Attack);
         }
         public void ChargeFeverTime()
         {
+            SoundManager.Play(SEType.Jackpot);
             StartCoroutine(FeverMode());
         }
         void AddCount()

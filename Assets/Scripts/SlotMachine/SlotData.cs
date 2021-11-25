@@ -108,5 +108,33 @@ namespace victory7
                 }
             }
         }
+        public static void RemoveSlot(int slot, int target)
+        {
+            if (target > 2 || target < 0 || slot < 0)
+            {
+                return;
+            }
+            if (target == 0)
+            {
+                if (LeftSlotData.Count > slot)
+                {
+                    LeftSlotData.RemoveAt(slot);
+                }
+            }
+            else if (target == 1)
+            {
+                if (CenterSlotData.Count > slot)
+                {
+                    CenterSlotData.RemoveAt(slot);
+                }
+            }
+            else
+            {
+                if (CenterSlotData.Count > slot)
+                {
+                    RightSlotData.RemoveAt(slot);
+                }
+            }
+        }
     }
 }

@@ -7,13 +7,19 @@ namespace victory7
     public class Slot : MonoBehaviour
     {
         [SerializeField]
+        int m_id = default;
+        [SerializeField]
         SkillType m_type = default;
         [SerializeField]
         int m_testDebagEffect = default;
         [SerializeField]
         RectTransform m_rect = default;
+        [SerializeField]
+        GameObject m_selectMark = default;
+
+        public int ID { get => m_id; }
         public SkillType Type { get => m_type; }
-        public int TestDebagEffect { get => m_testDebagEffect; }
+        public int EffectID { get => m_testDebagEffect; }
         public RectTransform SlotRect { get => m_rect; }
         public void PlayEffect()
         {
@@ -25,6 +31,18 @@ namespace victory7
                 message.View("Fever！！", new Color(1f, 0, 0.7f), 200, 3f);
             }
             SkillController.Skill(m_type, m_testDebagEffect);
+        }
+        public void DestroySlot()
+        {
+            Destroy(gameObject);
+        }
+        public void Select()
+        {
+            m_selectMark?.SetActive(true);
+        }
+        public void OutSelect()
+        {
+            m_selectMark?.SetActive(false);
         }
     }
 }

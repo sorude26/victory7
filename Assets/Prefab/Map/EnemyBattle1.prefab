@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 1041416745555907241, guid: 5418a2459b224844bb60d19f4ba723a5,
         type: 3}
       propertyPath: m_Name
-      value: TestPoint Variant
+      value: EnemyBattle1
       objectReference: {fileID: 0}
     - target: {fileID: 1041416745555907242, guid: 5418a2459b224844bb60d19f4ba723a5,
         type: 3}
@@ -80,6 +80,11 @@ PrefabInstance:
     - target: {fileID: 1041416745555907243, guid: 5418a2459b224844bb60d19f4ba723a5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4337002160181864305, guid: 5418a2459b224844bb60d19f4ba723a5,
+        type: 3}
+      propertyPath: m_type
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4337002160181864305, guid: 5418a2459b224844bb60d19f4ba723a5,

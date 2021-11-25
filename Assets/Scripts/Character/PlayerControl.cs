@@ -86,6 +86,7 @@ namespace victory7
             view.View("+" + m_parameter.Guard[slotPower].ToString(), Color.blue);
             EffectManager.Instance.PlayEffect(EffectType.Guard, transform.position);
             CharacterUpdate();
+            SoundManager.Play(SEType.PaylineGuard);
         }
         public void HeelPlayer(int slotPower)
         {
@@ -99,6 +100,7 @@ namespace victory7
             view.View("+" + m_parameter.Heel[slotPower].ToString(), Color.green);
             EffectManager.Instance.PlayEffect(EffectType.Heel, transform.position);
             CharacterUpdate();
+            SoundManager.Play(SEType.PaylineHeel);
         }
         public void Charge(int slotPower)
         {
@@ -113,6 +115,7 @@ namespace victory7
             view.View("+" + m_parameter.Charge[slotPower].ToString(), Color.yellow);
             EffectManager.Instance.PlayEffect(EffectType.Chage, transform.position);
             CharacterUpdate();
+            SoundManager.Play(SEType.PaylineCharge);
         }
     }
 }

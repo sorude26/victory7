@@ -35,13 +35,20 @@ namespace victory7
         [SerializeField]
         MapPointData m_bossPointData = default;
         bool m_gard = false;
+
+        bool m_event = false;
+        MapEventControlBase m_currentEvent = default;
+        [SerializeField]
+        RemoveSlotControl m_removeSlot = default;
+
         private void Start()
         {
             m_create = MapData.Create;
             m_playerPos = MapData.PlayerPos;
             CreateMap(); 
             LodeMap();
-            FadeController.Instance.StartFadeIn(() => m_gard = false);
+            m_removeSlot.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
+            FadeController.Instance?.StartFadeIn(() => m_gard = false);
             m_gard = true;
         }
         private void Update()
@@ -61,14 +68,30 @@ namespace victory7
                     TargetChange(-1);
                 }
             }
+            else if (Input.GetButtonDown("Horizontal") && m_event)
+            {
+                if (Input.GetAxisRaw("Horizontal") > 0)
+                {
+                    m_currentEvent?.MoveLine(1);
+                }
+                else
+                {
+                    m_currentEvent?.MoveLine(-1);
+                }
+            }
             if (Input.GetButtonDown("Jump"))
             {
+                if (m_event)
+                {
+                    m_currentEvent?.SelectAction();
+                    return;
+                }
                 Next();
             }
         }
         void Next()
         {
-            if (m_targetPos.Count <= 0 || m_load)
+            if (m_targetPos.Count <= 0)
             {
                 m_player.transform.position = m_bossPos;
                 MapData.Reset();
@@ -101,17 +124,38 @@ namespace victory7
             {
                 m_target.transform.position = m_bossPos;
             }
-            MapData.SetData(new Vector2Int(map.LineNumber, map.PosNumber));
-            int b = map.TypeNumber;
-            if (b >= m_battlePointData.Length)
+            switch (map.Type)
             {
-                b = 0;
+                case MapPointType.Enemy:
+                    BattlePoint(map.LineNumber, map.PosNumber, map.TypeNumber);
+                    break;
+                case MapPointType.Remove:
+                    m_load = false;
+                    m_currentEvent = m_removeSlot;
+                    m_currentEvent.SelectEvent();
+                    m_event = true;
+                    break;
+                case MapPointType.LevelUp:
+                    m_load = false;
+                    break;
+                default:
+                    break;
             }
-            BattleData.SetData(m_battlePointData[b]);
+        }
+
+        void BattlePoint(int lineNumber,int posNumber,int typeNumber)
+        {
+            MapData.SetData(new Vector2Int(lineNumber, posNumber));
+            BattleData.SetData(m_battlePointData[typeNumber]);
             FadeController.Instance.StartFadeOut(Battle);
         }
         void TargetChange(int a)
         {
+            if (m_event)
+            {
+                m_currentEvent.MoveSlot(a);
+                return;
+            }
             if (m_targetPos.Count <= 1)
             {
                 return;
