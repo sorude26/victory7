@@ -34,6 +34,9 @@ namespace victory7
         [Header("ボス戦闘パターンデータ")]
         [SerializeField]
         MapPointData m_bossPointData = default;
+        [Header("遷移先シーン名")]
+        [SerializeField]
+        private string m_targetScene = "BattleTest";
         bool m_gard = false;
 
         bool m_event = false;
@@ -284,7 +287,7 @@ namespace victory7
         }
         void Battle()
         {
-            SceneManager.LoadScene("BattleTest");
+            SceneManager.LoadScene(m_targetScene);
         }
     }
 }

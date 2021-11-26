@@ -10,6 +10,9 @@ namespace victory7
     public class BattleManager : MonoBehaviour
     {
         public static BattleManager Instance { get; private set; }
+        [Header("遷移先シーン名")]
+        [SerializeField]
+        private string m_targetScene = "MapScene";
         [SerializeField]
         PlayerControl m_player = default;
         [SerializeField]
@@ -187,7 +190,7 @@ namespace victory7
         }
         void Next()
         {
-            SceneManager.LoadScene("MapScene");
+            SceneManager.LoadScene(m_targetScene);
         }
         void LoadResult()
         {
