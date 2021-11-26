@@ -12,6 +12,9 @@ namespace victory7
         SkillType m_type = default;
         [SerializeField]
         int m_testDebagEffect = default;
+        [Header("レベルアップ先のスロット")]
+        [SerializeField]
+        Slot m_levelUpTarget = default;
         [SerializeField]
         RectTransform m_rect = default;
         [SerializeField]
@@ -21,6 +24,7 @@ namespace victory7
         public SkillType Type { get => m_type; }
         public int EffectID { get => m_testDebagEffect; }
         public RectTransform SlotRect { get => m_rect; }
+        public Slot LevelUpTarget { get => m_levelUpTarget; }
         public void PlayEffect()
         {
             Debug.Log($"{Type}が発動！、効果：{m_testDebagEffect}");

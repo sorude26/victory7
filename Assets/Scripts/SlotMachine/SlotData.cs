@@ -130,11 +130,61 @@ namespace victory7
             }
             else
             {
-                if (CenterSlotData.Count > slot)
+                if (RightSlotData.Count > slot)
                 {
                     RightSlotData.RemoveAt(slot);
                 }
             }
+        }
+        public static bool LevelUpSlot(int slot, int target)
+        {
+            if (target > 2 || target < 0 || slot < 0)
+            {
+                return false;
+            }
+            if (target == 0)
+            {
+                if (LeftSlotData.Count > slot)
+                {
+                    var levelUp = LeftSlotData[slot].LevelUpTarget;
+                    if (levelUp == null)
+                    {
+                        return false;
+                    }
+                    LeftSlotData.RemoveAt(slot);
+                    LeftSlotData.Insert(slot, levelUp);
+                    return true;
+                }
+            }
+            else if (target == 1)
+            {
+                if (CenterSlotData.Count > slot)
+                {
+                    var levelUp = CenterSlotData[slot].LevelUpTarget;
+                    if (levelUp == null)
+                    {
+                        return false;
+                    }
+                    CenterSlotData.RemoveAt(slot);
+                    CenterSlotData.Insert(slot, levelUp);
+                    return true;
+                }
+            }
+            else
+            {
+                if (CenterSlotData.Count > slot)
+                {
+                    var levelUp = RightSlotData[slot].LevelUpTarget;
+                    if (levelUp == null)
+                    {
+                        return false;
+                    }
+                    RightSlotData.RemoveAt(slot);
+                    RightSlotData.Insert(slot, levelUp);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
