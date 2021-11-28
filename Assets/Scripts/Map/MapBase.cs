@@ -43,6 +43,8 @@ namespace victory7
         MapEventControlBase m_currentEvent = default;
         [SerializeField]
         RemoveSlotControl m_removeSlot = default;
+        [SerializeField]
+        LevelUpControl m_levelUp = default;
 
         private void Start()
         {
@@ -51,6 +53,7 @@ namespace victory7
             CreateMap(); 
             LodeMap();
             m_removeSlot.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
+            m_levelUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
             FadeController.Instance?.StartFadeIn(() => m_gard = false);
             m_gard = true;
         }
@@ -139,6 +142,9 @@ namespace victory7
                     m_event = true;
                     break;
                 case MapPointType.LevelUp:
+                    m_currentEvent = m_levelUp;
+                    m_currentEvent.SelectEvent();
+                    m_event = true;
                     m_load = false;
                     break;
                 default:
