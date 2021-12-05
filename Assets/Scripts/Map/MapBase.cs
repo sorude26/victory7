@@ -22,6 +22,9 @@ namespace victory7
         [Header("遷移先シーン名")]
         [SerializeField]
         string m_targetScene = "BattleTest";
+        [Header("MapClear後遷移先Mapシーン名")]
+        [SerializeField]
+        string m_targetNextScene = "NextMap";
         [SerializeField]
         Vector2 m_mapSize = Vector2.one;
         [SerializeField]
