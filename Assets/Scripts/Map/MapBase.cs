@@ -13,21 +13,6 @@ namespace victory7
         [Header("配置ラインデータ")]
         [SerializeField]
         MapLine[] m_mapLines = default;
-        [SerializeField]
-        Vector2 m_mapSize = Vector2.one;
-        List<MapPoint>[] m_mapData = default;
-        [SerializeField]
-        MapPoint m_bossPoint = default;
-        [SerializeField]
-        GameObject m_startPoint = default;
-        [SerializeField]
-        float m_startAndGoalPos = 1.5f;
-        int m_currentPos = 0;
-        List<MapPoint> m_targetPos = default;
-        Vector2 m_bossPos = default;
-        bool m_create = default;
-        Vector2Int m_playerPos = default;
-        bool m_load = default;
         [Header("通常戦闘パターンデータ")]
         [SerializeField]
         MapPointData[] m_battlePointData = default;
@@ -37,14 +22,28 @@ namespace victory7
         [Header("遷移先シーン名")]
         [SerializeField]
         private string m_targetScene = "BattleTest";
-        bool m_gard = false;
-
-        bool m_event = false;
-        MapEventControlBase m_currentEvent = default;
+        [SerializeField]
+        Vector2 m_mapSize = Vector2.one;
+        List<MapPoint>[] m_mapData = default;
+        [SerializeField]
+        MapPoint m_bossPoint = default;
+        [SerializeField]
+        GameObject m_startPoint = default;
+        [SerializeField]
+        float m_startAndGoalPos = 1.5f;
         [SerializeField]
         RemoveSlotControl m_removeSlot = default;
         [SerializeField]
         LevelUpControl m_levelUp = default;
+        bool m_gard = false;
+        int m_currentPos = 0;
+        List<MapPoint> m_targetPos = default;
+        Vector2 m_bossPos = default;
+        bool m_create = default;
+        Vector2Int m_playerPos = default;
+        bool m_load = default;
+        bool m_event = false;
+        MapEventControlBase m_currentEvent = default;
 
         private void Start()
         {

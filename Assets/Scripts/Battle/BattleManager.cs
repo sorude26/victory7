@@ -73,7 +73,7 @@ namespace victory7
                 yield return SlotWait();                
             }
             m_normalSlot.StopSlot -= EnemyUpdate;
-            PlayerData.SetData(m_player.CurrentHP, m_player.CurrentSP, m_player.CurrentGP);
+            PlayerData.SetData(m_player.CurrentHP, m_player.CurrentSP);
         }
         void EnemyUpdate()
         {
