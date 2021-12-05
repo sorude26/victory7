@@ -18,6 +18,10 @@ namespace victory7
         }
         public override void SelectAction()
         {
+            if (!m_select)
+            {
+                return;
+            }
             PlayerData.HeelHP((int)(PlayerData.MaxHP * _recoveryRate / 100));
             OutSelectEvent();
         }

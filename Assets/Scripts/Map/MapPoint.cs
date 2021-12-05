@@ -9,6 +9,8 @@ namespace victory7
         Enemy,
         Remove,
         LevelUp,
+        Heel,
+        MaxHPUp,
     }
     public class MapPoint : MonoBehaviour
     {

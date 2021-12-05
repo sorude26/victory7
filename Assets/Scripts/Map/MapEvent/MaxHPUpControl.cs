@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace victory7
 {
@@ -8,16 +9,30 @@ namespace victory7
     {
         [Header("最大値増加量")]
         [SerializeField]
-        int _upHP = 10;
+        int m_upHP = 10;
+        [SerializeField]
+        Text m_message = default;
         public override void StartSet()
         {
             m_rect = GetComponent<RectTransform>();
             m_startPos = m_rect.position;
-            m_rect.position = m_hidePos;
+            m_rect.position = m_hidePos;            
+        }
+        public override void SelectEvent()
+        {
+            if (m_message)
+            {
+                m_message.text = PlayerData.MaxHP + " => " + (PlayerData.MaxHP + m_upHP);
+            }
+            base.SelectEvent();
         }
         public override void SelectAction()
         {
-            PlayerData.AddMaxHP(_upHP);
+            if (!m_select)
+            {
+                return;
+            }
+            PlayerData.AddMaxHP(m_upHP);
             OutSelectEvent();
         }
         public override void MoveLine(int dir)
