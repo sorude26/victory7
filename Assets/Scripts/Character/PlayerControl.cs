@@ -27,7 +27,7 @@ namespace victory7
                 Debug.Log("パラメータがセットされていません");
                 return;
             }
-            m_maxHP = m_parameter.MaxHP;
+            m_maxHP = PlayerData.MaxHP;
             CurrentHP = PlayerData.CurrentHP;
             m_sp = PlayerData.CurrentSP;
             m_gp = PlayerData.CurrentGP;
@@ -91,9 +91,9 @@ namespace victory7
         public void HeelPlayer(int slotPower)
         {
             CurrentHP += m_parameter.Heel[slotPower];
-            if (CurrentHP > m_parameter.MaxHP)
+            if (CurrentHP > PlayerData.MaxHP)
             {
-                CurrentHP = m_parameter.MaxHP;
+                CurrentHP = PlayerData.MaxHP;
             }
             var view = Instantiate(EffectManager.Instance.Text);
             view.transform.position = this.transform.position + Vector3.up;

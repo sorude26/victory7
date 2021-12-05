@@ -13,21 +13,6 @@ namespace victory7
         [Header("配置ラインデータ")]
         [SerializeField]
         MapLine[] m_mapLines = default;
-        [SerializeField]
-        Vector2 m_mapSize = Vector2.one;
-        List<MapPoint>[] m_mapData = default;
-        [SerializeField]
-        MapPoint m_bossPoint = default;
-        [SerializeField]
-        GameObject m_startPoint = default;
-        [SerializeField]
-        float m_startAndGoalPos = 1.5f;
-        int m_currentPos = 0;
-        List<MapPoint> m_targetPos = default;
-        Vector2 m_bossPos = default;
-        bool m_create = default;
-        Vector2Int m_playerPos = default;
-        bool m_load = default;
         [Header("通常戦闘パターンデータ")]
         [SerializeField]
         MapPointData[] m_battlePointData = default;
@@ -36,13 +21,36 @@ namespace victory7
         MapPointData m_bossPointData = default;
         [Header("遷移先シーン名")]
         [SerializeField]
-        private string m_targetScene = "BattleTest";
-        bool m_gard = false;
-
-        bool m_event = false;
-        MapEventControlBase m_currentEvent = default;
+        string m_targetScene = "BattleTest";
+        [Header("MapClear後遷移先Mapシーン名")]
+        [SerializeField]
+        string m_targetNextScene = "NextMap";
+        [SerializeField]
+        Vector2 m_mapSize = Vector2.one;
+        [SerializeField]
+        MapPoint m_bossPoint = default;
+        [SerializeField]
+        GameObject m_startPoint = default;
+        [SerializeField]
+        float m_startAndGoalPos = 1.5f;
         [SerializeField]
         RemoveSlotControl m_removeSlot = default;
+        [SerializeField]
+        LevelUpControl m_levelUp = default;
+        [SerializeField]
+        HeelControl m_heel = default;
+        [SerializeField]
+        MaxHPUpControl m_maxHPUp = default;
+        int m_currentPos = 0;
+        bool m_gard = false;
+        bool m_create = default;
+        bool m_load = default;
+        bool m_event = false;
+        Vector2 m_bossPos = default;
+        Vector2Int m_playerPos = default;
+        MapEventControlBase m_currentEvent = default;
+        List<MapPoint> m_targetPos = default;
+        List<MapPoint>[] m_mapData = default;
 
         private void Start()
         {
@@ -51,6 +59,9 @@ namespace victory7
             CreateMap(); 
             LodeMap();
             m_removeSlot.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
+            m_levelUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
+            m_heel.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
+            m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
             FadeController.Instance?.StartFadeIn(() => m_gard = false);
             m_gard = true;
         }
@@ -133,12 +144,27 @@ namespace victory7
                     BattlePoint(map.LineNumber, map.PosNumber, map.TypeNumber);
                     break;
                 case MapPointType.Remove:
-                    m_load = false;
                     m_currentEvent = m_removeSlot;
                     m_currentEvent.SelectEvent();
                     m_event = true;
+                    m_load = false;
                     break;
                 case MapPointType.LevelUp:
+                    m_currentEvent = m_levelUp;
+                    m_currentEvent.SelectEvent();
+                    m_event = true;
+                    m_load = false;
+                    break;
+                case MapPointType.Heel:
+                    m_currentEvent = m_heel;
+                    m_currentEvent.SelectEvent();
+                    m_event = true;
+                    m_load = false;
+                    break;
+                case MapPointType.MaxHPUp:
+                    m_currentEvent = m_maxHPUp;
+                    m_currentEvent.SelectEvent();
+                    m_event = true;
                     m_load = false;
                     break;
                 default:

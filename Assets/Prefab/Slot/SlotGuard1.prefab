@@ -54,6 +54,8 @@ MonoBehaviour:
   m_id: 9
   m_type: 2
   m_testDebagEffect: 0
+  m_levelUpTarget: {fileID: 719401768266601981, guid: 84f3439d923d7a5428911642e34b6127,
+    type: 3}
   m_rect: {fileID: 116240428755412226}
   m_selectMark: {fileID: 2508721134328245097}
 --- !u!1 &116240429294173954

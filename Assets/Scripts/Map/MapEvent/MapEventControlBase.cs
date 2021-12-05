@@ -22,6 +22,10 @@ namespace victory7
 
         private void Start()
         {
+            StartSet();
+        }
+        public virtual void StartSet()
+        {
             m_rect = GetComponent<RectTransform>();
             m_startPos = m_rect.position;
             foreach (var line in m_lineData)

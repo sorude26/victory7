@@ -30,9 +30,12 @@ namespace victory7
         float m_stopSpan = 0.5f;
         [SerializeField]
         SEType m_stopSE = SEType.StopSpin;
+        [SerializeField]
+        LineControl m_lineControl = default;
         bool m_start = false;
         public bool CheckNow { get; private set; } = false;
         public bool Stop { get; private set; } = false;
+        public bool SpinNow { get; private set; } = false;
         public event Action StopSlot;
 
         //void Start()
@@ -148,6 +151,12 @@ namespace victory7
             {
                 m_start = true;
             }
+            m_lineControl.EndView();
+        }
+        public void SlotStartInput()
+        {
+            CheckNow = false;
+            SpinNow = true;
         }
         public void SpeedChange()
         {
@@ -177,7 +186,7 @@ namespace victory7
         }
         public void StopLeftLine()
         {
-            if (CheckNow || Stop)
+            if (CheckNow || Stop || !SpinNow)
             {
                 return;
             }
@@ -191,7 +200,7 @@ namespace victory7
         }
         public void StopCenterLine()
         {
-            if (CheckNow || Stop)
+            if (CheckNow || Stop || !SpinNow)
             {
                 return;
             }
@@ -205,7 +214,7 @@ namespace victory7
         }
         public void StopRightLine()
         {
-            if (CheckNow || Stop)
+            if (CheckNow || Stop || !SpinNow)
             {
                 return;
             }
@@ -256,52 +265,41 @@ namespace victory7
             {
                 return;
             }
-            CheckNow = true;
             StartCoroutine(Check());
         }
         IEnumerator Check()
         {
-            yield return new WaitForSeconds(0.1f);
-            BattleManager.Instance.BattleActions.Push(StartWaitAction);
-            if (CheckLine(1))
+            yield return new WaitForSeconds(0.2f);
+            if (CheckDiagonalLineUP())
             {
-                m_leftLine.GetSlot(1).PlayEffect();
-            }
-            if (CheckLine(2))
-            {
-                m_leftLine.GetSlot(2).PlayEffect();
-            }
-            if (CheckLine(0))
-            {
+                BattleManager.Instance.EffectActions.Push(()=> m_lineControl.PlayLine(4)); 
                 m_leftLine.GetSlot(0).PlayEffect();
             }
             if (CheckDiagonalLineDown())
             {
+                BattleManager.Instance.EffectActions.Push(() => m_lineControl.PlayLine(3));
                 m_leftLine.GetSlot(2).PlayEffect();
             }
-            if (CheckDiagonalLineUP())
+            if (CheckLine(0))
             {
+                BattleManager.Instance.EffectActions.Push(() => m_lineControl.PlayLine(2));
                 m_leftLine.GetSlot(0).PlayEffect();
             }
-            yield return new WaitForSeconds(0.5f);
-            CheckNow = false;
+            if (CheckLine(2))
+            {
+                BattleManager.Instance.EffectActions.Push(() => m_lineControl.PlayLine(1));
+                m_leftLine.GetSlot(2).PlayEffect();
+            }
+            if (CheckLine(1))
+            {
+                BattleManager.Instance.EffectActions.Push(() => m_lineControl.PlayLine(0));
+                m_leftLine.GetSlot(1).PlayEffect();
+            }
+            yield return new WaitForSeconds(0.2f);
+            SpinNow = false;
             StopSlot?.Invoke();
         }
-        void StartWaitAction()
-        {
-            if (gameObject.activeSelf)
-            {
-                StartCoroutine(StartWait());
-            }
-        }
-        IEnumerator StartWait()
-        {
-            while (CheckNow)
-            {
-                yield return null;
-            }
-            StartSlot();
-        }
+
         bool CheckLine(int lineNum)
         {
             var left = m_leftLine.GetSlot(lineNum);

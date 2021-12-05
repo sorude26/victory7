@@ -27,10 +27,15 @@ namespace victory7
         BuildControl buildControl = default;
         [SerializeField]
         int m_maxFeverCount = 5;
+        [SerializeField]
+        float m_actionInterval = 1f;
         int m_feverCount = 0;
+        bool m_fever = false;
         bool m_start = false;
         Stack<Action> m_battleActions = default;
+        Stack<Action> m_effectActions = default;
         public Stack<Action> BattleActions { get => m_battleActions; }
+        public Stack<Action> EffectActions { get => m_effectActions; }
         public bool BattleEnd { get; private set; }
         public PlayerControl Player { get => m_player; }
         private void Awake()
@@ -63,18 +68,7 @@ namespace victory7
             StartCoroutine(Battle());
         }
         
-        IEnumerator Battle()
-        {
-            m_normalSlot.StartSlot();
-            m_normalSlot.StopSlot += EnemyUpdate;
-            while (!BattleEnd)
-            {
-                yield return BattleAction();
-                yield return SlotWait();                
-            }
-            m_normalSlot.StopSlot -= EnemyUpdate;
-            PlayerData.SetData(m_player.CurrentHP, m_player.CurrentSP, m_player.CurrentGP);
-        }
+       
         void EnemyUpdate()
         {
             foreach (var enemy in m_enemys)
@@ -95,6 +89,7 @@ namespace victory7
                 }
             }
             m_battleActions = new Stack<Action>();
+            m_effectActions = new Stack<Action>();
             m_normalSlot.StartSet();
             m_sevenSlot.StartSet();
             m_sevenSlot.StopSlot += AddCount;
@@ -123,7 +118,7 @@ namespace victory7
         public void ChargeFeverTime()
         {
             SoundManager.Play(SEType.Jackpot);
-            StartCoroutine(FeverMode());
+            m_fever = true;
         }
         void AddCount()
         {
@@ -156,6 +151,113 @@ namespace victory7
             }
             buildControl.gameObject.SetActive(true);
         }
+        
+        public void NextScene()
+        {
+            FadeController.Instance.StartFadeOut(Next);
+        }
+        void Next()
+        {
+            if (BattleData.Next)
+            {
+                BattleData.Next = false;
+                SceneManager.LoadScene(BattleData.NextMap);
+            }
+            else
+            {
+                SceneManager.LoadScene(m_targetScene);
+            }
+        }
+        void LoadResult()
+        {
+            SceneManager.LoadScene("Resultα");
+        }
+        IEnumerator Battle()
+        {
+            while (!BattleEnd)
+            {
+                m_normalSlot.StartSlot();
+                yield return WaitTime(0.5f);
+                m_normalSlot.SlotStartInput();
+                yield return SlotWait();
+                yield return SlotChackWait();
+                EnemyUpdate(); 
+                yield return null;
+                yield return BattleAction();
+            }
+            PlayerData.SetData(m_player.CurrentHP, m_player.CurrentSP);
+        }
+        IEnumerator EffectAction()
+        {
+            while (m_effectActions.Count > 0 && !BattleEnd)
+            {
+                m_effectActions.Pop()?.Invoke();
+                yield return WaitTime(0.2f);
+            }
+            yield return WaitTime(0.2f);
+        }
+        IEnumerator BattleAction()
+        {
+            while (m_battleActions.Count > 0 && !BattleEnd)
+            {
+                m_battleActions.Pop()?.Invoke();
+                yield return WaitTime();
+            }
+            yield return WaitTime(0.2f);
+        }
+        IEnumerator SlotWait()
+        {
+            while (m_normalSlot.Stop && m_sevenSlot.Stop && !BattleEnd)
+            {
+                yield return null;
+            }
+        }
+        IEnumerator SlotChackWait()
+        {
+            while (m_normalSlot.SpinNow && !BattleEnd)
+            {
+                yield return null;
+            }
+            yield return null;
+            yield return EffectAction();
+            yield return null;
+            yield return BattleAction();
+            if (m_fever)
+            {
+                yield return null;
+                yield return FeverMode();
+                m_fever = false;
+            }
+        }
+        IEnumerator SlotChackFever()
+        {
+            while (m_sevenSlot.SpinNow && !BattleEnd)
+            {
+                yield return null;
+            }
+            yield return null;
+            yield return EffectAction();
+            yield return null;
+            yield return BattleAction();
+        }
+        IEnumerator WaitTime()
+        {
+            float timer = m_actionInterval;
+            while (timer > 0 && !BattleEnd)
+            {
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+        }
+        IEnumerator WaitTime(float time)
+        {
+            float timer = time;
+            while (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+        }
         IEnumerator FeverMode()
         {
             while (m_normalSlot.CheckNow)
@@ -170,10 +272,13 @@ namespace victory7
             }
             m_normalSlot.gameObject.SetActive(false);
             m_sevenSlot.gameObject.SetActive(true);
-            m_sevenSlot.StartSlot();
             while (m_feverCount < m_maxFeverCount)
             {
-                yield return null;
+                m_sevenSlot.StartSlot();
+                yield return WaitTime(0.5f);
+                m_sevenSlot.SlotStartInput();
+                yield return SlotWait();
+                yield return SlotChackFever();
             }
             m_sevenSlot.StopAll();
             while (!m_sevenSlot.Stop)
@@ -182,34 +287,6 @@ namespace victory7
             }
             m_normalSlot.gameObject.SetActive(true);
             m_sevenSlot.gameObject.SetActive(false);
-            m_normalSlot.StartSlot();
-        }
-        public void NextScene()
-        {
-            FadeController.Instance.StartFadeOut(Next);
-        }
-        void Next()
-        {
-            SceneManager.LoadScene(m_targetScene);
-        }
-        void LoadResult()
-        {
-            SceneManager.LoadScene("Resultα");
-        }
-        IEnumerator BattleAction()
-        {
-            while (m_battleActions.Count > 0)
-            {
-                m_battleActions.Pop()?.Invoke();
-                yield return new WaitForSeconds(1f);
-            }
-        }
-        IEnumerator SlotWait()
-        {
-            while (m_normalSlot.Stop && m_sevenSlot.Stop)
-            {
-                yield return null;
-            }
         }
     }
 }
