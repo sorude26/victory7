@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7498471048171842513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7498471048171842518}
+  - component: {fileID: 7498471048171842519}
+  m_Layer: 0
+  m_Name: MapBase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7498471048171842518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498471048171842513}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7498471048171842519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498471048171842513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ffe60c936ed8544d874559d428da166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_player: {fileID: 0}
+  m_target: {fileID: 0}
+  m_mapLines:
+  - {fileID: 11400000, guid: 0e3b98674abd80f4ba65d4f47b95a878, type: 2}
+  - {fileID: 11400000, guid: 61785f01b76fa3b49b4e8c1494de9657, type: 2}
+  - {fileID: 11400000, guid: 580d13eb607bf3645b2115b381e857ac, type: 2}
+  - {fileID: 11400000, guid: 14189bd54d7618347b337ef2581d89fb, type: 2}
+  m_battlePointData:
+  - {fileID: 11400000, guid: 6ad4941bb6f9d294aaabd91710c73873, type: 2}
+  - {fileID: 11400000, guid: 98f8e7a572d27b042940db76fbdee578, type: 2}
+  - {fileID: 11400000, guid: 98f8e7a572d27b042940db76fbdee578, type: 2}
+  - {fileID: 11400000, guid: 9e16961bad796b14a8fde6ad03bcf853, type: 2}
+  - {fileID: 11400000, guid: 98f8e7a572d27b042940db76fbdee578, type: 2}
+  m_bossPointData: {fileID: 11400000, guid: f5f1716ed4feace469f75bf7ab75ccae, type: 2}
+  m_targetScene: BattleTest
+  m_targetNextScene: NextMap
+  m_mapSize: {x: 10, y: 6}
+  m_bossPoint: {fileID: 7283908040465898714, guid: d68245f5be6694a4c86233def13c79c9,
+    type: 3}
+  m_startPoint: {fileID: 4499472600019022789, guid: dabed7a3acefa0f45942cf7538b72540,
+    type: 3}
+  m_startAndGoalPos: 2
+  m_removeSlot: {fileID: 0}
+  m_levelUp: {fileID: 0}
+  m_heel: {fileID: 0}
+  m_maxHPUp: {fileID: 0}
