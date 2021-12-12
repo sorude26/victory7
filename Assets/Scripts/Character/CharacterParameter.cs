@@ -12,7 +12,12 @@ namespace victory7
         [Header("最大耐久値")]
         [SerializeField]
         protected int m_maxHP = default;
+        [Header("即死攻撃の回避率")]
+        [Range(0, 100)]
+        [SerializeField]
+        protected int m_avoidance = 70;
         public string Name { get => m_name; }
         public int MaxHP { get => m_maxHP; }
+        public int Avoidance { get => m_avoidance; }
     }
 }

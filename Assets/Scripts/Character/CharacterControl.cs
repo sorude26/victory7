@@ -29,6 +29,23 @@ namespace victory7
             }
             m_hpGauge.value = CurrentHP / (float)m_maxHP;
         }
+        public virtual void PercentageDamage(int percentage)
+        {
+            Damage(percentage * m_maxHP / 100);
+        }
+        public virtual void CheckPercentageDamage(int percentage)
+        {
+            if (AvoidanceCheck())
+            {
+                Debug.Log("miss!");
+                var view = Instantiate(EffectManager.Instance.Text);
+                view.transform.position = this.transform.position + Vector3.up;
+                view.View("miss!", Color.white);
+                return;
+            }
+            PercentageDamage(percentage);
+        }
+        public virtual bool AvoidanceCheck() { return false; }
         protected abstract void Dead();
     }
 }

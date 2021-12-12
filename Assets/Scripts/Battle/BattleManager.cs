@@ -110,6 +110,26 @@ namespace victory7
             }
             SoundManager.Play(SEType.PaylineAttack);
         }
+        public void AttackEnemyPercentage(int percentage)
+        {
+            var enemys = m_enemys.Where(e => !e.IsDead).ToArray();
+            int r = UnityEngine.Random.Range(0, enemys.Length);
+            if (enemys.Length > 0)
+            {
+                enemys[r].PercentageDamage(percentage);
+            }
+            SoundManager.Play(SEType.PaylineAttack);
+        }
+        public void AttackEnemyCritical(int percentage)
+        {
+            var enemys = m_enemys.Where(e => !e.IsDead).ToArray();
+            int r = UnityEngine.Random.Range(0, enemys.Length);
+            if (enemys.Length > 0)
+            {
+                enemys[r].CheckPercentageDamage(percentage);
+            }
+            SoundManager.Play(SEType.PaylineAttack);
+        }
         public void AttackPlayer(int damege)
         {
             m_player.Damage(damege);
