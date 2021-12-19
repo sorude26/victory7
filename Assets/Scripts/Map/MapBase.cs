@@ -109,6 +109,7 @@ namespace victory7
             {
                 m_player.transform.position = m_bossPos;
                 MapData.Reset();
+                BattleData.SetMap(m_targetNextScene);
                 BattleData.SetData(m_bossPointData);
                 FadeController.Instance.StartFadeOut(Battle);
                 return;

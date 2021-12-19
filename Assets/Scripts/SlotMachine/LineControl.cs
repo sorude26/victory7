@@ -20,7 +20,7 @@ public class LineControl : MonoBehaviour
             if (m_view[i])
             {
                 m_view[i] = false;
-                m_lines[i].Play("close");
+                //m_lines[i].Play("close");
             }
         }
     }

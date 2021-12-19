@@ -80,6 +80,19 @@ namespace victory7
             gameObject.SetActive(false);
             BattleManager.Instance.CheckBattle();
         }
+        public override void PercentageDamage(int percentage)
+        {
+            Damage(percentage * m_maxHP / 100);
+        }
+        public override bool AvoidanceCheck()
+        {
+            int r = Random.Range(0, 100);
+            if (m_parameter.Avoidance > r)
+            {
+                return true;
+            }
+            return false;
+        }
         void RTBMode()
         {
             if (m_rtgGauge)
