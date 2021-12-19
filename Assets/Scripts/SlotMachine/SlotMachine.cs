@@ -186,7 +186,7 @@ namespace victory7
         }
         public void StopLeftLine()
         {
-            if (CheckNow || Stop || !SpinNow)
+            if (CheckNow || Stop || !SpinNow || !m_leftLine.Move)
             {
                 return;
             }
@@ -200,7 +200,7 @@ namespace victory7
         }
         public void StopCenterLine()
         {
-            if (CheckNow || Stop || !SpinNow)
+            if (CheckNow || Stop || !SpinNow || !m_centerLine.Move)
             {
                 return;
             }
@@ -214,7 +214,7 @@ namespace victory7
         }
         public void StopRightLine()
         {
-            if (CheckNow || Stop || !SpinNow)
+            if (CheckNow || Stop || !SpinNow || !m_rightLine.Move)
             {
                 return;
             }
