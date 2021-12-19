@@ -41,24 +41,18 @@ namespace victory7
                     break;
             }
         }
-        public static void UseSkill(SkillType skillType, int effect)
+        public static void UseSkill(PlayerSkill skillType, int effect)
         {
             switch (skillType)
             {
-                case SkillType.Seven:
-                    BattleManager.Instance?.ChargeFeverTime();
+                case PlayerSkill.PercentageAttack:
+                    BattleManager.Instance.AttackEnemyPercentage(30);
                     break;
-                case SkillType.Attack:
-                    BattleManager.Instance?.AttackEnemy(effect);
+                case PlayerSkill.InstantDeathAttack:
+                    BattleManager.Instance.AttackEnemyCritical(100);
                     break;
-                case SkillType.Guard:
-                    BattleManager.Instance.Player?.AddGuard(effect);
-                    break;
-                case SkillType.Heel:
-                    BattleManager.Instance.Player?.HeelPlayer(effect);
-                    break;
-                case SkillType.Charge:
-                    BattleManager.Instance.Player?.Charge(effect);
+                case PlayerSkill.Barrier:
+                    BattleManager.Instance.Player.Barrier();
                     break;
                 default:
                     break;

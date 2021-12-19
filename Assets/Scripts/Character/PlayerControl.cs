@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 namespace victory7
 {
+    public enum PlayerSkill
+    {
+        PercentageAttack,
+        InstantDeathAttack,
+        Barrier,
+    }
     public class PlayerControl : CharacterControl
     {
         [SerializeField]
@@ -13,11 +19,21 @@ namespace victory7
         protected Slider m_spGauge = default;
         [SerializeField]
         protected Slider m_guardGauge = default;
+        [Header("使用スキル")]
         [SerializeField]
-        protected SkillType m_skillType = default;
+        protected PlayerSkill m_skillType = default;
+        [Header("消費スキルポイント")]
+        [SerializeField]
+        protected int m_needSp = 50;
+        [Header("ガード持続回数")]
+        [SerializeField]
+        protected int m_maxGuardCount = 3;
+        [SerializeField]
+        protected Text m_count = default;
+        protected int m_guardCount = default;
         protected int m_sp = default;
-        public int CurrentSP { get => m_sp; }
         protected int m_gp = default;
+        public int CurrentSP { get => m_sp; }
         public int CurrentGP { get => m_gp; }
 
         public void StartSet()
@@ -31,9 +47,25 @@ namespace victory7
             CurrentHP = PlayerData.CurrentHP;
             m_sp = PlayerData.CurrentSP;
             m_gp = PlayerData.CurrentGP;
-            CharacterUpdate();
+            ParameterUpdate();
         }
         public override void CharacterUpdate()
+        {
+            if (m_guardCount > 0)
+            {
+                m_guardCount--;
+            }
+            if (m_count)
+            {
+                m_count.text = "";
+                if (m_guardCount > 0)
+                {
+                    m_count.text = m_guardCount.ToString();
+                }
+            }
+            ParameterUpdate();
+        }
+        protected void ParameterUpdate()
         {
             m_hpGauge.value = CurrentHP / (float)m_maxHP;
             m_spGauge.value = m_sp / (float)m_parameter.MaxSp;
@@ -41,6 +73,12 @@ namespace victory7
         }
         public override void Damage(int damage)
         {
+            if (m_guardCount > 0)
+            {
+                CharacterUpdate();
+                EffectManager.Instance.PlayEffect(EffectType.Damage2, transform.position);
+                return;
+            }
             if (m_gp > 0)
             {
                 m_gp -= damage;
@@ -50,7 +88,7 @@ namespace victory7
                     m_gp = 0;
                 }
                 EffectManager.Instance.PlayEffect(EffectType.Damage2, transform.position);
-                CharacterUpdate();
+                ParameterUpdate();
                 return;
             }
             base.Damage(damage);
@@ -63,11 +101,12 @@ namespace victory7
         }
         public void UseSkill()
         {
-            if (m_sp >= m_parameter.MaxSp)
+            if (m_sp >= m_needSp)
             {
-                m_sp = 0;
+                Debug.Log("u");
+                m_sp -= m_needSp;
                 SkillController.UseSkill(m_skillType, 3);
-                CharacterUpdate();
+                ParameterUpdate();
             }
         }
         public int GetPower(int slotPower)
@@ -85,7 +124,7 @@ namespace victory7
             view.transform.position = this.transform.position + Vector3.up;
             view.View("+" + m_parameter.Guard[slotPower].ToString(), Color.blue);
             EffectManager.Instance.PlayEffect(EffectType.Guard, transform.position);
-            CharacterUpdate();
+            ParameterUpdate();
             SoundManager.Play(SEType.PaylineGuard);
         }
         public void HeelPlayer(int slotPower)
@@ -99,7 +138,7 @@ namespace victory7
             view.transform.position = this.transform.position + Vector3.up;
             view.View("+" + m_parameter.Heel[slotPower].ToString(), Color.green);
             EffectManager.Instance.PlayEffect(EffectType.Heel, transform.position);
-            CharacterUpdate();
+            ParameterUpdate();
             SoundManager.Play(SEType.PaylineHeel);
         }
         public void Charge(int slotPower)
@@ -114,7 +153,21 @@ namespace victory7
             view.transform.position = this.transform.position + Vector3.up;
             view.View("+" + m_parameter.Charge[slotPower].ToString(), Color.yellow);
             EffectManager.Instance.PlayEffect(EffectType.Chage, transform.position);
-            CharacterUpdate();
+            ParameterUpdate();
+            SoundManager.Play(SEType.PaylineCharge);
+        }
+        public void Barrier()
+        {
+            m_guardCount = m_maxGuardCount;
+            if (m_count)
+            {
+                m_count.text = "";
+                if (m_guardCount > 0)
+                {
+                    m_count.text = m_guardCount.ToString();
+                }
+            }
+            EffectManager.Instance.PlayEffect(EffectType.Guard, transform.position);
             SoundManager.Play(SEType.PaylineCharge);
         }
     }

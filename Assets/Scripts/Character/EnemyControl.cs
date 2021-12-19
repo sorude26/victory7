@@ -82,7 +82,7 @@ namespace victory7
         }
         public override void PercentageDamage(int percentage)
         {
-            Damage(percentage * m_maxHP / 100 - m_parameter.Reduction * m_maxHP / 100);
+            Damage(percentage * m_maxHP / 100);
         }
         public override bool AvoidanceCheck()
         {
