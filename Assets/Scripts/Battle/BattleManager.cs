@@ -32,6 +32,7 @@ namespace victory7
         int m_feverCount = 0;
         bool m_fever = false;
         bool m_start = false;
+        bool m_waitNow = false;
         Stack<Action> m_battleActions = default;
         Stack<Action> m_effectActions = default;
         public Stack<Action> BattleActions { get => m_battleActions; }
@@ -56,6 +57,10 @@ namespace victory7
             }
             if (Input.GetKeyDown(KeyCode.Q) && m_start)
             {
+                if (!m_waitNow)
+                {
+                    return;
+                }
                 Player.UseSkill();
             }
         }
@@ -181,12 +186,9 @@ namespace victory7
             if (BattleData.Next)
             {
                 BattleData.Next = false;
-                SceneManager.LoadScene(BattleData.NextMap);
+                m_targetScene = BattleData.NextMap;
             }
-            else
-            {
-                SceneManager.LoadScene(m_targetScene);
-            }
+            SceneManager.LoadScene(m_targetScene);
         }
         void LoadResult()
         {
@@ -198,6 +200,7 @@ namespace victory7
             {
                 m_normalSlot.StartSlot();
                 yield return WaitTime(0.5f);
+                m_waitNow = true;
                 m_normalSlot.SlotStartInput();
                 yield return SlotWait();
                 yield return SlotChackWait();
@@ -238,6 +241,7 @@ namespace victory7
             {
                 yield return null;
             }
+            m_waitNow = false;
             yield return null;
             yield return EffectAction();
             yield return null;
