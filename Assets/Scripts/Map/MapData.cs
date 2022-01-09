@@ -6,6 +6,7 @@ namespace victory7
 {
     public class MapData
     {
+        public static int ClearStageCount { get; private set; }
         public static bool Create { get; private set; }
         public static Vector2Int PlayerPos { get; private set; }
         public static void SetData(Vector2Int playerPos)
@@ -17,6 +18,11 @@ namespace victory7
         {
             Create = false;
             PlayerPos = Vector2Int.zero;
+            ClearStageCount = 0;
+        }
+        public static void AddClearCount()
+        {
+            ClearStageCount++;
         }
     }
 }

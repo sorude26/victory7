@@ -14,41 +14,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6293315086075947264, guid: d68245f5be6694a4c86233def13c79c9,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6293315086075947264, guid: d68245f5be6694a4c86233def13c79c9,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6293315086075947264, guid: d68245f5be6694a4c86233def13c79c9,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6293315086075947264, guid: d68245f5be6694a4c86233def13c79c9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6293315086075947264, guid: d68245f5be6694a4c86233def13c79c9,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6293315086075947264, guid: d68245f5be6694a4c86233def13c79c9,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6293315086075947264, guid: d68245f5be6694a4c86233def13c79c9,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6293315086075947264, guid: d68245f5be6694a4c86233def13c79c9,
-        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -64,6 +29,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6293315086075947265, guid: d68245f5be6694a4c86233def13c79c9,
         type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293315086075947265, guid: d68245f5be6694a4c86233def13c79c9,
+        type: 3}
       propertyPath: m_Color.b
       value: 0.3773585
       objectReference: {fileID: 0}
@@ -76,6 +46,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 0.3773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293315086075947265, guid: d68245f5be6694a4c86233def13c79c9,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6293315086075947266, guid: d68245f5be6694a4c86233def13c79c9,
         type: 3}

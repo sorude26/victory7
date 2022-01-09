@@ -11,7 +11,7 @@ namespace victory7
         [SerializeField]
         protected Slider m_hpGauge = default;
         [SerializeField]
-        protected Animator m_animation = default;
+        protected Animator m_animator = default;
         public int CurrentHP { get; protected set; }
         public abstract void CharacterUpdate();
         public virtual void Damage(int damage)

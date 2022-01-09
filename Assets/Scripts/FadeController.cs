@@ -100,7 +100,7 @@ public class FadeController : MonoBehaviour
                 a = 0;
             }
             m_fadePanel.color = m_fadePanelColor * new Color(1, 1, 1, a);
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         m_fadePanel.gameObject.SetActive(false);
     }
@@ -116,7 +116,7 @@ public class FadeController : MonoBehaviour
                 a = 1f;
             }
             m_fadePanel.color = m_fadePanelColor * new Color(1, 1, 1, a);
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
     }
 }
