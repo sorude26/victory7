@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hpGauge: {fileID: 3426257156970398814}
-  m_animation: {fileID: 830598632}
+  m_animator: {fileID: 0}
   m_parameter: {fileID: 11400000, guid: 7724dedbeb5676744a38c0974a527d09, type: 2}
   m_rtgGauge: {fileID: 3426257157077498103}
   m_count: {fileID: 5324240475321554134}
