@@ -13,6 +13,7 @@ namespace victory7
     }
     public class PlayerControl : CharacterControl
     {
+        [Tooltip("パラメータ")]
         [SerializeField]
         protected PlayerParameter m_parameter = default;
         [SerializeField]
@@ -33,6 +34,7 @@ namespace victory7
         protected int m_guardCount = default;
         protected int m_sp = default;
         protected int m_gp = default;
+
         public int CurrentSP { get => m_sp; }
         public int CurrentGP { get => m_gp; }
 
@@ -47,6 +49,7 @@ namespace victory7
             CurrentHP = PlayerData.CurrentHP;
             m_sp = PlayerData.CurrentSP;
             m_gp = PlayerData.CurrentGP;
+            m_skillType = PlayerData.SkillType;
             ParameterUpdate();
         }
         public override void CharacterUpdate()
@@ -103,7 +106,6 @@ namespace victory7
         {
             if (m_sp >= m_needSp)
             {
-                Debug.Log("u");
                 m_sp -= m_needSp;
                 SkillController.UseSkill(m_skillType, 3);
                 ParameterUpdate();

@@ -57,9 +57,9 @@ namespace victory7
                     BattleManager.Instance.BattleActions.Push(() =>
                     {
                         BattleManager.Instance.AttackPlayer(a);
-                        if (m_animation)
+                        if (m_animator)
                         {
-                            m_animation.Play("attack");
+                            m_animator.Play("attack");
                         }
                     });
                 }
@@ -75,9 +75,12 @@ namespace victory7
         }
         protected override void Dead()
         {
-            EffectManager.Instance.PlayEffect(EffectType.Damage3, transform.position);
+            if (m_animator)
+            {
+                Debug.Log("Dead");
+                m_animator.Play("dead");
+            }
             IsDead = true;
-            gameObject.SetActive(false);
             BattleManager.Instance.CheckBattle();
         }
         public override void PercentageDamage(int percentage)
@@ -93,23 +96,10 @@ namespace victory7
             }
             return false;
         }
-        void RTBMode()
+        void GameOut()
         {
-            if (m_rtgGauge)
-            {
-                m_rbtTimer += Time.deltaTime;
-                if (m_rbtTimer >= m_parameter.RtbGaugeTime)
-                {
-                    m_rbtTimer = 0;
-                    Debug.Log("攻撃");
-                    BattleManager.Instance.AttackPlayer(m_parameter.AttackPower);
-                    if (m_animation)
-                    {
-                        m_animation.Play("attack");
-                    }
-                }
-                m_rtgGauge.value = m_rbtTimer / m_parameter.RtbGaugeTime;
-            }
+            EffectManager.Instance.PlayEffect(EffectType.Damage3, transform.position);
+            gameObject.SetActive(false);
         }
     } 
 }

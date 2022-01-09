@@ -11,7 +11,10 @@ namespace victory7
         RectTransform m_base = default;
         [SerializeField]
         RectTransform m_lineBottom = default;
-        int m_slotSize = 150;
+        [SerializeField]
+        float m_slotSize = 150;
+        [SerializeField]
+        float m_slotScale = 1;
         float m_rotationTime = 1f;
         float m_slotSpeed = 1f;
         bool m_start = false;
@@ -45,6 +48,7 @@ namespace victory7
         {
             var oneSlot = Instantiate(slot);
             oneSlot.SlotRect.transform.position = m_base.position;
+            oneSlot.transform.localScale = Vector3.one * m_slotScale;
             oneSlot.transform.SetParent(m_base);
             m_line.Add(oneSlot);
         }
