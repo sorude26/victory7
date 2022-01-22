@@ -337,7 +337,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: SCORE
+  m_Text: 
 --- !u!222 &406569775
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -358,10 +358,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfaa2509e4755b479f2cb333748218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_scoreText: {fileID: 406569774}
   m_scoreName: SCORE
-  m_scoreChangeInterval: 1
+  m_scoreChangeInterval: 2
   m_takeOverName: 
+  m_changeScore: 0
 --- !u!1 &589330624
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +616,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u6226\u95D8\u52DD\u5229\u56DE\u6570"
+  m_Text: 
 --- !u!222 &1277234197
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -637,10 +637,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfaa2509e4755b479f2cb333748218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_scoreText: {fileID: 1277234196}
   m_scoreName: "\u6226\u95D8\u52DD\u5229\u56DE\u6570"
-  m_scoreChangeInterval: 1
+  m_scoreChangeInterval: 2
   m_takeOverName: 
+  m_changeScore: 0
 --- !u!1 &1381506702
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,7 +794,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u8E0F\u7834\u3057\u305F\u30DE\u30C3\u30D7\u6570"
+  m_Text: 
 --- !u!222 &1555031416
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -815,10 +815,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfaa2509e4755b479f2cb333748218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_scoreText: {fileID: 1555031415}
   m_scoreName: "\u8E0F\u7834\u3057\u305F\u30DE\u30C3\u30D7\u6570"
-  m_scoreChangeInterval: 1
-  m_takeOverName: 100
+  m_scoreChangeInterval: 2
+  m_takeOverName: m_test00
+  m_changeScore: 100
 --- !u!1 &1701338887
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,7 +889,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u30B9\u30B3\u30A2\u300C\uFF17\u300D\u7372\u5F97\u6570"
+  m_Text: 
 --- !u!222 &1701338890
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -910,7 +910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfaa2509e4755b479f2cb333748218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_scoreText: {fileID: 1701338889}
   m_scoreName: "\u30B9\u30B3\u30A2\u300C\uFF17\u300D\u7372\u5F97\u6570"
-  m_scoreChangeInterval: 1
+  m_scoreChangeInterval: 2
   m_takeOverName: 
+  m_changeScore: 0
