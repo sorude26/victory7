@@ -16,7 +16,7 @@ namespace victory7
         [SerializeField] string m_scoreName = default;
 
         [Header("スコアが表示されるまでの秒数")]
-        [SerializeField] float m_scoreChangeInterval = 1f;
+        [SerializeField] float m_scoreChangeInterval = 2f;
 
         [Header("受け取りたい変数名")]
         [SerializeField] string m_takeOverName = default;
@@ -26,13 +26,11 @@ namespace victory7
 
         int m_myScore = default;//変数を受け取り反映する変数
 
-        const int m_maxScore = 999999999;
-
         readonly int m_test00 = default;
 
         //float m_scoreText = default;
 
-        static int m_mapData;
+        int m_mapData;
         int m_victoryCount;
         int m_sevenSlot;
 
