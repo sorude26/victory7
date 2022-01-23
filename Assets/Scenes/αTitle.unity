@@ -857,3 +857,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e711e386674fca409b70649c55d4de7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_target: "\u03B2 Map 1"

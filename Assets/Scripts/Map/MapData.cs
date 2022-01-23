@@ -18,6 +18,10 @@ namespace victory7
         {
             Create = false;
             PlayerPos = Vector2Int.zero;
+        }
+        public static void ClearReset()
+        {
+            Reset();
             ClearStageCount = 0;
         }
         public static void AddClearCount()

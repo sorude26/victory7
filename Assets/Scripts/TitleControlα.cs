@@ -7,12 +7,14 @@ namespace victory7
 {
     public class TitleControlα : MonoBehaviour
     {
+        [SerializeField]
+        string m_target = "MapScene";
         bool m_start = false;
         void Start()
         {
             FadeController.Instance.StartFadeIn(() => m_start = true);
             GameManager.Instance.StartSet();
-            MapData.Reset();
+            MapData.ClearReset();
         }
 
         void Update()
@@ -37,7 +39,7 @@ namespace victory7
         }
         void LoadMap()
         {
-            SceneManager.LoadScene("MapScene");
+            SceneManager.LoadScene(m_target);
         }
     }
 }

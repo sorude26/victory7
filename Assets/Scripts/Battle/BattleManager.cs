@@ -186,13 +186,14 @@ namespace victory7
             if (BattleData.Next)
             {
                 BattleData.Next = false;
+                MapData.AddClearCount();
                 m_targetScene = BattleData.NextMap;
             }
             SceneManager.LoadScene(m_targetScene);
         }
         void LoadResult()
         {
-            SceneManager.LoadScene("Resultα");
+            SceneManager.LoadScene("Result");
         }
         IEnumerator Battle()
         {
