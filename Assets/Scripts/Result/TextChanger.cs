@@ -39,6 +39,8 @@ namespace victory7
 
         bool m_jump = default;
 
+        bool m_flag = default;
+
         void Start()
         {
             m_scoreText = GetComponent<Text>();
@@ -70,15 +72,15 @@ namespace victory7
             Debug.Log(m_myScore);
         }
 
-        async void Update()
+        void Update()
         {
             if (!m_jump && Input.GetButtonDown("Jump"))
             {
                 AddScore();
-                await Task.Delay(1);
+                StartCoroutine(WaitInput());
                 m_jump = true;
             }
-            if(m_jump && Input.GetButtonDown("Jump"))
+            if(m_flag && Input.GetButtonDown("Jump"))
             {
                 ReturnTitle();
             }
@@ -98,6 +100,11 @@ namespace victory7
         void LoadTitle()
         {
             SceneManager.LoadScene("αTitle");
+        }
+        IEnumerator WaitInput()
+        {
+            yield return new WaitForSeconds(1);
+            m_flag = true;
         }
     }
 }
