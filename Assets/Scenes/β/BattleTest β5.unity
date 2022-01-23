@@ -934,6 +934,32 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 522901668}
     m_Modifications:
+    - target: {fileID: 5074063212174264477, guid: c85d2f9be2b06224baf56af313ccf419,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 550
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074063212174264477, guid: c85d2f9be2b06224baf56af313ccf419,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074063212174264477, guid: c85d2f9be2b06224baf56af313ccf419,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526744800170004159, guid: c85d2f9be2b06224baf56af313ccf419,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c3cdd80d8a7ad1842b8f47e490bf97f2,
+        type: 3}
+    - target: {fileID: 7015020546860385152, guid: c85d2f9be2b06224baf56af313ccf419,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8858608169806597794, guid: c85d2f9be2b06224baf56af313ccf419,
         type: 3}
       propertyPath: m_sevenSlot
@@ -1430,7 +1456,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -3
-  m_Sprite: {fileID: 21300000, guid: 991eef714b75bae4ea591f7ac141b2a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff3faa50191b3144db8c5089653c07d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1449,7 +1475,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 808278916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3066,6 +3092,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 522901668}
     m_Modifications:
+    - target: {fileID: 5074063212174264477, guid: c85d2f9be2b06224baf56af313ccf419,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 550
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074063212174264477, guid: c85d2f9be2b06224baf56af313ccf419,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074063212174264477, guid: c85d2f9be2b06224baf56af313ccf419,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526744800170004159, guid: c85d2f9be2b06224baf56af313ccf419,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c3cdd80d8a7ad1842b8f47e490bf97f2,
+        type: 3}
     - target: {fileID: 8858608169806597796, guid: c85d2f9be2b06224baf56af313ccf419,
         type: 3}
       propertyPath: m_Name
