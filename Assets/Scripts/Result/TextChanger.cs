@@ -49,7 +49,7 @@ namespace victory7
 
             m_sevenSlot = SlotData.SevenSlotData.Count;
 
-            //FadeController.Instance.StartFadeIn(() => m_start = true);
+            FadeController.Instance.StartFadeIn(() => m_start = true);
 
             if ((nameof(m_mapData)) == m_takeOverName)
             {
@@ -75,7 +75,7 @@ namespace victory7
             if (!m_jump && Input.GetButtonDown("Jump"))
             {
                 AddScore();
-                await Task.Delay(1000);
+                await Task.Delay(1);
                 m_jump = true;
             }
             if(m_jump && Input.GetButtonDown("Jump"))
