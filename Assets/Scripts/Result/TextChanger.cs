@@ -3,51 +3,95 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using System.Threading.Tasks;
 
 namespace victory7
 { 
     public class TextChanger : MonoBehaviour
     {
-        [Header("表示したいスコア")]
-        [SerializeField] Text m_score = default;
+        Text m_scoreText = default;
+
+        [Header("表示したいスコア名")]
+        [SerializeField] string m_scoreName = default;
 
         [Header("スコアが表示されるまでの秒数")]
-        [SerializeField] float m_delayScore = 2f;
+        [SerializeField] float m_scoreChangeInterval = 2f;
 
-        readonly int  m_myScore = 200;
-        int m_changeScore = default;
-        int m_scoreText = default;
-        float m_default = default;
-        bool m_start = default; 
+        [Header("受け取りたい変数名")]
+        [SerializeField] string m_takeOverName = default;
+
+        [Header("変わる数")]
+        [SerializeField] int m_changeScore = default;
+
+        int m_myScore = default;//変数を受け取り反映する変数
+
+        readonly int m_test00 = default;
+
+        //float m_scoreText = default;
+
+        int m_mapData;
+        int m_victoryCount;
+        int m_sevenSlot;
+
+        
+        bool m_start = default;
+
+        bool m_jump = default;
 
         void Start()
         {
+            m_scoreText = GetComponent<Text>();
+
+            m_mapData = MapData.ClearStageCount;
+
+            m_victoryCount = MapData.ClearStageCount;
+
+            m_sevenSlot = SlotData.SevenSlotData.Count;
+
             //FadeController.Instance.StartFadeIn(() => m_start = true);
-            m_changeScore = 1 / m_myScore;
+
+            if ((nameof(m_mapData)) == m_takeOverName)
+            {
+                m_myScore = m_mapData; 
+            }   
+            else if((nameof(m_victoryCount)) == m_takeOverName)
+            {
+                m_myScore = m_victoryCount;
+            }
+            else if((nameof(m_sevenSlot)) == m_takeOverName)
+            {
+                m_myScore = m_sevenSlot;
+            }
+            else if((nameof(m_test00)) == m_takeOverName)
+            {
+                m_myScore = m_test00;
+            }
+            Debug.Log(m_myScore);
         }
 
-        void Update()
+        async void Update()
         {
-            if (m_default < m_delayScore)
+            if (!m_jump && Input.GetButtonDown("Jump"))
             {
-                m_default += Time.deltaTime;
-                m_scoreText += m_changeScore;
-                m_score.text = m_scoreText.ToString();
-                Debug.Log("a");
+                AddScore();
+                await Task.Delay(1000);
+                m_jump = true;
             }
-
-            if (!m_start) return;
-            if (Input.GetButtonDown("Jump"))
+            if(m_jump && Input.GetButtonDown("Jump"))
             {
                 ReturnTitle();
             }
         }
+
+        public void AddScore()
+        {
+            m_scoreText.DOText(m_scoreName + "     " + m_myScore.ToString(),m_scoreChangeInterval);
+        }
+
         public void ReturnTitle()
         {
-            if (!m_start)
-            {
-                return;
-            }
+            if (!m_start) return;
             m_start = false;
             FadeController.Instance.StartFadeOut(LoadTitle);
         }
