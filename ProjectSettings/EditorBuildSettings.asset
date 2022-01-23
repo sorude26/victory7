@@ -8,13 +8,46 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Scenes/\u03B1Title.unity"
     guid: 8f55325e042a9e74b8d61febed98d3ed
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MapScene.unity
     guid: fc61a84f466968940b0996fdab4c1258
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BattleTest.unity
     guid: 9df9b73fd5afad7409aa945581f4ce08
   - enabled: 1
+    path: Assets/Scenes/Result.unity
+    guid: 414da12a614720a44b54e653ff83c5b1
+  - enabled: 0
     path: "Assets/Scenes/Result\u03B1.unity"
     guid: 899e9d1dd717bbf4784fb89ccb4cdb3d
+  - enabled: 1
+    path: "Assets/Scenes/\u03B2/\u03B2 Map 5.unity"
+    guid: a5be9081fb1d3ce40888f581c2ebc77a
+  - enabled: 1
+    path: "Assets/Scenes/\u03B2/BattleTest \u03B21.unity"
+    guid: 8d129393b0a73184cb0c69073b127d35
+  - enabled: 1
+    path: "Assets/Scenes/\u03B2/BattleTest \u03B22.unity"
+    guid: cf5c950d8d9e7d94da1d80dc7e746623
+  - enabled: 1
+    path: "Assets/Scenes/\u03B2/BattleTest \u03B23.unity"
+    guid: 9fb2fbc074f681d4984572c94bcf6240
+  - enabled: 1
+    path: "Assets/Scenes/\u03B2/BattleTest \u03B24.unity"
+    guid: 1094816d9b539564c89ce18535060f00
+  - enabled: 1
+    path: "Assets/Scenes/\u03B2/BattleTest \u03B25.unity"
+    guid: 18f21c58d44768543bf75f6d8ef81552
+  - enabled: 1
+    path: "Assets/Scenes/\u03B2/\u03B2 Map 1.unity"
+    guid: cb80b6bc2652fd245b629365508a262e
+  - enabled: 1
+    path: "Assets/Scenes/\u03B2/\u03B2 Map 2.unity"
+    guid: c235ae35bb7dd09498a43d658a07a127
+  - enabled: 1
+    path: "Assets/Scenes/\u03B2/\u03B2 Map 3.unity"
+    guid: 11cd3fd745030d94ba2e48c374326a01
+  - enabled: 1
+    path: "Assets/Scenes/\u03B2/\u03B2 Map 4.unity"
+    guid: a99bf0e355a4dd74b9c9bda0666a8d6e
   m_configObjects: {}

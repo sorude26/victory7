@@ -44,4 +44,8 @@ public class SoundManager : MonoBehaviour
             Debug.Log(type);
         }
     }
+    public static void PlayBGM()
+    {
+        instance.m_audio.Play();
+    }
 }

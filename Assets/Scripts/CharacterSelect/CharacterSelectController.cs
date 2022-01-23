@@ -1,18 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterSelectController : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("Vertical"))
+        {
+            if (Input.GetAxisRaw("Vertical") > 0)
+            {
+                //TargetChange(1);
+            }
+            else
+            {
+                //TargetChange(-1);
+            }
+        }
+        else if (Input.GetButtonDown("Horizontal"))
+        {
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                //m_currentEvent?.MoveLine(1);
+            }
+            else
+            {
+                //m_currentEvent?.MoveLine(-1);
+            }
+        }
+        if (Input.GetButtonDown("Jump"))
+        {
+            //;
+        }
     }
 }
