@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b257dd306e53b448905ee8ae9d469f1, type: 3}
+  m_Name: MPD seven
+  m_EditorClassIdentifier: 
+  m_enemys:
+  - {fileID: 6051505842909178023, guid: 1749055faa85a0e438f3854adfc8ff19, type: 3}
+  m_popSlot:
+  - {fileID: 1238082134872538448, guid: f6a873ef96db16745947f0aa6d2e3a5e, type: 3}
+  - {fileID: 1238082134872538448, guid: f6a873ef96db16745947f0aa6d2e3a5e, type: 3}
+  - {fileID: 1238082134872538448, guid: f6a873ef96db16745947f0aa6d2e3a5e, type: 3}
