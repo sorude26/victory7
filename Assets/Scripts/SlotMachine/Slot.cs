@@ -27,7 +27,7 @@ namespace victory7
         public Slot LevelUpTarget { get => m_levelUpTarget; }
         public void PlayEffect()
         {
-            Debug.Log($"{Type}が発動！、効果：{m_testDebagEffect}");
+            //Debug.Log($"{Type}が発動！、効果：{m_testDebagEffect}");
             if (m_type == SkillType.Seven)
             {
                 var message = Instantiate(EffectManager.Instance.Text);

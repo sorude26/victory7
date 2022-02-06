@@ -9,6 +9,8 @@ namespace victory7
         protected static int m_maxHP = default;
         protected static int m_additionHP = default;
         public static int MaxHP { get => m_maxHP + m_additionHP; }
+        public static int MaxSP { get; protected set; }
+        public static int MaxGP { get; protected set; }
         public static int CurrentHP { get; protected set; }
         public static int CurrentSP { get; protected set; }
         public static int CurrentGP { get; protected set; }
@@ -17,6 +19,8 @@ namespace victory7
         public static void StartSet(PlayerParameter parameter)
         {
             m_maxHP = parameter.MaxHP;
+            MaxSP = parameter.MaxSp;
+            MaxGP = parameter.MaxGp;
             CurrentHP = parameter.MaxHP;
             m_additionHP = 0;
             CurrentSP = 0;
