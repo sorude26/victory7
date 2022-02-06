@@ -10,6 +10,8 @@ namespace victory7
         [SerializeField]
         PlayerParameter[] m_players = default;
         [SerializeField]
+        StartSlotDataView m_dataViewPrefab = default;
+        [SerializeField]
         RectTransform m_top = default;
         [SerializeField]
         RectTransform m_bottom = default;
@@ -18,6 +20,7 @@ namespace victory7
         [SerializeField]
         float m_speed = 2f;
         GameObject[] m_characters = default;
+        StartSlotDataView[] m_characterData = default;
         int m_selectNumber = 0;
         float m_posY = 0;
         bool m_move = false;
@@ -59,8 +62,12 @@ namespace victory7
                     //m_currentEvent?.MoveLine(-1);
                 }
             }
-            if (Input.GetButton("Jump"))
+            if (Input.GetButtonDown("Jump"))
             {
+                if (!m_move)
+                {
+                    return;
+                }
             }
             if (!m_move)
             {
@@ -78,6 +85,7 @@ namespace victory7
         void StartSet()
         {
             m_characters = new GameObject[m_players.Length];
+            m_characterData = new StartSlotDataView[m_players.Length];
             for (int i = 0; i < m_players.Length; i++)
             {
                 var carabase = new GameObject("carabase");
@@ -86,6 +94,8 @@ namespace victory7
                 Instantiate(m_players[i].Character, carabase.transform);
                 m_characters[i] = carabase;
                 m_characters[i].transform.position = m_top.position + Vector3.up * m_size;
+                m_characterData[i] = Instantiate(m_dataViewPrefab, transform);
+                m_characterData[i].StartSet(m_players[i]);
             }
             for (int i = 0; i < 3; i++)
             {
@@ -98,6 +108,7 @@ namespace victory7
                     m_characters[i + m_selectNumber].transform.position = m_bottom.position + Vector3.up * m_size * i;
                 }
             }
+            DataChange();
         }
         void CharaMoveDown()
         {
@@ -111,6 +122,7 @@ namespace victory7
                 {
                     m_selectNumber = 0;
                 }
+                DataChange();
                 m_move = false;
             }
             for (int i = 0; i < 4; i++)
@@ -137,6 +149,7 @@ namespace victory7
                 {
                     m_selectNumber = 0;
                 }
+                DataChange();
                 m_move = false;
             }
             for (int i = 0; i < 4; i++)
@@ -149,6 +162,21 @@ namespace victory7
                 {
                     m_characters[i + m_selectNumber].transform.position = m_bottom.position + Vector3.up * m_size * i + new Vector3(0, m_posY, 0);
                 }
+            }
+        }
+        void DataChange()
+        {
+            foreach (var item in m_characterData)
+            {
+                item.gameObject.SetActive(false);
+            }
+            if (m_selectNumber + 1 < m_characterData.Length)
+            {
+                m_characterData[m_selectNumber + 1].gameObject.SetActive(true);
+            }
+            else
+            {
+                m_characterData[0].gameObject.SetActive(true);
             }
         }
     }

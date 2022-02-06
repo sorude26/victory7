@@ -30,7 +30,7 @@ namespace victory7
         [SerializeField]
         Slot[] m_startSlotR = new Slot[4];
         [SerializeField]
-        SkillType[] m_haveSkill = default;
+        PlayerSkill[] m_haveSkills = default;
         public GameObject Character { get => m_character; }
         public int ID { get => m_id; }
         public int MaxSp { get => m_maxSp; }
@@ -42,5 +42,6 @@ namespace victory7
         public Slot[] StartSlotL { get => m_startSlotL; }
         public Slot[] StartSlotC { get => m_startSlotC; }
         public Slot[] StartSlotR { get => m_startSlotR; }
+        public PlayerSkill[] HaveSkills { get => m_haveSkills; }
     }
 }

@@ -78,7 +78,7 @@ namespace victory7
         {
             foreach (var enemy in m_enemys)
             {
-                enemy?.CharacterUpdate();
+                enemy.CharacterUpdate();
             }
         }
         void StartSet()
@@ -98,10 +98,10 @@ namespace victory7
             m_normalSlot.StartSet();
             m_sevenSlot.StartSet();
             m_sevenSlot.StopSlot += AddCount;
-            m_player?.StartSet();
+            m_player.StartSet();
             foreach (var enemy in m_enemys)
             {
-                enemy?.StartSet();
+                enemy.StartSet();
             }
             m_sevenSlot.gameObject.SetActive(false);
         }
