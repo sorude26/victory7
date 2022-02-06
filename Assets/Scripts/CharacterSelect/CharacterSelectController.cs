@@ -19,12 +19,16 @@ namespace victory7
         float m_size = 400f;
         [SerializeField]
         float m_speed = 2f;
+        [SerializeField]
+        SkillPanel m_skillPanel = default;
         GameObject[] m_characters = default;
         StartSlotDataView[] m_characterData = default;
+        SkillPanel[] m_skillPanels = default;
         int m_selectNumber = 0;
         float m_posY = 0;
         bool m_move = false;
         bool m_up = false;
+        bool m_select = false;
         void Start()
         {
             StartSet();
@@ -36,18 +40,32 @@ namespace victory7
             {
                 if (Input.GetAxisRaw("Vertical") > 0)
                 {
-                    m_up = true;
-                    if (!m_move)
+                    if (!m_select)
                     {
-                        m_move = true;
+                        m_up = true;
+                        if (!m_move)
+                        {
+                            m_move = true;
+                        }
+                    }
+                    else
+                    {
+                        SelectPanel().Back();
                     }
                 }
                 else
                 {
-                    m_up = false;
-                    if (!m_move)
+                    if (!m_select)
                     {
-                        m_move = true;
+                        m_up = false;
+                        if (!m_move)
+                        {
+                            m_move = true;
+                        }
+                    }
+                    else
+                    {
+                        SelectPanel().Next();
                     }
                 }
             }
@@ -55,19 +73,50 @@ namespace victory7
             {
                 if (Input.GetAxisRaw("Horizontal") > 0)
                 {
-                    //m_currentEvent?.MoveLine(1);
+                    if (m_select)
+                    {
+                        SelectPanel().Back();
+                    }
                 }
                 else
                 {
-                    //m_currentEvent?.MoveLine(-1);
+                    if (m_select)
+                    {
+                        SelectPanel().Next();
+                    }
                 }
             }
             if (Input.GetButtonDown("Jump"))
             {
-                if (!m_move)
+                if (m_select)
                 {
                     return;
                 }
+                if (!m_move)
+                {
+                    m_select = true; 
+                    foreach (var item in m_characters)
+                    {
+                        item.SetActive(false);
+                    }
+                    if (m_selectNumber + 1 < m_characterData.Length)
+                    {
+                        m_characters[m_selectNumber + 1].gameObject.SetActive(true);
+                        m_skillPanels[m_selectNumber + 1].gameObject.SetActive(true);
+                        m_characterData[m_selectNumber + 1].gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        m_characters[0].gameObject.SetActive(true);
+                        m_characterData[0].gameObject.SetActive(false);
+                        m_skillPanels[0].gameObject.SetActive(true);
+                    }
+                    SelectPanel().SelectGuide();
+                }
+            }
+            if (m_select)
+            {
+                return;
             }
             if (!m_move)
             {
@@ -86,6 +135,7 @@ namespace victory7
         {
             m_characters = new GameObject[m_players.Length];
             m_characterData = new StartSlotDataView[m_players.Length];
+            m_skillPanels = new SkillPanel[m_players.Length];
             for (int i = 0; i < m_players.Length; i++)
             {
                 var carabase = new GameObject("carabase");
@@ -96,6 +146,9 @@ namespace victory7
                 m_characters[i].transform.position = m_top.position + Vector3.up * m_size;
                 m_characterData[i] = Instantiate(m_dataViewPrefab, transform);
                 m_characterData[i].StartSet(m_players[i]);
+                m_skillPanels[i] = Instantiate(m_skillPanel, transform);
+                m_skillPanels[i].SetData(m_players[i].HaveSkills);
+                m_skillPanels[i].gameObject.SetActive(false);
             }
             for (int i = 0; i < 3; i++)
             {
@@ -177,6 +230,17 @@ namespace victory7
             else
             {
                 m_characterData[0].gameObject.SetActive(true);
+            }
+        }
+        SkillPanel SelectPanel()
+        {
+            if (m_selectNumber + 1 < m_characterData.Length)
+            {
+                return m_skillPanels[m_selectNumber + 1];
+            }
+            else
+            {
+                return m_skillPanels[0];
             }
         }
     }
