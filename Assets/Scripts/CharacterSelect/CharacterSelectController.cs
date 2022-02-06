@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace victory7
 {
     public class CharacterSelectController : MonoBehaviour
     {
+        [SerializeField]
+        string m_target = "MapScene";
         [SerializeField]
         PlayerParameter[] m_players = default;
         [SerializeField]
@@ -21,6 +24,10 @@ namespace victory7
         float m_speed = 2f;
         [SerializeField]
         SkillPanel m_skillPanel = default;
+        [SerializeField]
+        SkillDataLibrary m_dataLibrary = default;
+        [SerializeField]
+        SkillSelectMassage m_massage = default;
         GameObject[] m_characters = default;
         StartSlotDataView[] m_characterData = default;
         SkillPanel[] m_skillPanels = default;
@@ -29,15 +36,28 @@ namespace victory7
         bool m_move = false;
         bool m_up = false;
         bool m_select = false;
+        bool m_massageOpen = false;
+        bool m_inGame = false;
         void Start()
         {
+            m_massage.CloseMassage();
             StartSet();
+            m_inGame = true;
+            FadeController.Instance.StartFadeIn(() => m_inGame = false);
         }
 
         void Update()
         {
+            if (m_inGame)
+            {
+                return;
+            }
             if (Input.GetButtonDown("Vertical"))
             {
+                if (m_massageOpen)
+                {
+                    return;
+                }
                 if (Input.GetAxisRaw("Vertical") > 0)
                 {
                     if (!m_select)
@@ -71,6 +91,11 @@ namespace victory7
             }
             else if (Input.GetButtonDown("Horizontal"))
             {
+                if (m_massageOpen)
+                {
+                    m_massage.ChangeTarget();
+                    return;
+                }
                 if (Input.GetAxisRaw("Horizontal") > 0)
                 {
                     if (m_select)
@@ -88,8 +113,26 @@ namespace victory7
             }
             if (Input.GetButtonDown("Jump"))
             {
+                if (m_massageOpen)
+                {
+                    if (m_massage.Decision())
+                    {
+                        m_massageOpen = false;
+                        SelectPanel().gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        StartGame();
+                        m_inGame = true;
+                    }
+                    return;
+                }
                 if (m_select)
                 {
+                    m_massage.Skill.SetData(m_dataLibrary.GetData(SelectPanel().CurrentSkill));
+                    m_massage.OpenMassage();
+                    m_massageOpen = true; 
+                    SelectPanel().gameObject.SetActive(false);
                     return;
                 }
                 if (!m_move)
@@ -242,6 +285,23 @@ namespace victory7
             {
                 return m_skillPanels[0];
             }
+        }
+        void StartGame()
+        {
+            FadeController.Instance.StartFadeOut(LoadGame);
+            if (m_selectNumber + 1 < m_characterData.Length)
+            {
+                GameManager.Instance.StartSet(m_players[m_selectNumber + 1],SelectPanel().CurrentSkill);
+            }
+            else
+            {
+                GameManager.Instance.StartSet(m_players[0], SelectPanel().CurrentSkill);
+            }
+            MapData.ClearReset();
+        }
+        void LoadGame()
+        {
+            SceneManager.LoadScene(m_target);
         }
     }
 }

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Test2
   m_EditorClassIdentifier: 
   m_name: 
-  m_maxHP: 0
+  m_maxHP: 100
   m_avoidance: 70
   m_character: {fileID: 6514573269204881327, guid: 5774d208485c8c14bb1fcc3f8de90471,
     type: 3}
-  m_id: 0
+  m_id: 1
   m_maxSp: 50
   m_maxGp: 50
   m_power: 000000000000000000000000

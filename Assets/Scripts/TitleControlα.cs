@@ -13,7 +13,7 @@ namespace victory7
         void Start()
         {
             FadeController.Instance.StartFadeIn(() => m_start = true);
-            GameManager.Instance.StartSet();
+            //GameManager.Instance.StartSet();
             MapData.ClearReset();
         }
 

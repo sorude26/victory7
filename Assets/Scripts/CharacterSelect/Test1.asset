@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Test1
   m_EditorClassIdentifier: 
   m_name: 
-  m_maxHP: 0
+  m_maxHP: 100
   m_avoidance: 70
   m_character: {fileID: 7316030798449903231, guid: c823f9cde4e40db49ad770d3b57529a3,
     type: 3}

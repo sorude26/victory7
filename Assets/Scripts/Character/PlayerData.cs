@@ -13,6 +13,7 @@ namespace victory7
         public static int CurrentSP { get; protected set; }
         public static int CurrentGP { get; protected set; }
         public static PlayerSkill SkillType { get; protected set; }
+        public static int ID { get; protected set; }
         public static void StartSet(PlayerParameter parameter)
         {
             m_maxHP = parameter.MaxHP;
@@ -20,6 +21,7 @@ namespace victory7
             m_additionHP = 0;
             CurrentSP = 0;
             CurrentGP = 0;
+            ID = parameter.ID;
         }
         public static void SetSkill(PlayerSkill skill)
         {
