@@ -41,7 +41,7 @@ public class SoundManager : MonoBehaviour
         if (instance)
         {
             instance.m_audio.PlayOneShot(instance.m_seDic[type]);
-            Debug.Log(type);
+            //Debug.Log(type);
         }
     }
     public static void PlayBGM()

@@ -157,7 +157,7 @@ namespace victory7
             }
             if (Player.CurrentHP <= 0)
             {
-                Debug.Log("ゲームオーバー");
+                //Debug.Log("ゲームオーバー");
                 FadeController.Instance.StartFadeOut(LoadResult);
                 BattleEnd = true;
                 return;
@@ -171,7 +171,7 @@ namespace victory7
                         return;
                     }
                 }
-                Debug.Log("ステージClear");
+                //Debug.Log("ステージClear");
                 BattleEnd = true;
             }
             buildControl.gameObject.SetActive(true);

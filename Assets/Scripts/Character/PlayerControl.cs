@@ -71,8 +71,8 @@ namespace victory7
         protected void ParameterUpdate()
         {
             m_hpGauge.value = CurrentHP / (float)m_maxHP;
-            m_spGauge.value = m_sp / (float)m_parameter.MaxSp;
-            m_guardGauge.value = m_gp / (float)m_parameter.MaxGp;
+            m_spGauge.value = m_sp / (float)PlayerData.MaxSP;
+            m_guardGauge.value = m_gp / (float)PlayerData.MaxGP;
         }
         public override void Damage(int damage)
         {
@@ -150,7 +150,6 @@ namespace victory7
             {
                 m_sp = m_parameter.MaxSp;
             }
-
             var view = Instantiate(EffectManager.Instance.Text);
             view.transform.position = this.transform.position + Vector3.up;
             view.View("+" + m_parameter.Charge[slotPower].ToString(), Color.yellow);

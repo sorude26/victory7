@@ -17,7 +17,7 @@ namespace victory7
         public virtual void Damage(int damage)
         {
             CurrentHP -= damage;
-            Debug.Log($"{gameObject.name}は{damage}のダメージ");
+            //Debug.Log($"{gameObject.name}は{damage}のダメージ");
             var view = Instantiate(EffectManager.Instance.Text);
             view.transform.position = this.transform.position + Vector3.up;
             view.View("-" + damage.ToString(), Color.red);
@@ -37,7 +37,7 @@ namespace victory7
         {
             if (AvoidanceCheck())
             {
-                Debug.Log("miss!");
+                //Debug.Log("miss!");
                 var view = Instantiate(EffectManager.Instance.Text);
                 view.transform.position = this.transform.position + Vector3.up;
                 view.View("miss!", Color.white);
