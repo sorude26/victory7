@@ -408,7 +408,7 @@ PrefabInstance:
     - target: {fileID: 6161074130087121604, guid: 492cb96472393ed4295f2f1ec66ce81f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.7
+      value: 7.51
       objectReference: {fileID: 0}
     - target: {fileID: 6161074130087121604, guid: 492cb96472393ed4295f2f1ec66ce81f,
         type: 3}
@@ -3004,51 +3004,62 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5264786837324370214, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
+      propertyPath: m_slotStart.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5264786837324370214, guid: 6129574af90c5e84b8dfc646cb19d414,
+        type: 3}
       propertyPath: m_slotStart.Array.data[4]
       value: 
-      objectReference: {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309,
+      objectReference: {fileID: 2743720436271891750, guid: 6c75f95f6a04e394ca9a2a7fd4c22279,
         type: 3}
     - target: {fileID: 5264786837324370214, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
       propertyPath: m_slotStart.Array.data[5]
       value: 
-      objectReference: {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309,
+      objectReference: {fileID: 2656186941505260069, guid: 4b497a651710c03439303cdf333d2737,
         type: 3}
     - target: {fileID: 5264786837324370214, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
       propertyPath: m_slotStart.Array.data[6]
       value: 
-      objectReference: {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309,
+      objectReference: {fileID: 6789013856110559797, guid: 11bd8081613b1254099ace18e55305fd,
         type: 3}
     - target: {fileID: 5264786837324370214, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
       propertyPath: m_slotStart.Array.data[7]
       value: 
-      objectReference: {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309,
+      objectReference: {fileID: 4427164741077570748, guid: 35bdf2a438aeec34ca37e9dd1c9211af,
         type: 3}
     - target: {fileID: 5264786837324370214, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
       propertyPath: m_slotStart.Array.data[8]
       value: 
-      objectReference: {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309,
+      objectReference: {fileID: 719401768266601981, guid: 84f3439d923d7a5428911642e34b6127,
         type: 3}
     - target: {fileID: 5264786837324370214, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
       propertyPath: m_slotStart.Array.data[9]
       value: 
-      objectReference: {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309,
+      objectReference: {fileID: 794655207228679121, guid: bc303e54d52483241ad9e2edb987a467,
         type: 3}
     - target: {fileID: 5264786837324370214, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
       propertyPath: m_slotStart.Array.data[10]
       value: 
-      objectReference: {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309,
+      objectReference: {fileID: 3286767256574736880, guid: 4c065ea6fd5397645a2ecc202dcf5b86,
         type: 3}
     - target: {fileID: 5264786837324370214, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
       propertyPath: m_slotStart.Array.data[11]
       value: 
-      objectReference: {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309,
+      objectReference: {fileID: 6450643909515395638, guid: a66605e0db98db14ab792ab4abd98dc6,
+        type: 3}
+    - target: {fileID: 5264786837324370214, guid: 6129574af90c5e84b8dfc646cb19d414,
+        type: 3}
+      propertyPath: m_slotStart.Array.data[12]
+      value: 
+      objectReference: {fileID: 1238082134872538448, guid: f6a873ef96db16745947f0aa6d2e3a5e,
         type: 3}
     - target: {fileID: 5264786837324370215, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
@@ -3119,6 +3130,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 522901668}
     m_Modifications:
+    - target: {fileID: 8858608169806597794, guid: c85d2f9be2b06224baf56af313ccf419,
+        type: 3}
+      propertyPath: m_oneRotaionTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8858608169806597796, guid: c85d2f9be2b06224baf56af313ccf419,
         type: 3}
       propertyPath: m_Name

@@ -64,7 +64,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: be300e6fcf6df4f4ab5a3dd95f042dd9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e464e6bad7e0e9d40954479fa6c1dd50, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -129,6 +129,7 @@ MonoBehaviour:
   m_id: 16
   m_type: 3
   m_testDebagEffect: 3
+  m_levelUpTarget: {fileID: 0}
   m_rect: {fileID: 2917220759940342511}
   m_selectMark: {fileID: 3270004837706720147}
 --- !u!1 &3270004837706720147
@@ -316,7 +317,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &188303989982218447
 RectTransform:
   m_ObjectHideFlags: 0
