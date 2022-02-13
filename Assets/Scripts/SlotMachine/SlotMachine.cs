@@ -54,32 +54,26 @@ namespace victory7
             }
             if (m_sevenSlot)
             {
-                foreach (var item in SlotData.SevenSlotData)
+                for (int i = SlotData.SevenSlotData.Count - 1; i >= 0; i--)
                 {
-                    m_leftLine.SetSlot(item);
-                }
-                foreach (var item in SlotData.SevenSlotData)
-                {
-                    m_centerLine.SetSlot(item);
-                }
-                foreach (var item in SlotData.SevenSlotData)
-                {
-                    m_rightLine.SetSlot(item);
+                    m_leftLine.SetSlot(SlotData.SevenSlotData[i]);
+                    m_centerLine.SetSlot(SlotData.SevenSlotData[i]);
+                    m_rightLine.SetSlot(SlotData.SevenSlotData[i]);
                 }
             }
             else
             {
-                foreach (var item in SlotData.LeftSlotData)
+                for (int i = SlotData.LeftSlotData.Count - 1; i >= 0; i--)
                 {
-                    m_leftLine.SetSlot(item);
+                    m_leftLine.SetSlot(SlotData.LeftSlotData[i]);
                 }
-                foreach (var item in SlotData.CenterSlotData)
+                for (int i = SlotData.CenterSlotData.Count - 1; i >= 0; i--)
                 {
-                    m_centerLine.SetSlot(item);
+                    m_centerLine.SetSlot(SlotData.CenterSlotData[i]);
                 }
-                foreach (var item in SlotData.RightSlotData)
+                for (int i = SlotData.RightSlotData.Count - 1; i >= 0; i--)
                 {
-                    m_rightLine.SetSlot(item);
+                    m_rightLine.SetSlot(SlotData.RightSlotData[i]);
                 }
             }
             m_leftLine.StopSE = m_stopSE;
