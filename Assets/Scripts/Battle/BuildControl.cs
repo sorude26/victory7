@@ -86,7 +86,7 @@ namespace victory7
                     m_target2.transform.position = m_linePos[m_targetNum].position;
                 }
             }
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Submit"))
             {
                 if (!lineMode)
                 {

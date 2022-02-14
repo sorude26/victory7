@@ -93,7 +93,7 @@ namespace victory7
                     m_currentEvent?.MoveLine(-1);
                 }
             }
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Submit"))
             {
                 if (m_event)
                 {
