@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MPD seven
   m_EditorClassIdentifier: 
   m_enemys:
-  - {fileID: 6051505842909178023, guid: 1749055faa85a0e438f3854adfc8ff19, type: 3}
+  - {fileID: 4906235836628457488, guid: a56e17d6ad13f914bae10ba7612d6de6, type: 3}
   m_popSlot:
   - {fileID: 1238082134872538448, guid: f6a873ef96db16745947f0aa6d2e3a5e, type: 3}
   - {fileID: 1238082134872538448, guid: f6a873ef96db16745947f0aa6d2e3a5e, type: 3}
