@@ -16,6 +16,9 @@ namespace victory7
         [Header("通常戦闘パターンデータ")]
         [SerializeField]
         MapPointData[] m_battlePointData = default;
+        [Header("ランダムなバトルパターンのフラグ")]
+        [SerializeField]
+        bool m_randomBattleMode = default;
         [Header("ボス戦闘パターンデータ")]
         [SerializeField]
         MapPointData m_bossPointData = default;
@@ -176,7 +179,15 @@ namespace victory7
         void BattlePoint(int lineNumber,int posNumber,int typeNumber)
         {
             MapData.SetData(new Vector2Int(lineNumber, posNumber));
-            BattleData.SetData(m_battlePointData[typeNumber]);
+            if (m_randomBattleMode)
+            {
+                int r = Random.Range(0, m_battlePointData.Length);
+                BattleData.SetData(m_battlePointData[r]);
+            }
+            else
+            {
+                BattleData.SetData(m_battlePointData[typeNumber]);
+            }
             FadeController.Instance.StartFadeOut(Battle);
         }
         void TargetChange(int a)
