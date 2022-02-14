@@ -173,6 +173,7 @@ namespace victory7
                 }
                 //Debug.Log("ステージClear");
                 BattleEnd = true;
+                MapData.AddBattleCount();
             }
             buildControl.gameObject.SetActive(true);
         }
