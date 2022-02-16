@@ -15,6 +15,8 @@ namespace victory7
         Slot[] m_slotSeven = default;
         [SerializeField]
         Slot[] m_allSlot = default;
+        [SerializeField]
+        bool m_test = default;
 
         public Slot[] AllSlot { get => m_allSlot; }
         private void Awake()
@@ -26,7 +28,10 @@ namespace victory7
             }
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
-            //StartSet();
+            if (m_test)
+            {
+                StartSet();
+            }
         }
         public void StartSet()
         {

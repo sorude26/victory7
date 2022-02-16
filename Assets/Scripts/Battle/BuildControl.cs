@@ -11,15 +11,15 @@ namespace victory7
         [SerializeField]
         RectTransform[] m_slotPos = default;
         [SerializeField]
-        RectTransform[] m_linePos = default;
-        [SerializeField]
         RectTransform m_target = default;
         [SerializeField]
-        RectTransform m_target2 = default;
+        GameObject m_base = default;
+        [SerializeField]
+        SlotViewPanel m_panel = default;
         int m_targetNum = 0;
         int m_slotNum = 0;
         bool lineMode = false;
-       
+
         public void StartSet()
         {
             if (BattleData.PopSlot != null && BattleData.PopSlot.Length > 0)
@@ -36,68 +36,91 @@ namespace victory7
             for (int i = 0; i < 3; i++)
             {
                 var oneSlot = Instantiate(m_popSlot[i]);
-                oneSlot.SlotRect.transform.position = m_slotPos[i].position;
+                oneSlot.SlotRect.transform.position = m_slotPos[i + 1].position;
                 oneSlot.transform.SetParent(m_slotPos[i]);
             }
             m_target.transform.position = m_slotPos[m_targetNum].position;
-            m_target2.transform.position = m_linePos[m_targetNum].position;
-            m_target2.gameObject.SetActive(false);
+            m_panel.StartSet();
             gameObject.SetActive(false);
         }
         void Update()
         {
+            if (Input.GetButtonDown("Cancel"))
+            {
+                if (lineMode)
+                {
+                    lineMode = false;
+                    m_panel.ClosePanel();
+                    m_base.SetActive(true);
+                    return;
+                }
+                else
+                {
+                    m_targetNum = 0;
+                    m_target.transform.position = m_slotPos[m_targetNum].position;
+                    return;
+                }
+            }
             if (Input.GetButtonDown("Horizontal"))
             {
                 var i = Input.GetAxisRaw("Horizontal");
                 if (i > 0)
                 {
-                    m_targetNum = 2;
+                    m_targetNum = 3;
                     if (!lineMode)
                     {
                         m_target.transform.position = m_slotPos[m_targetNum].position;
                     }
                     else
                     {
-                        m_target2.transform.position = m_linePos[m_targetNum].position;
+                        m_panel.Select(m_targetNum - 1);
                     }
                 }
                 else if (i < 0)
                 {
-                    m_targetNum = 0;
+                    m_targetNum = 1;
                     if (!lineMode)
                     {
                         m_target.transform.position = m_slotPos[m_targetNum].position;
                     }
                     else
                     {
-                        m_target2.transform.position = m_linePos[m_targetNum].position;
+                        m_panel.Select(m_targetNum - 1);
                     }
                 }
             }
             if (Input.GetButtonDown("Vertical"))
             {
-                m_targetNum = 1;
+                m_targetNum = 2;
                 if (!lineMode)
                 {
                     m_target.transform.position = m_slotPos[m_targetNum].position;
                 }
                 else
                 {
-                    m_target2.transform.position = m_linePos[m_targetNum].position;
+                    m_panel.Select(m_targetNum - 1);
                 }
             }
             if (Input.GetButtonDown("Submit"))
             {
                 if (!lineMode)
                 {
+                    if (m_targetNum <= 0)
+                    {
+                        return;
+                    }
                     lineMode = true;
-                    m_target2.gameObject.SetActive(true);
-                    m_slotNum = m_targetNum;
-                    m_targetNum = 0;
+                    m_slotNum = m_targetNum - 1;
+                    m_panel.OpenPanel();
+                    m_base.SetActive(false);
                 }
-                else
+                else if(lineMode)
                 {
-                    SlotData.AddSlot(m_popSlot[m_slotNum], m_targetNum);
+                    if (m_targetNum <= 0)
+                    {
+                        return;
+                    }
+                    SlotData.AddSlot(m_popSlot[m_slotNum], m_targetNum - 1);
                     BattleManager.Instance.NextScene();
                     gameObject.SetActive(false);
                 }
