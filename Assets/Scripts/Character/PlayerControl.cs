@@ -118,9 +118,9 @@ namespace victory7
         public void AddGuard(int slotPower)
         {
             m_gp += m_parameter.Guard[slotPower];
-            if (m_gp > m_parameter.MaxGp)
+            if (m_gp > PlayerData.MaxGP)
             {
-                m_gp = m_parameter.MaxGp;
+                m_gp = PlayerData.MaxGP;
             }
             var view = Instantiate(EffectManager.Instance.Text);
             view.transform.position = this.transform.position + Vector3.up;
@@ -146,9 +146,9 @@ namespace victory7
         public void Charge(int slotPower)
         {
             m_sp += m_parameter.Charge[slotPower];
-            if (m_sp > m_parameter.MaxSp)
+            if (m_sp > PlayerData.MaxSP)
             {
-                m_sp = m_parameter.MaxSp;
+                m_sp = PlayerData.MaxSP;
             }
             var view = Instantiate(EffectManager.Instance.Text);
             view.transform.position = this.transform.position + Vector3.up;

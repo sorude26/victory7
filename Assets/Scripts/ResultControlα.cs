@@ -19,7 +19,7 @@ namespace victory7
             {
                 return;
             }
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Submit"))
             {
                 ReturnTitle();
             }

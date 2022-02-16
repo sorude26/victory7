@@ -77,7 +77,6 @@ namespace victory7
         {
             if (m_animator)
             {
-                Debug.Log("Dead");
                 m_animator.Play("dead");
             }
             IsDead = true;

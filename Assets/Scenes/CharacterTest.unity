@@ -133,6 +133,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerGirl (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2244306369886565657, guid: a99c64d51e14a0448a5e1f32ff9a3b2c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2244306369886565662, guid: a99c64d51e14a0448a5e1f32ff9a3b2c,
         type: 3}
       propertyPath: m_RootOrder
@@ -439,6 +444,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerBoy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966113729813666482, guid: 2a7af9bc5283be34bb35d1c1ff5f6dc7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5966113729813666483, guid: 2a7af9bc5283be34bb35d1c1ff5f6dc7,
         type: 3}

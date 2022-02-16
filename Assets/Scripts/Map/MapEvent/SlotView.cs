@@ -8,6 +8,8 @@ namespace victory7
     {
         [SerializeField]
         RectTransform[] m_line = default;
+        [SerializeField]
+        float m_slotScale = 1.5f;
         Slot[] m_allSlot = default;
         List<Slot> m_slot = default;
         public void StartSet()
@@ -27,12 +29,15 @@ namespace victory7
             }
             var slot = Instantiate(m_allSlot[top], m_line[0]);
             slot.transform.position = m_line[0].position;
+            slot.transform.localScale = Vector3.one * m_slotScale;
             m_slot.Add(slot);
             slot = Instantiate(m_allSlot[middle], m_line[1]);
             slot.transform.position = m_line[1].position;
+            slot.transform.localScale = Vector3.one * m_slotScale;
             m_slot.Add(slot);
             slot = Instantiate(m_allSlot[bottom], m_line[2]);
             slot.transform.position = m_line[2].position;
+            slot.transform.localScale = Vector3.one * m_slotScale;
             m_slot.Add(slot);
         }        
     }

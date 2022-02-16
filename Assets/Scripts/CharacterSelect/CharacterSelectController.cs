@@ -111,7 +111,36 @@ namespace victory7
                     }
                 }
             }
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Cancel"))
+            {
+                if (m_massageOpen)
+                {
+                    m_massageOpen = false;
+                    m_massage.CloseMassage();
+                    SelectPanel().gameObject.SetActive(true);
+                    return;
+                }
+                if (m_select)
+                {
+                    m_select = false;
+                    if (m_selectNumber + 1 < m_characterData.Length)
+                    {
+                        m_skillPanels[m_selectNumber + 1].gameObject.SetActive(false);
+                        m_characterData[m_selectNumber + 1].gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        m_characterData[0].gameObject.SetActive(true);
+                        m_skillPanels[0].gameObject.SetActive(false);
+                    }
+                    foreach (var item in m_characters)
+                    {
+                        item.SetActive(true);
+                    }
+                    return;
+                }
+            }
+            if (Input.GetButtonDown("Submit"))
             {
                 if (m_massageOpen)
                 {
