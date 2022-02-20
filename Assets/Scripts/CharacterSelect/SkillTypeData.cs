@@ -19,7 +19,7 @@ namespace victory7
         [Header("消費スキルポイント")]
         [SerializeField]
         protected int m_needSp = 50;
-        [Header("スキル持続回数(持続タイプのみ反映)")]
+        [Header("スキル持続回数(持続タイプ&遅延効果のみ反映)")]
         [SerializeField]
         protected int m_maxCount = 3;
         [Header("スキル効果量(効果量があるもののみ反映)")]

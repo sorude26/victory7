@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_skillType: 3
   m_skillName: "\u6575\u884C\u52D5\u9045\u5EF6"
-  m_skillGuide: "1\u30AB\u30A6\u30F3\u30C8\u9045\u5EF6\u3059\u308B"
+  m_skillGuide: "\u30AB\u30A6\u30F3\u30C8\u3092\u9045\u5EF6\u3059\u308B"
   m_needSp: 30
-  m_maxCount: 0
+  m_maxCount: 2
   m_effect: 0
   m_damage: 0
