@@ -42,13 +42,14 @@ namespace victory7
             }
             PlayerData.StartSet(m_startParameter);
         }
-        public void StartSet(PlayerParameter parameter,PlayerSkill skill)
+        public void StartSet(PlayerParameter parameter,SkillTypeData skill)
         {
             SlotData.StartSet(parameter.StartSlotL,parameter.StartSlotC,parameter.StartSlotR, m_slotSeven);
             for (int i = 0; i < 3; i++)
             {
                 SlotData.ShuffleSlot(i);
             }
+            parameter.SetMaxSp(skill.NeedSp);
             PlayerData.StartSet(parameter);
             PlayerData.SetSkill(skill);
         }

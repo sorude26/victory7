@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace victory7
 {
+    public enum LineType
+    {
+        Left,
+        Center,
+        Right,
+    }
     public class SlotLine : MonoBehaviour
     {
         List<Slot> m_line = new List<Slot>();

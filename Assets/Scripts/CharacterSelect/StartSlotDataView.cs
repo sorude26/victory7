@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,20 +9,36 @@ namespace victory7
     {
         [SerializeField]
         RectTransform[] m_slotBases = default;
+        [SerializeField]
+        HaveNumberView[] m_haveViews = default;
+        List<Slot> m_lineSlot = default;
         public void StartSet(PlayerParameter player)
         {
-            foreach (var slot in player.StartSlotL)
+            m_lineSlot = new List<Slot>();
+            for (int i = 0; i < System.Enum.GetNames(typeof(LineType)).Length; i++)
             {
-                Instantiate(slot, m_slotBases[0]);
+                foreach (var slot in player.GetStartSlot(i))
+                {
+                    m_lineSlot.Add(Instantiate(slot, m_slotBases[i]));
+                }
+                SetView();
             }
-            foreach (var slot in player.StartSlotC)
+        }
+        void SetView()
+        {
+            foreach (var view in m_haveViews)
             {
-                Instantiate(slot, m_slotBases[1]);
+                HaveSlot(view);
             }
-            foreach (var slot in player.StartSlotR)
-            {
-                Instantiate(slot, m_slotBases[2]);
-            }
+            m_lineSlot.Clear();
+        }
+        void HaveSlot(HaveNumberView view)
+        {
+            view.AddNumber(CountSlot(view.Type, 0), CountSlot(view.Type, 1), CountSlot(view.Type, 2));
+        }
+        int CountSlot(SkillType type, int effect)
+        {
+            return m_lineSlot.Count(s => s.Type == type && s.EffectID == effect);
         }
     }
 }

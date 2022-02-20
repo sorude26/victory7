@@ -16,13 +16,13 @@ namespace victory7
         [SerializeField]
         int m_maxGp = 50;
         [SerializeField]
-        int[] m_power = new int[3];
+        int[] m_power = { 10, 20, 30 };
         [SerializeField]
-        int[] m_guard = new int[3];
+        int[] m_guard = { 10, 20, 30 };
         [SerializeField]
-        int[] m_charge = new int[3];
+        int[] m_charge = { 10, 20, 30 };
         [SerializeField]
-        int[] m_heel = new int[3];
+        int[] m_heel = { 10, 20, 30 };
         [SerializeField]
         Slot[] m_startSlotL = new Slot[4];
         [SerializeField]
@@ -43,5 +43,28 @@ namespace victory7
         public Slot[] StartSlotC { get => m_startSlotC; }
         public Slot[] StartSlotR { get => m_startSlotR; }
         public PlayerSkill[] HaveSkills { get => m_haveSkills; }
+        public void SetMaxSp(int max)
+        {
+            m_maxSp = max;
+        }
+        public Slot[] GetStartSlot(int lineNumder)
+        {
+            if (lineNumder < 0 || lineNumder >= System.Enum.GetNames(typeof(LineType)).Length)
+            {
+                return null;
+            }
+            LineType line = (LineType)lineNumder;
+            switch (line)
+            {
+                case LineType.Left:
+                    return m_startSlotL;
+                case LineType.Center:
+                    return m_startSlotC;
+                case LineType.Right:
+                    return m_startSlotR;
+                default:
+                    return null;
+            }
+        }
     }
 }

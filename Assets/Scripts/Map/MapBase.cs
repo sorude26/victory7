@@ -31,6 +31,9 @@ namespace victory7
         [Header("MapClear後遷移先Mapシーン名")]
         [SerializeField]
         string m_targetNextScene = "NextMap";
+        [Header("ランダムな遷移先シーン名")]
+        [SerializeField]
+        string[] m_randomNextScenes = default;
         [SerializeField]
         Vector2 m_mapSize = Vector2.one;
         [SerializeField]
@@ -62,7 +65,7 @@ namespace victory7
         {
             m_create = MapData.Create;
             m_playerPos = MapData.PlayerPos;
-            CreateMap(); 
+            CreateMap();
             LodeMap();
             m_removeSlot.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
             m_levelUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
@@ -115,7 +118,15 @@ namespace victory7
             {
                 m_player.transform.position = m_bossPos;
                 MapData.Reset();
-                BattleData.SetMap(m_targetNextScene);
+                if (m_randomNextScenes != null)
+                {
+                    int r = Random.Range(0, m_randomNextScenes.Length);
+                    BattleData.SetMap(m_randomNextScenes[r]);
+                }
+                else
+                {
+                    BattleData.SetMap(m_targetNextScene);
+                }
                 BattleData.SetData(m_bossPointData);
                 FadeController.Instance.StartFadeOut(Battle);
                 return;
@@ -179,7 +190,7 @@ namespace victory7
             }
         }
 
-        void BattlePoint(int lineNumber,int posNumber,int typeNumber)
+        void BattlePoint(int lineNumber, int posNumber, int typeNumber)
         {
             MapData.SetData(new Vector2Int(lineNumber, posNumber));
             if (typeNumber < 0)
