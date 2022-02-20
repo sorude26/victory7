@@ -13,24 +13,19 @@ namespace victory7
     }
     public class PlayerControl : CharacterControl
     {
-        [Tooltip("パラメータ")]
-        [SerializeField]
-        protected PlayerParameter m_parameter = default;
+        [Header("SPゲージ")]
         [SerializeField]
         protected Slider m_spGauge = default;
+        [Header("GPゲージ")]
         [SerializeField]
         protected Slider m_guardGauge = default;
-        [Header("使用スキル")]
-        [SerializeField]
-        protected PlayerSkill m_skillType = default;
-        [Header("消費スキルポイント")]
-        [SerializeField]
-        protected int m_needSp = 50;
-        [Header("ガード持続回数")]
-        [SerializeField]
-        protected int m_maxGuardCount = 3;
+        [Header("スキルカウントテキスト")]
         [SerializeField]
         protected Text m_count = default;
+
+        protected PlayerParameter m_parameter = default;
+        protected SkillTypeData m_skill = default;
+        protected int m_needSp = default;
         protected int m_guardCount = default;
         protected int m_sp = default;
         protected int m_gp = default;
@@ -40,16 +35,13 @@ namespace victory7
 
         public void StartSet()
         {
-            if (!m_parameter)
-            {
-                Debug.Log("パラメータがセットされていません");
-                return;
-            }
+            m_parameter = PlayerData.DefaultParameter;
             m_maxHP = PlayerData.MaxHP;
             CurrentHP = PlayerData.CurrentHP;
             m_sp = PlayerData.CurrentSP;
             m_gp = PlayerData.CurrentGP;
-            m_skillType = PlayerData.SkillType;
+            m_skill = PlayerData.CurrentSkill;
+
             ParameterUpdate();
         }
         public override void CharacterUpdate()
@@ -104,10 +96,10 @@ namespace victory7
         }
         public void UseSkill()
         {
-            if (m_sp >= m_needSp)
+            if (m_sp >= m_skill.NeedSp)
             {
-                m_sp -= m_needSp;
-                SkillController.UseSkill(m_skillType, 3);
+                m_sp -= m_skill.NeedSp;
+                SkillController.UseSkill(m_skill.SkillType, 3);
                 ParameterUpdate();
             }
         }
@@ -159,7 +151,7 @@ namespace victory7
         }
         public void Barrier()
         {
-            m_guardCount = m_maxGuardCount;
+            m_guardCount = m_skill.MaxCount;
             if (m_count)
             {
                 m_count.text = "";

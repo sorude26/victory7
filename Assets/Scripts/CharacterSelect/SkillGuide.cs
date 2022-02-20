@@ -13,12 +13,12 @@ namespace victory7
         GameObject m_guideBase = default;
         [SerializeField]
         Text m_guideText = default;
-        public PlayerSkill SkillType { get; private set; }
+        public SkillTypeData SkillType { get; private set; }
         public void SetData(SkillTypeData data)
         {
             m_skillName.text = data.SkillName;
             m_guideText.text = data.SkillGuide;
-            SkillType = data.SkillType;
+            SkillType = data;
             m_guideBase.SetActive(false);
         }
         public void OpenGuide()

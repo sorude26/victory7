@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 964337a5d6030264aaeb1eac0d2b40af, type: 3}
   m_Name: Test2
   m_EditorClassIdentifier: 
-  m_name: 
+  m_name: test2
   m_maxHP: 100
   m_avoidance: 70
   m_character: {fileID: 6514573269204881327, guid: 5774d208485c8c14bb1fcc3f8de90471,
@@ -20,10 +20,10 @@ MonoBehaviour:
   m_id: 1
   m_maxSp: 50
   m_maxGp: 50
-  m_power: 000000000000000000000000
-  m_guard: 000000000000000000000000
-  m_charge: 000000000000000000000000
-  m_heel: 000000000000000000000000
+  m_power: 0a000000140000001e000000
+  m_guard: 0a000000140000001e000000
+  m_charge: 0a000000140000001e000000
+  m_heel: 0a000000140000001e000000
   m_startSlotL:
   - {fileID: 3268881380637817041, guid: 1fab185930d931546876edb268ce6aa5, type: 3}
   - {fileID: 6789013856110559797, guid: 11bd8081613b1254099ace18e55305fd, type: 3}

@@ -16,7 +16,7 @@ namespace victory7
         public SkillGuide[] SkillPos { get => m_skillPos; }
 
         int m_current = 0;
-        public PlayerSkill CurrentSkill { get => m_skillPos[m_current].SkillType; }
+        public SkillTypeData CurrentSkill { get => m_skillPos[m_current].SkillType; }
         public void SetData(PlayerSkill[] skill)
         {
             m_skillPos = new SkillGuide[skill.Length];

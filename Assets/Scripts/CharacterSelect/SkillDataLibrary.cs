@@ -14,5 +14,9 @@ namespace victory7
         {
             return skillTypeDatas.Where(s => s.SkillType == skill).FirstOrDefault();
         }
+        public SkillTypeData GetData(string skillName)
+        {
+            return skillTypeDatas.Where(s => s.SkillName == skillName).FirstOrDefault();
+        }
     }
 }

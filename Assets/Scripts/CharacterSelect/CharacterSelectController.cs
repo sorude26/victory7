@@ -158,7 +158,7 @@ namespace victory7
                 }
                 if (m_select)
                 {
-                    m_massage.Skill.SetData(m_dataLibrary.GetData(SelectPanel().CurrentSkill));
+                    m_massage.Skill.SetData(SelectPanel().CurrentSkill);
                     m_massage.OpenMassage();
                     m_massageOpen = true; 
                     SelectPanel().gameObject.SetActive(false);
