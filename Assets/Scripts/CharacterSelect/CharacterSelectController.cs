@@ -11,7 +11,7 @@ namespace victory7
         [SerializeField]
         string m_target = "MapScene";
         [SerializeField]
-        PlayerParameter[] m_players = default;
+        PlayerParameter[] m_playerParameters = default;
         [SerializeField]
         StartSlotDataView m_dataViewPrefab = default;
         [SerializeField]
@@ -205,21 +205,21 @@ namespace victory7
         }
         void StartSet()
         {
-            m_characters = new GameObject[m_players.Length];
-            m_characterData = new StartSlotDataView[m_players.Length];
-            m_skillPanels = new SkillPanel[m_players.Length];
-            for (int i = 0; i < m_players.Length; i++)
+            m_characters = new GameObject[m_playerParameters.Length];
+            m_characterData = new StartSlotDataView[m_playerParameters.Length];
+            m_skillPanels = new SkillPanel[m_playerParameters.Length];
+            for (int i = 0; i < m_playerParameters.Length; i++)
             {
                 var carabase = new GameObject("carabase");
                 carabase.AddComponent<RectTransform>();
                 carabase.transform.SetParent(transform);
-                Instantiate(m_players[i].Character, carabase.transform);
+                Instantiate(m_playerParameters[i].Character, carabase.transform);
                 m_characters[i] = carabase;
                 m_characters[i].transform.position = m_top.position + Vector3.up * m_size;
                 m_characterData[i] = Instantiate(m_dataViewPrefab, transform);
-                m_characterData[i].StartSet(m_players[i]);
+                m_characterData[i].StartSet(m_playerParameters[i]);
                 m_skillPanels[i] = Instantiate(m_skillPanel, transform);
-                m_skillPanels[i].SetData(m_players[i].HaveSkills);
+                m_skillPanels[i].SetData(m_playerParameters[i].HaveSkills);
                 m_skillPanels[i].gameObject.SetActive(false);
             }
             for (int i = 0; i < 3; i++)
@@ -320,11 +320,11 @@ namespace victory7
             FadeController.Instance.StartFadeOut(LoadGame);
             if (m_selectNumber + 1 < m_characterData.Length)
             {
-                GameManager.Instance.StartSet(m_players[m_selectNumber + 1],SelectPanel().CurrentSkill);
+                GameManager.Instance.StartSet(m_playerParameters[m_selectNumber + 1],SelectPanel().CurrentSkill);
             }
             else
             {
-                GameManager.Instance.StartSet(m_players[0], SelectPanel().CurrentSkill);
+                GameManager.Instance.StartSet(m_playerParameters[0], SelectPanel().CurrentSkill);
             }
             MapData.ClearReset();
         }

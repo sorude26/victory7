@@ -174,7 +174,7 @@ namespace victory7
                     SoundManager.Play(SEType.PaylineCharge);
                     break;
                 case PlayerSkill.DelayEnemy:
-                    BattleManager.Instance.AddEnemyActionCount();
+                    BattleManager.Instance.AddEnemyActionCount(m_skill.MaxCount);
                     break;
                 case PlayerSkill.DelaySlot:
                     GameManager.Instance.SlotSpeedChange(m_skill.Effect);
