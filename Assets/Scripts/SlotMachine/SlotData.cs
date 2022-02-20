@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -185,6 +186,14 @@ namespace victory7
                 }
             }
             return false;
+        }
+        public static int SevenSlotCount()
+        {
+            int count = 0;
+            count += LeftSlotData.Count(s => s.Type == SkillType.Seven);
+            count += CenterSlotData.Count(s => s.Type == SkillType.Seven);
+            count += RightSlotData.Count(s => s.Type == SkillType.Seven);
+            return count;
         }
     }
 }
