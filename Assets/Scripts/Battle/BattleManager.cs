@@ -64,16 +64,21 @@ namespace victory7
                 Player.UseSkill();
             }
         }
+        /// <summary>
+        /// 戦闘開始
+        /// </summary>
         void StartBattle()
         {
+            GameManager.Instance.SlotSpeedChange();
             var m = Instantiate(EffectManager.Instance.Text);
             m.transform.position = new Vector2(1, 0);
             m.View("Start!!",Color.red,80);
             m_start = true;
-            StartCoroutine(Battle());
+            StartCoroutine(BattleUpdate());
         }
-        
-       
+        /// <summary>
+        /// 敵全体の行動を進める
+        /// </summary>
         void EnemyUpdate()
         {
             foreach (var enemy in m_enemys)
@@ -81,6 +86,9 @@ namespace victory7
                 enemy.CharacterUpdate();
             }
         }
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
         void StartSet()
         {
             if (BattleData.Enemys != null && BattleData.Enemys.Length > 0)
@@ -105,50 +113,83 @@ namespace victory7
             }
             m_sevenSlot.gameObject.SetActive(false);
         }
+        /// <summary>
+        /// 生きているランダムな敵を返す
+        /// </summary>
+        /// <returns></returns>
+        private EnemyControl GetRandomEnemy()
+        {
+            var enemys = m_enemys.Where(e => !e.IsDead).ToArray();
+            int r = UnityEngine.Random.Range(0, enemys.Length);
+            if (enemys.Length > 0)
+            {
+                return enemys[r];
+            }
+            return null;
+        }
+        /// <summary>
+        /// 敵に指定ダメージを与える攻撃
+        /// </summary>
+        /// <param name="slotPower"></param>
         public void AttackEnemy(int slotPower)
         {
-            var enemys = m_enemys.Where(e => !e.IsDead).ToArray();
-            int r = UnityEngine.Random.Range(0, enemys.Length);
-            if (enemys.Length > 0)
-            {
-                enemys[r].Damage(m_player.GetPower(slotPower));
-            }
+            GetRandomEnemy()?.Damage(m_player.GetPower(slotPower));
             SoundManager.Play(SEType.PaylineAttack);
         }
+        /// <summary>
+        /// 敵に割合ダメージを与える攻撃
+        /// </summary>
+        /// <param name="percentage"></param>
         public void AttackEnemyPercentage(int percentage)
         {
-            var enemys = m_enemys.Where(e => !e.IsDead).ToArray();
-            int r = UnityEngine.Random.Range(0, enemys.Length);
-            if (enemys.Length > 0)
-            {
-                enemys[r].PercentageDamage(percentage);
-            }
+            GetRandomEnemy()?.PercentageDamage(percentage);
             SoundManager.Play(SEType.PaylineAttack);
         }
+        /// <summary>
+        /// 敵の回避計算を含めた割合ダメージ攻撃を行う
+        /// </summary>
+        /// <param name="percentage"></param>
         public void AttackEnemyCritical(int percentage)
         {
-            var enemys = m_enemys.Where(e => !e.IsDead).ToArray();
-            int r = UnityEngine.Random.Range(0, enemys.Length);
-            if (enemys.Length > 0)
-            {
-                enemys[r].CheckPercentageDamage(percentage);
-            }
+            GetRandomEnemy()?.CheckPercentageDamage(percentage);
             SoundManager.Play(SEType.PaylineAttack);
         }
+        /// <summary>
+        /// 指定カウント分敵の行動を遅らせる
+        /// </summary>
+        /// <param name="addCount"></param>
+        public void AddEnemyActionCount(int addCount = 1)
+        {
+            GetRandomEnemy()?.AddAttackCount(addCount);
+            SoundManager.Play(SEType.PaylineCharge);
+        }
+        /// <summary>
+        /// プレイヤーに指定ダメージを与える
+        /// </summary>
+        /// <param name="damege"></param>
         public void AttackPlayer(int damege)
         {
             m_player.Damage(damege);
             SoundManager.Play(SEType.Attack);
         }
+        /// <summary>
+        /// Fever状態に変更する
+        /// </summary>
         public void ChargeFeverTime()
         {
             SoundManager.Play(SEType.Jackpot);
             m_fever = true;
         }
+        /// <summary>
+        /// Fever状態でのカウントを増やす
+        /// </summary>
         void AddCount()
         {
             m_feverCount++;
         }
+        /// <summary>
+        /// バトル終了の判定を行う
+        /// </summary>
         public void CheckBattle()
         {
             if (BattleEnd)
@@ -177,11 +218,16 @@ namespace victory7
             }
             buildControl.gameObject.SetActive(true);
         }
-        
+        /// <summary>
+        /// フェードアウトし、シーン遷移する
+        /// </summary>
         public void NextScene()
         {
             FadeController.Instance.StartFadeOut(Next);
         }
+        /// <summary>
+        /// 戦闘後の指定シーン遷移処理
+        /// </summary>
         void Next()
         {
             if (BattleData.Next)
@@ -196,7 +242,11 @@ namespace victory7
         {
             SceneManager.LoadScene("Result");
         }
-        IEnumerator Battle()
+        /// <summary>
+        /// 戦闘中のループ
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator BattleUpdate()
         {
             while (!BattleEnd)
             {
@@ -206,12 +256,17 @@ namespace victory7
                 m_normalSlot.SlotStartInput();
                 yield return SlotWait();
                 yield return SlotChackWait();
+                Player.CharacterUpdate();
                 EnemyUpdate(); 
                 yield return null;
                 yield return BattleAction();
             }
             PlayerData.SetData(m_player.CurrentHP, m_player.CurrentSP);
         }
+        /// <summary>
+        /// 演出の順次再生を行う
+        /// </summary>
+        /// <returns></returns>
         IEnumerator EffectAction()
         {
             while (m_effectActions.Count > 0 && !BattleEnd)
@@ -221,6 +276,10 @@ namespace victory7
             }
             yield return WaitTime(0.2f);
         }
+        /// <summary>
+        /// 戦闘の順次実行を行う
+        /// </summary>
+        /// <returns></returns>
         IEnumerator BattleAction()
         {
             while (m_battleActions.Count > 0 && !BattleEnd)
@@ -230,6 +289,10 @@ namespace victory7
             }
             yield return WaitTime(0.2f);
         }
+        /// <summary>
+        /// スロット停止を待つ
+        /// </summary>
+        /// <returns></returns>
         IEnumerator SlotWait()
         {
             while (m_normalSlot.Stop && m_sevenSlot.Stop && !BattleEnd)
@@ -237,6 +300,10 @@ namespace victory7
                 yield return null;
             }
         }
+        /// <summary>
+        /// スロット停止後の演出と戦闘処理終了を待つ
+        /// </summary>
+        /// <returns></returns>
         IEnumerator SlotChackWait()
         {
             while (m_normalSlot.SpinNow && !BattleEnd)
@@ -255,6 +322,10 @@ namespace victory7
                 m_fever = false;
             }
         }
+        /// <summary>
+        /// Fever状態での演出待機処理
+        /// </summary>
+        /// <returns></returns>
         IEnumerator SlotChackFever()
         {
             while (m_sevenSlot.SpinNow && !BattleEnd)
@@ -266,6 +337,10 @@ namespace victory7
             yield return null;
             yield return BattleAction();
         }
+        /// <summary>
+        /// インターバル時間の待機
+        /// </summary>
+        /// <returns></returns>
         IEnumerator WaitTime()
         {
             float timer = m_actionInterval;
@@ -275,6 +350,11 @@ namespace victory7
                 yield return null;
             }
         }
+        /// <summary>
+        /// 指定時間待機する
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
         IEnumerator WaitTime(float time)
         {
             float timer = time;
@@ -284,6 +364,10 @@ namespace victory7
                 yield return null;
             }
         }
+        /// <summary>
+        /// Fever状態のアップデート
+        /// </summary>
+        /// <returns></returns>
         IEnumerator FeverMode()
         {
             while (m_normalSlot.CheckNow)

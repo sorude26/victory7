@@ -10,6 +10,10 @@ namespace victory7
         PercentageAttack,
         InstantDeathAttack,
         Barrier,
+        DelayEnemy,
+        DelaySlot,
+        Heel,
+        Random,
     }
     public class PlayerControl : CharacterControl
     {
@@ -26,7 +30,7 @@ namespace victory7
         protected PlayerParameter m_parameter = default;
         protected SkillTypeData m_skill = default;
         protected int m_needSp = default;
-        protected int m_guardCount = default;
+        protected int m_skillCount = default;
         protected int m_sp = default;
         protected int m_gp = default;
 
@@ -46,17 +50,9 @@ namespace victory7
         }
         public override void CharacterUpdate()
         {
-            if (m_guardCount > 0)
+            if (m_skill.SkillType == PlayerSkill.DelaySlot)
             {
-                m_guardCount--;
-            }
-            if (m_count)
-            {
-                m_count.text = "";
-                if (m_guardCount > 0)
-                {
-                    m_count.text = m_guardCount.ToString();
-                }
+                SkillCheck();
             }
             ParameterUpdate();
         }
@@ -68,8 +64,9 @@ namespace victory7
         }
         public override void Damage(int damage)
         {
-            if (m_guardCount > 0)
+            if (m_skill.SkillType == PlayerSkill.Barrier && m_skillCount > 0)
             {
+                SkillCheck();
                 CharacterUpdate();
                 EffectManager.Instance.PlayEffect(EffectType.Damage2, transform.position);
                 return;
@@ -98,8 +95,8 @@ namespace victory7
         {
             if (m_sp >= m_skill.NeedSp)
             {
-                m_sp -= m_skill.NeedSp;
-                SkillController.UseSkill(m_skill.SkillType, 3);
+                m_sp -= m_skill.NeedSp; 
+                PlaySkill();
                 ParameterUpdate();
             }
         }
@@ -121,19 +118,23 @@ namespace victory7
             ParameterUpdate();
             SoundManager.Play(SEType.PaylineGuard);
         }
-        public void HeelPlayer(int slotPower)
+        public void HeelPlayer(int heelPower)
         {
-            CurrentHP += m_parameter.Heel[slotPower];
+            CurrentHP += heelPower;
             if (CurrentHP > PlayerData.MaxHP)
             {
                 CurrentHP = PlayerData.MaxHP;
             }
             var view = Instantiate(EffectManager.Instance.Text);
             view.transform.position = this.transform.position + Vector3.up;
-            view.View("+" + m_parameter.Heel[slotPower].ToString(), Color.green);
+            view.View("+" + heelPower.ToString(), Color.green);
             EffectManager.Instance.PlayEffect(EffectType.Heel, transform.position);
             ParameterUpdate();
             SoundManager.Play(SEType.PaylineHeel);
+        }
+        public void HeelSlot(int slotPower)
+        {
+            HeelPlayer(m_parameter.Heel[slotPower]);
         }
         public void Charge(int slotPower)
         {
@@ -149,19 +150,88 @@ namespace victory7
             ParameterUpdate();
             SoundManager.Play(SEType.PaylineCharge);
         }
-        public void Barrier()
+        public void PlaySkill()
         {
-            m_guardCount = m_skill.MaxCount;
+            m_skillCount += m_skill.MaxCount;
             if (m_count)
             {
                 m_count.text = "";
-                if (m_guardCount > 0)
+                if (m_skillCount > 0)
                 {
-                    m_count.text = m_guardCount.ToString();
+                    m_count.text = m_skillCount.ToString();
                 }
             }
-            EffectManager.Instance.PlayEffect(EffectType.Guard, transform.position);
-            SoundManager.Play(SEType.PaylineCharge);
+            switch (m_skill.SkillType)
+            {
+                case PlayerSkill.PercentageAttack:
+                    BattleManager.Instance.AttackEnemyPercentage(m_skill.Damage);
+                    break;
+                case PlayerSkill.InstantDeathAttack:
+                    BattleManager.Instance.AttackEnemyCritical(m_skill.Damage);
+                    break;
+                case PlayerSkill.Barrier:
+                    EffectManager.Instance.PlayEffect(EffectType.Guard, transform.position);
+                    SoundManager.Play(SEType.PaylineCharge);
+                    break;
+                case PlayerSkill.DelayEnemy:
+                    BattleManager.Instance.AddEnemyActionCount();
+                    break;
+                case PlayerSkill.DelaySlot:
+                    GameManager.Instance.SlotSpeedChange(m_skill.Effect);
+                    EffectManager.Instance.PlayEffect(EffectType.Guard, transform.position);
+                    SoundManager.Play(SEType.PaylineCharge);
+                    break;
+                case PlayerSkill.Heel:
+                    HeelPlayer((int)(PlayerData.MaxHP * m_skill.Effect));
+                    break;
+                case PlayerSkill.Random:
+                    int r = Random.Range(0, 4);
+                    if (r == 0)
+                    {
+                        BattleManager.Instance.AttackEnemy(2);
+                    }
+                    else if (r == 1)
+                    {
+                        BattleManager.Instance.Player?.AddGuard(2);
+                    }
+                    else if (r == 2)
+                    {
+                        BattleManager.Instance.Player?.HeelSlot(2);
+                    }
+                    else
+                    {
+                        BattleManager.Instance.AttackEnemyCritical(m_skill.Damage);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void SkillCheck()
+        {
+            if (m_skillCount > 0)
+            {
+                m_skillCount--;
+                if (m_count)
+                {
+                    m_count.text = "";
+                    if (m_skillCount > 0)
+                    {
+                        m_count.text = m_skillCount.ToString();
+                    }
+                    else
+                    {
+                        switch (m_skill.SkillType)
+                        {
+                            case PlayerSkill.DelaySlot:
+                                GameManager.Instance.SlotSpeedChange();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
