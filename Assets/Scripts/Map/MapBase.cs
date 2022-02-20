@@ -118,7 +118,7 @@ namespace victory7
             {
                 m_player.transform.position = m_bossPos;
                 MapData.Reset();
-                if (m_randomNextScenes != null)
+                if (m_randomNextScenes.Length > 1)
                 {
                     int r = Random.Range(0, m_randomNextScenes.Length);
                     BattleData.SetMap(m_randomNextScenes[r]);
