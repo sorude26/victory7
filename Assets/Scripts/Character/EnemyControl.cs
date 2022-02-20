@@ -95,6 +95,22 @@ namespace victory7
             }
             return false;
         }
+        public void AddAttackCount(int addCount = 1)
+        {
+            for (int i = 0; i < m_attackCounts.Length; i++)
+            {
+                m_attackCounts[i] += addCount;
+            }
+            if (m_count)
+            {
+                m_count.text = "";
+                foreach (var attackCount in m_attackCounts)
+                {
+                    m_count.text += attackCount + ",";
+                }
+            }
+            EffectManager.Instance.PlayEffect(EffectType.Damage2, transform.position);
+        }
         void GameOut()
         {
             EffectManager.Instance.PlayEffect(EffectType.Damage3, transform.position);

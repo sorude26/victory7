@@ -17,7 +17,7 @@ namespace victory7
         Slot[] m_allSlot = default;
         [SerializeField]
         bool m_test = default;
-
+        public float AllSlotSpeed { get; private set; } = 1f;
         public Slot[] AllSlot { get => m_allSlot; }
         private void Awake()
         {
@@ -52,6 +52,10 @@ namespace victory7
             parameter.SetMaxSp(skill.NeedSp);
             PlayerData.StartSet(parameter);
             PlayerData.SetSkill(skill);
+        }
+        public void SlotSpeedChange(float speed = 1f)
+        {
+            AllSlotSpeed = speed;
         }
     }
 }

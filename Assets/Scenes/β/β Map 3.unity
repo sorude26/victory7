@@ -1601,6 +1601,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7498471048171842519, guid: 23f48f43afd95ef4f8123f5bc22f8612,
         type: 3}
+      propertyPath: m_randomBattleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498471048171842519, guid: 23f48f43afd95ef4f8123f5bc22f8612,
+        type: 3}
+      propertyPath: m_battlePointDataEx
+      value: 
+      objectReference: {fileID: 11400000, guid: 8fd021569dcda0e48a14a8bed92129ca,
+        type: 2}
+    - target: {fileID: 7498471048171842519, guid: 23f48f43afd95ef4f8123f5bc22f8612,
+        type: 3}
       propertyPath: m_mapLines.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 42b4e32e5f101fa4189409fd4bd8a119,

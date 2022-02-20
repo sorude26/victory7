@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be0343c791bb15442bece96cfe315c1a, type: 3}
-  m_Name: SkillData3
+  m_Name: SkillData4
   m_EditorClassIdentifier: 
-  m_skillType: 1
-  m_skillName: "\u60AA\u9B54\u306E\u60AA\u622F"
-  m_skillGuide: "\u78BA\u7387\u5373\u6B7B"
-  m_needSp: 50
-  m_maxCount: 3
-  m_effect: 1
-  m_damage: 100
+  m_skillType: 3
+  m_skillName: "\u6575\u884C\u52D5\u9045\u5EF6"
+  m_skillGuide: "1\u30AB\u30A6\u30F3\u30C8\u9045\u5EF6\u3059\u308B"
+  m_needSp: 30
+  m_maxCount: 0
+  m_effect: 0
+  m_damage: 0

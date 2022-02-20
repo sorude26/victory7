@@ -40,7 +40,10 @@ namespace victory7
         }
         public float SlotSpeed
         {
-            get => m_slotSpeed;
+            get 
+            {
+                return m_slotSize * m_line.Count * m_slotSpeed / RotationTime * GameManager.Instance.AllSlotSpeed; 
+            }
             set
             {
                 if (value > 0)
@@ -89,7 +92,7 @@ namespace victory7
             SlotMove = true;
             while (Move)
             {
-                posY -= m_slotSize * m_line.Count * m_slotSpeed / RotationTime * Time.deltaTime;
+                posY -= SlotSpeed * Time.deltaTime;
                 if (posY < -m_slotSize)
                 {
                     posY = 0;

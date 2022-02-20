@@ -29,6 +29,8 @@ namespace victory7
         [SerializeField]
         float m_stopSpan = 0.5f;
         [SerializeField]
+        float m_stopWaitSpan = 0.2f;
+        [SerializeField]
         SEType m_stopSE = SEType.StopSpin;
         [SerializeField]
         LineControl m_lineControl = default;
@@ -38,10 +40,6 @@ namespace victory7
         public bool SpinNow { get; private set; } = false;
         public event Action StopSlot;
 
-        //void Start()
-        //{
-        //    StartSet();
-        //}
         public void StartSet()
         {
             if (m_slider)
@@ -223,33 +221,33 @@ namespace victory7
         IEnumerator SpanStop1()
         {
             CheckNow = true;
-            yield return new WaitForSeconds(m_stopSpan);
+            yield return WaitTime(m_stopSpan);
             m_leftLine.Move = false;
-            yield return new WaitForSeconds(m_stopSpan);
+            yield return WaitTime(m_stopSpan);
             m_centerLine.TargetStop(m_leftLine.CrrentNum);
-            yield return new WaitForSeconds(m_stopSpan);
+            yield return WaitTime(m_stopSpan);
             m_rightLine.TargetStop(m_leftLine.CrrentNum);
             CheckSlot();
         }
         IEnumerator SpanStop2()
         {
             CheckNow = true;
-            yield return new WaitForSeconds(m_stopSpan);
+            yield return WaitTime(m_stopSpan);
             m_rightLine.Move = false;
-            yield return new WaitForSeconds(m_stopSpan);
+            yield return WaitTime(m_stopSpan);
             m_centerLine.TargetStop(m_rightLine.CrrentNum);
-            yield return new WaitForSeconds(m_stopSpan);
+            yield return WaitTime(m_stopSpan);
             m_leftLine.TargetStop(m_rightLine.CrrentNum);
             CheckSlot();
         }
         IEnumerator SpanStop3()
         {
             CheckNow = true;
-            yield return new WaitForSeconds(m_stopSpan);
+            yield return WaitTime(m_stopSpan);
             m_centerLine.Move = false;
-            yield return new WaitForSeconds(m_stopSpan);
+            yield return WaitTime(m_stopSpan);
             m_leftLine.TargetStop(m_centerLine.CrrentNum);
-            yield return new WaitForSeconds(m_stopSpan);
+            yield return WaitTime(m_stopSpan);
             m_rightLine.TargetStop(m_centerLine.CrrentNum);
             CheckSlot();
         }
@@ -263,7 +261,7 @@ namespace victory7
         }
         IEnumerator Check()
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return WaitTime(m_stopWaitSpan);
             if (CheckDiagonalLineUP())
             {
                 BattleManager.Instance.EffectActions.Push(()=> m_lineControl.PlayLine(4)); 
@@ -289,7 +287,7 @@ namespace victory7
                 BattleManager.Instance.EffectActions.Push(() => m_lineControl.PlayLine(0));
                 m_leftLine.GetSlot(1).PlayEffect();
             }
-            yield return new WaitForSeconds(0.2f);
+            yield return WaitTime(m_stopWaitSpan);
             SpinNow = false;
             StopSlot?.Invoke();
         }
@@ -370,6 +368,15 @@ namespace victory7
             else
             {
                 return false;
+            }
+        }
+        IEnumerator WaitTime(float time)
+        {
+            float timer = time;
+            while (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                yield return null;
             }
         }
     }
