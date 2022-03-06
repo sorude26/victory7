@@ -6,6 +6,7 @@ namespace victory7
 {
     public class MapData
     {
+        public static MapPatternData CurrentMap { get; private set; }
         public static int ClearStageCount { get; private set; }
         public static int BattleCount { get; private set; }
         public static bool Create { get; private set; }
@@ -15,14 +16,14 @@ namespace victory7
             Create = true;
             PlayerPos = playerPos;
         }
-        public static void Reset()
+        public static void PositionReset()
         {
             Create = false;
             PlayerPos = Vector2Int.zero;
         }
         public static void ClearReset()
         {
-            Reset();
+            PositionReset();
             ClearStageCount = 0;
             BattleCount = 0;
         }
@@ -33,6 +34,14 @@ namespace victory7
         public static void AddBattleCount()
         {
             BattleCount++;
+        }
+        public static void SetStartMap(MapPatternData data)
+        {
+            CurrentMap = data;
+        }
+        public static void SetNextMap()
+        {
+            CurrentMap = CurrentMap.GetNextMap();
         }
     }
 }
