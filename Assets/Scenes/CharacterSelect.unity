@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: "\u03B2 Map 1"
-  m_players:
+  m_playerParameters:
   - {fileID: 11400000, guid: 3a9e615bdb0cce64eaec44c7867e5926, type: 2}
   - {fileID: 11400000, guid: 3c78fbc18d6b08e4bb539a657342a1c6, type: 2}
   - {fileID: 11400000, guid: 3a9e615bdb0cce64eaec44c7867e5926, type: 2}
