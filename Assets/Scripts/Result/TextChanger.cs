@@ -20,21 +20,30 @@ namespace victory7
         [Header("受け取りたい変数の番号")]
         [SerializeField] int m_takeNum = default;
 
-        int m_myScore = default;//変数を受け取り反映する変数
+        [SerializeField]
+        [Header("戦闘勝利回数を参照するスコア計算用の数値")]
+        int m_scoreCalculation = 100;
 
-        readonly int m_test00 = default;
+        [SerializeField]
+        [Header("クリアマップ数を参照するスコア計算用の数値")]
+        int m_scoreCalculationForClearMapCount = 2500;
+
+        int m_myScore = default;//変数を受け取り反映する変数
 
         int m_ClearStageCountData;
         int m_victoryCount;
         int m_sevenSlot;
 
         
-        bool m_start = default;
+        bool m_start = false;
 
-        bool m_flag = default;
+        bool m_flag = false;
 
-        bool m_jump = default;
+        bool m_jump = false;
 
+        public int Score => m_handOverScore;
+
+        int m_handOverScore;
 
         private void Awake()
         {
@@ -65,7 +74,15 @@ namespace victory7
             }
             else if(m_takeNum == 4)
             {
-                m_myScore = m_test00;
+                if(m_ClearStageCountData == 0)
+                {
+                    m_myScore = m_victoryCount * m_scoreCalculation;
+                }
+                else
+                {
+                    m_myScore = (m_victoryCount * m_scoreCalculation) + ((m_ClearStageCountData - 1) * m_scoreCalculationForClearMapCount) + 10000;
+                }
+                m_handOverScore = m_myScore;
             }
         }
 
@@ -73,9 +90,9 @@ namespace victory7
         {
             if (!m_jump && Input.GetButtonDown("Jump"))
             {
-                AddScore();
                 StartCoroutine(WaitInput());
                 m_jump = true;
+                AddScore();
             }
             if(m_flag && Input.GetButtonDown("Jump"))
             {
