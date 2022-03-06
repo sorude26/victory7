@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace victory7
@@ -10,38 +11,15 @@ namespace victory7
         GameObject m_player = default;
         [SerializeField]
         GameObject m_target = default;
-        [Header("配置ラインデータ")]
         [SerializeField]
-        MapLine[] m_mapLines = default;
-        [Header("通常戦闘パターンデータ")]
-        [SerializeField]
-        MapPointData[] m_battlePointData = default;
-        [Header("ランダムなバトルパターンのフラグ")]
-        [SerializeField]
-        bool m_randomBattleMode = default;
-        [Header("特殊戦闘パターンデータ")]
-        [SerializeField]
-        MapPointData m_battlePointDataEx = default;
-        [Header("ボス戦闘パターンデータ")]
-        [SerializeField]
-        MapPointData m_bossPointData = default;
+        Image m_background = default;
         [Header("遷移先シーン名")]
         [SerializeField]
         string m_targetScene = "BattleTest";
-        [Header("MapClear後遷移先Mapシーン名")]
-        [SerializeField]
-        string m_targetNextScene = "NextMap";
-        [Header("ランダムな遷移先シーン名")]
-        [SerializeField]
-        string[] m_randomNextScenes = default;
-        [SerializeField]
-        Vector2 m_mapSize = Vector2.one;
         [SerializeField]
         MapPoint m_bossPoint = default;
         [SerializeField]
         GameObject m_startPoint = default;
-        [SerializeField]
-        float m_startAndGoalPos = 1.5f;
         [SerializeField]
         RemoveSlotControl m_removeSlot = default;
         [SerializeField]
@@ -60,7 +38,6 @@ namespace victory7
         MapEventControlBase m_currentEvent = default;
         List<MapPoint> m_targetPos = default;
         List<MapPoint>[] m_mapData = default;
-
         private void Start()
         {
             m_create = MapData.Create;
@@ -73,6 +50,7 @@ namespace victory7
             m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
             FadeController.Instance?.StartFadeIn(() => m_gard = false);
             m_gard = true;
+            m_background.sprite = MapData.CurrentMap.Background;
         }
         private void Update()
         {
@@ -117,17 +95,9 @@ namespace victory7
             if (m_targetPos.Count <= 0)
             {
                 m_player.transform.position = m_bossPos;
-                MapData.Reset();
-                if (m_randomNextScenes.Length > 1)
-                {
-                    int r = Random.Range(0, m_randomNextScenes.Length);
-                    BattleData.SetMap(m_randomNextScenes[r]);
-                }
-                else
-                {
-                    BattleData.SetMap(m_targetNextScene);
-                }
-                BattleData.SetData(m_bossPointData);
+                MapData.PositionReset();
+                BattleData.SetData(MapData.CurrentMap.BossBattleData);
+                BattleData.Next = true;
                 FadeController.Instance.StartFadeOut(Battle);
                 return;
             }
@@ -195,16 +165,11 @@ namespace victory7
             MapData.SetData(new Vector2Int(lineNumber, posNumber));
             if (typeNumber < 0)
             {
-                BattleData.SetData(m_battlePointDataEx);
-            }
-            else if (m_randomBattleMode)
-            {
-                int r = Random.Range(0, m_battlePointData.Length);
-                BattleData.SetData(m_battlePointData[r]);
+                BattleData.SetData(MapData.CurrentMap.ExBattleData);
             }
             else
             {
-                BattleData.SetData(m_battlePointData[typeNumber]);
+                BattleData.SetData(MapData.CurrentMap.GetNormalBattle());
             }
             FadeController.Instance.StartFadeOut(Battle);
         }
@@ -239,36 +204,39 @@ namespace victory7
         }
         void CreateMap()
         {
-            if (m_mapLines.Length <= 0)
+            var mapLines = MapData.CurrentMap.MapLines;
+            var mapSize = MapData.CurrentMap.MapSize;
+            if (mapLines.Length <= 0)
             {
                 Debug.LogError("マップ横軸データが足りません");
                 return;
             }
-            m_mapData = new List<MapPoint>[m_mapLines.Length];
+            m_mapData = new List<MapPoint>[mapLines.Length];
             for (int i = 0; i < m_mapData.Length; i++)
             {
                 m_mapData[i] = new List<MapPoint>();
             }
-            float lineSpan = m_mapSize.y / (m_mapLines.Length - 1);
-            Vector2 startPos = -m_mapSize / 2;
+            float lineSpan = mapLines.Length > 1 ? mapSize.y / (mapLines.Length - 1) : 0;
+            Vector2 startPos = -mapSize / 2;
             var boss = Instantiate(m_bossPoint);
-            boss.transform.position = new Vector2(m_mapSize.x + startPos.x + m_startAndGoalPos, 0);
+            boss.transform.position = new Vector2(mapSize.x + startPos.x + MapData.CurrentMap.PointRange, 0);
             boss.transform.SetParent(transform);
             m_bossPos = boss.transform.position;
             var start = Instantiate(m_startPoint);
-            start.transform.position = new Vector2(startPos.x - m_startAndGoalPos, 0);
+            start.transform.position = new Vector2(startPos.x - MapData.CurrentMap.PointRange, 0);
             start.transform.SetParent(transform);
             m_player.transform.position = start.transform.position;
-            for (int i = 0; i < m_mapLines.Length; i++)
+            for (int i = 0; i < mapLines.Length; i++)
             {
                 Vector2 front = start.transform.position;
-                for (int k = 0; k < m_mapLines[i].Points.Length; k++)
+                for (int k = 0; k < mapLines[i].Points.Length; k++)
                 {
-                    var map = Instantiate(m_mapLines[i].Points[k]);
-                    map.transform.position = new Vector2(m_mapSize.x / (m_mapLines[i].Points.Length - 1) * k, i * lineSpan) + startPos;
+                    var map = Instantiate(mapLines[i].Points[k]);
+                    float pointSpan = mapLines[i].Points.Length > 1 ? mapSize.x / (mapLines[i].Points.Length - 1) : 0;
+                    map.transform.position = new Vector2(k * pointSpan, i * lineSpan) + startPos;
                     map.SetData(i, k);
-                    map.SetUpTarget(m_mapLines[i].TargetPointU[k]);
-                    map.SetDownTarget(m_mapLines[i].TargetPointD[k]);
+                    map.SetUpTarget(mapLines[i].TargetPointU[k]);
+                    map.SetDownTarget(mapLines[i].TargetPointD[k]);
                     map.transform.SetParent(transform);
                     m_mapData[i].Add(map);
                     map.DrawLine(front, map.transform.position);

@@ -7,16 +7,22 @@ namespace victory7
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
+
+        [Header("ゲーム開始時に選択されるマップデータ")]
         [SerializeField]
-        PlayerParameter m_startParameter = default;
-        [SerializeField]
-        Slot[] m_slotStart = default;
+        MapPatternData[] m_startMapData = default;
         [SerializeField]
         Slot[] m_slotSeven = default;
         [SerializeField]
         Slot[] m_allSlot = default;
         [SerializeField]
         bool m_test = default;
+        [SerializeField]
+        PlayerParameter m_testParameter = default;
+        [SerializeField]
+        SkillTypeData m_testSkill = default;
+        [SerializeField]
+        Slot[] m_slotStart = default;
         public float AllSlotSpeed { get; private set; } = 1f;
         public Slot[] AllSlot { get => m_allSlot; }
         private void Awake()
@@ -40,7 +46,9 @@ namespace victory7
             {
                 SlotData.ShuffleSlot(i);
             }
-            PlayerData.StartSet(m_startParameter);
+            PlayerData.StartSet(m_testParameter);
+            PlayerData.SetSkill(m_testSkill);
+            MapData.SetStartMap(m_startMapData[Random.Range(0, m_startMapData.Length)]);
         }
         public void StartSet(PlayerParameter parameter,SkillTypeData skill)
         {
@@ -52,6 +60,7 @@ namespace victory7
             parameter.SetMaxSp(skill.NeedSp);
             PlayerData.StartSet(parameter);
             PlayerData.SetSkill(skill);
+            MapData.SetStartMap(m_startMapData[Random.Range(0, m_startMapData.Length)]);
         }
         public void SlotSpeedChange(float speed = 1f)
         {

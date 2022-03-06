@@ -304,8 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d2842327175cc45a4e7e46c8d8f3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_target: "\u03B2 Map 1"
-  m_players:
+  m_target: MapScene
+  m_playerParameters:
   - {fileID: 11400000, guid: 3a9e615bdb0cce64eaec44c7867e5926, type: 2}
   - {fileID: 11400000, guid: 3c78fbc18d6b08e4bb539a657342a1c6, type: 2}
   - {fileID: 11400000, guid: 3a9e615bdb0cce64eaec44c7867e5926, type: 2}
@@ -314,7 +314,7 @@ MonoBehaviour:
     type: 3}
   m_top: {fileID: 1949755458}
   m_bottom: {fileID: 1426879490}
-  m_size: 800
+  m_size: 1000
   m_speed: 2
   m_skillPanel: {fileID: 123106098063731160, guid: 48a5f3c9ae627ec4f92401176be09fde,
     type: 3}
@@ -378,7 +378,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 01572b42c7be4094ab45284904380f59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52a43284c8882f141b88da3cc75f35c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -465,7 +465,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u306F\u3044"
+  m_Text: OK
 --- !u!222 &401636050
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1125,7 +1125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1144,7 +1144,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u3044\u3044\u3048"
+  m_Text: Cancel
 --- !u!222 &1071401736
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1208,13 +1208,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5424528, g: 1, b: 0.72367734, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 01572b42c7be4094ab45284904380f59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8eb3dd422ed0b33478ec1b2e933f570d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1280,7 +1280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: -800}
+  m_AnchoredPosition: {x: -400, y: -1000}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1472518338
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 01572b42c7be4094ab45284904380f59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52a43284c8882f141b88da3cc75f35c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1538,7 +1538,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2000, y: 1100}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1894847625
 MonoBehaviour:
@@ -1553,13 +1553,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.25511748, g: 0.36294657, b: 0.3679245, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: db58b2802b15b9d448912ac8d2d48272, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1609,6 +1609,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: 800}
+  m_AnchoredPosition: {x: -400, y: 1000}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
