@@ -26,6 +26,8 @@ namespace victory7
         [SerializeField]
         BuildControl buildControl = default;
         [SerializeField]
+        UnityEngine.UI.Image m_background = default;
+        [SerializeField]
         int m_maxFeverCount = 5;
         [SerializeField]
         float m_actionInterval = 1f;
@@ -112,6 +114,7 @@ namespace victory7
                 enemy.StartSet();
             }
             m_sevenSlot.gameObject.SetActive(false);
+            m_background.sprite = MapData.CurrentMap.BattleBackground;
         }
         /// <summary>
         /// 生きているランダムな敵を返す
@@ -233,8 +236,8 @@ namespace victory7
             if (BattleData.Next)
             {
                 BattleData.Next = false;
+                MapData.SetNextMap();
                 MapData.AddClearCount();
-                m_targetScene = BattleData.NextMap;
             }
             SceneManager.LoadScene(m_targetScene);
         }
