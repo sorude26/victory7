@@ -15,15 +15,18 @@ MonoBehaviour:
   m_background: {fileID: 21300000, guid: 95c35916863a8554cbc1c29e44169e31, type: 3}
   m_battlebackground: {fileID: 21300000, guid: 991eef714b75bae4ea591f7ac141b2a4, type: 3}
   m_mapLines:
-  - {fileID: 11400000, guid: 6fbca94bacf043348a245a3270d6438d, type: 2}
+  - {fileID: 11400000, guid: 091c6d55bd0782a42a7eb8d47d9e089c, type: 2}
+  - {fileID: 11400000, guid: 2b040f762744bf14986871d541f3101e, type: 2}
+  - {fileID: 11400000, guid: 112b03eef03fc84429c3e7f6cefcf0da, type: 2}
+  - {fileID: 11400000, guid: e42b6eaaafe1dbe4e8c99782a23a325f, type: 2}
   m_battlePointData:
-  - {fileID: 11400000, guid: f9aeb5d333839ac4b96edc8871544e7a, type: 2}
-  - {fileID: 11400000, guid: a6aae9b9cd4078f4cb1baf738028fb70, type: 2}
-  - {fileID: 11400000, guid: a644b4290ed993344aaac936e4d5ccc2, type: 2}
-  m_battlePointDataEx: {fileID: 11400000, guid: 8fd021569dcda0e48a14a8bed92129ca,
+  - {fileID: 11400000, guid: e014d8cc89a1c8341a797b4035f88b29, type: 2}
+  - {fileID: 11400000, guid: 24e331054c8d9ed48b3e5b5c179bfe9d, type: 2}
+  - {fileID: 11400000, guid: 626c1fa701ad5af47b4f77faf7c4ebba, type: 2}
+  m_battlePointDataEx: {fileID: 11400000, guid: 8f637e18d2f030e409d7bebad92effd1,
     type: 2}
-  m_bossPointData: {fileID: 11400000, guid: b2f61b22c0695e345bb5fb1a1ee493f2, type: 2}
+  m_bossPointData: {fileID: 11400000, guid: 11cc5156f296dbe4ab0dfb6d22742305, type: 2}
   m_randomNextMap:
   - {fileID: 11400000, guid: 1f2d414c101874042be12c89684b5899, type: 2}
-  m_mapSize: {x: 10, y: 0}
+  m_mapSize: {x: 10, y: 6}
   m_pointRange: 2

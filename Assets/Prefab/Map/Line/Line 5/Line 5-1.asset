@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca090d53bcc5d7141968c81366215f90, type: 3}
+  m_Name: Line 5-1
+  m_EditorClassIdentifier: 
+  m_points:
+  - {fileID: 4337002160181864305, guid: c127a38caeb964644b6d5404904f60ba, type: 3}
+  - {fileID: 5625752041705602167, guid: a336e1a6e8e61bb488fb258256648499, type: 3}
+  - {fileID: 4337002160181864305, guid: c127a38caeb964644b6d5404904f60ba, type: 3}
+  - {fileID: 4337002160181864305, guid: c127a38caeb964644b6d5404904f60ba, type: 3}
+  - {fileID: 836689917570684288, guid: 09c2a60f8af33f242961e3e34805950c, type: 3}
+  m_targetPointU: 0000000000000000000000000000000000000000
+  m_targetPointD: 0000000000000000000000000000000000000000
