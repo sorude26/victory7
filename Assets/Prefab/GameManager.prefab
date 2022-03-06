@@ -43,12 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a6c2db6d5b87b49a627310eb0de687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_startParameter: {fileID: 11400000, guid: 17ffb6d087d5a7e4f8cea5fedf463dfe, type: 2}
-  m_slotStart:
-  - {fileID: 8206175632662022187, guid: 9106770d4fc11474ca06f9a91dabd659, type: 3}
-  - {fileID: 3268881380637817041, guid: 1fab185930d931546876edb268ce6aa5, type: 3}
-  - {fileID: 6983066875947716018, guid: 001c4c63a7fec9646afeff7cba4ae3eb, type: 3}
-  - {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309, type: 3}
+  m_startMapData:
+  - {fileID: 11400000, guid: e72969d46dfb9e4408c7c95dd3ddd985, type: 2}
+  - {fileID: 11400000, guid: 1f2d414c101874042be12c89684b5899, type: 2}
   m_slotSeven:
   - {fileID: 8109587253676642796, guid: deed7f1d69453a544ab303164769dbae, type: 3}
   - {fileID: 3795590828439321476, guid: c19c36947cc787b4aaf162e1654da020, type: 3}
@@ -72,3 +69,11 @@ MonoBehaviour:
   - {fileID: 794655207228679121, guid: bc303e54d52483241ad9e2edb987a467, type: 3}
   - {fileID: 3286767256574736880, guid: 4c065ea6fd5397645a2ecc202dcf5b86, type: 3}
   - {fileID: 2917220759940342510, guid: a39ef7255ebb78643a63f50035123781, type: 3}
+  m_test: 0
+  m_testParameter: {fileID: 11400000, guid: 17ffb6d087d5a7e4f8cea5fedf463dfe, type: 2}
+  m_testSkill: {fileID: 11400000, guid: 6bef5fc5e465746498a826de5087766d, type: 2}
+  m_slotStart:
+  - {fileID: 8206175632662022187, guid: 9106770d4fc11474ca06f9a91dabd659, type: 3}
+  - {fileID: 3268881380637817041, guid: 1fab185930d931546876edb268ce6aa5, type: 3}
+  - {fileID: 6983066875947716018, guid: 001c4c63a7fec9646afeff7cba4ae3eb, type: 3}
+  - {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309, type: 3}
