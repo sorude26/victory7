@@ -17,8 +17,8 @@ namespace victory7
         [Header("スコアが表示されるまでの秒数")]
         [SerializeField] float m_scoreChangeInterval = 2f;
 
-        [Header("受け取りたい変数名")]
-        [SerializeField] string m_takeOverName = default;
+        [Header("受け取りたい変数の番号")]
+        [SerializeField] int m_takeNum = default;
 
         int m_myScore = default;//変数を受け取り反映する変数
 
@@ -36,7 +36,7 @@ namespace victory7
         bool m_jump = default;
 
 
-        void Start()
+        private void Awake()
         {
             m_scoreText = GetComponent<Text>();
 
@@ -47,20 +47,23 @@ namespace victory7
             m_sevenSlot = SlotData.SevenSlotCount();
 
             FadeController.Instance.StartFadeIn(() => m_start = true);
+        }
 
-            if (nameof(m_ClearStageCountData) == m_takeOverName)
+        private void Start()
+        {
+            if (m_takeNum == 1)
             {
                 m_myScore = m_ClearStageCountData; 
             }   
-            else if(nameof(m_victoryCount) == m_takeOverName)
+            else if(m_takeNum == 2)
             {
                 m_myScore = m_victoryCount;
             }
-            else if(nameof(m_sevenSlot) == m_takeOverName)
+            else if(m_takeNum == 3)
             {
                 m_myScore = m_sevenSlot;
             }
-            else if(nameof(m_test00) == m_takeOverName)
+            else if(m_takeNum == 4)
             {
                 m_myScore = m_test00;
             }

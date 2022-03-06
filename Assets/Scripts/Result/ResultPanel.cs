@@ -8,9 +8,7 @@ namespace victory7
     public class ResultPanel : MonoBehaviour
     {
         [SerializeField]
-        RectTransform[] m_line = default;
-        [SerializeField]
-        float m_slotScale = 1.5f;
+        RectTransform[] m_base = default;
 
         List<Slot> m_leftData;
         List<Slot> m_centerData;
@@ -36,22 +34,16 @@ namespace victory7
         }
         void SetResultSlot()
         {
-            foreach (var slot in m_leftData)
-            {
-                var data = Instantiate(slot, m_line[0]);
-                data.transform.position = m_line[0].position;
-            }
-            foreach (var slot in m_centerData)
-            {
-                var data = Instantiate(slot, m_line[1]);
-                data.transform.position = m_line[1].position;
+            Placement(m_leftData);
+            Placement(m_centerData);
+            Placement(m_rightData);
+        }
 
-            }
-            foreach (var slot in m_rightData)
+        void Placement(List<Slot> list)
+        {
+            for (int i = 0; i < list.Count; i++)
             {
-                var data = Instantiate(slot, m_line[2]);
-                data.transform.position = m_line[2].position;
-
+                list.ForEach(x => Instantiate(x,m_base[i]).transform.position = m_base[i].position);
             }
         }
     }
