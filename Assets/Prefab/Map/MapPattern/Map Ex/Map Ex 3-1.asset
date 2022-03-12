@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3643efe7d218ae48a23d45d40816964, type: 3}
+  m_Name: Map Ex 3-1
+  m_EditorClassIdentifier: 
+  m_background: {fileID: 21300000, guid: 6a578c0a20442da46b8d258745329b9c, type: 3}
+  m_battlebackground: {fileID: 21300000, guid: 155fd215e21c808489691316a6128d13, type: 3}
+  m_mapLines:
+  - {fileID: 11400000, guid: 091c6d55bd0782a42a7eb8d47d9e089c, type: 2}
+  - {fileID: 11400000, guid: 2b040f762744bf14986871d541f3101e, type: 2}
+  - {fileID: 11400000, guid: 112b03eef03fc84429c3e7f6cefcf0da, type: 2}
+  - {fileID: 11400000, guid: e42b6eaaafe1dbe4e8c99782a23a325f, type: 2}
+  m_battlePointData:
+  - {fileID: 11400000, guid: 80405c6b5d59ebf4cb27f41565a1b29a, type: 2}
+  - {fileID: 11400000, guid: 77001efaf70a7e84e973d9543312b4f8, type: 2}
+  - {fileID: 11400000, guid: 8f57137d4ab20d84b9c5130e21811b27, type: 2}
+  m_battlePointDataEx: {fileID: 11400000, guid: 8fd021569dcda0e48a14a8bed92129ca,
+    type: 2}
+  m_bossPointData: {fileID: 11400000, guid: 6e70527b7cb0e1247a6a044d71915e85, type: 2}
+  m_randomNextMap:
+  - {fileID: 11400000, guid: 1b77d5a8704a9674e8ee95b0ea97bdfb, type: 2}
+  - {fileID: 11400000, guid: 0fda21dbd7fb69d4c877250da4c325a8, type: 2}
+  - {fileID: 11400000, guid: fb207a40256de3d43aa4875bfa910b6a, type: 2}
+  - {fileID: 11400000, guid: c4e56d61678a13747b3e431aba283eb8, type: 2}
+  - {fileID: 11400000, guid: 487aeddb98053274abc8aba6ea923863, type: 2}
+  - {fileID: 11400000, guid: 195aa6110188c9b4a9f1c18832f8c0d7, type: 2}
+  - {fileID: 11400000, guid: 18bee09c892404648845c3d41be7de55, type: 2}
+  - {fileID: 11400000, guid: 157dd08712a634743961ef42b074b726, type: 2}
+  - {fileID: 11400000, guid: 3690c536da4380f4687c952a1c713ead, type: 2}
+  - {fileID: 11400000, guid: f9d42af3997cc2248965c2ee8932ac88, type: 2}
+  - {fileID: 11400000, guid: 58f6ef169c91f81429b2ff2df38dd4d2, type: 2}
+  - {fileID: 11400000, guid: 140bb29b7df068e44800bbb60312b30a, type: 2}
+  - {fileID: 11400000, guid: c1e8b190b030f1e4da2e9a0f5f2fcf99, type: 2}
+  - {fileID: 11400000, guid: b552e85b7bc306b42a52f3875ae7d9b9, type: 2}
+  - {fileID: 11400000, guid: 7df806d0dae8ba946a5892ea4aa4623e, type: 2}
+  - {fileID: 11400000, guid: 4826f79c7a39ed64994fda666293d59e, type: 2}
+  - {fileID: 11400000, guid: c5675da1742db4140af4d172e10c608c, type: 2}
+  - {fileID: 11400000, guid: 333eb2decee45ff4c8cf546edc0c1878, type: 2}
+  - {fileID: 11400000, guid: a8a9b774b5944f548a3f9a504e349132, type: 2}
+  - {fileID: 11400000, guid: 248d6c4bb6a9d2a48b2e05fe4bdca27d, type: 2}
+  m_mapSize: {x: 10, y: 6}
+  m_pointRange: 2

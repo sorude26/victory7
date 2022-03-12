@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3643efe7d218ae48a23d45d40816964, type: 3}
+  m_Name: Map 1-3
+  m_EditorClassIdentifier: 
+  m_background: {fileID: 21300000, guid: 030c7c632d636214285e02d1d7bde009, type: 3}
+  m_battlebackground: {fileID: 21300000, guid: 991eef714b75bae4ea591f7ac141b2a4, type: 3}
+  m_mapLines:
+  - {fileID: 11400000, guid: cb7e81617b1f0414d9017bfe816ec939, type: 2}
+  - {fileID: 11400000, guid: fa737228a5c74fa49bb07e6294b5a9b3, type: 2}
+  - {fileID: 11400000, guid: c39fb73fc59ca0c438e59ae13a355fbd, type: 2}
+  - {fileID: 11400000, guid: d8024079ffba1ea4e8373ed95a11944f, type: 2}
+  m_battlePointData:
+  - {fileID: 11400000, guid: e014d8cc89a1c8341a797b4035f88b29, type: 2}
+  - {fileID: 11400000, guid: 24e331054c8d9ed48b3e5b5c179bfe9d, type: 2}
+  - {fileID: 11400000, guid: 626c1fa701ad5af47b4f77faf7c4ebba, type: 2}
+  m_battlePointDataEx: {fileID: 11400000, guid: 8fd021569dcda0e48a14a8bed92129ca,
+    type: 2}
+  m_bossPointData: {fileID: 11400000, guid: 11cc5156f296dbe4ab0dfb6d22742305, type: 2}
+  m_randomNextMap:
+  - {fileID: 11400000, guid: 16ded3b60790ee7488d889ea5058002b, type: 2}
+  - {fileID: 11400000, guid: cd44c96a5fbdfa747b003f173accf587, type: 2}
+  - {fileID: 11400000, guid: 613df18798ce0154ea6077267291a614, type: 2}
+  - {fileID: 11400000, guid: ebd75fe693b4028489f7a74796d1294b, type: 2}
+  - {fileID: 11400000, guid: f21a721e801e8424c9db29174dd55fdb, type: 2}
+  m_mapSize: {x: 10, y: 6}
+  m_pointRange: 2
