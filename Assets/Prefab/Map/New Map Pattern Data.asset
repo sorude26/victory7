@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3643efe7d218ae48a23d45d40816964, type: 3}
-  m_Name: TestMapPattern2
+  m_Name: New Map Pattern Data
   m_EditorClassIdentifier: 
-  m_background: {fileID: 21300000, guid: dccb32aa282cf2c46adbf1fa45db55af, type: 3}
+  m_background: {fileID: 21300000, guid: f867472da8667db42a461e2eba0ea853, type: 3}
   m_battlebackground: {fileID: 21300000, guid: 303154a65deefdc4a8a3105a0349471f, type: 3}
   m_mapLines:
   - {fileID: 11400000, guid: f6927cbdf1abcfd4c8939a3dec863a8a, type: 2}
-  - {fileID: 11400000, guid: f6927cbdf1abcfd4c8939a3dec863a8a, type: 2}
+  - {fileID: 11400000, guid: cb7e81617b1f0414d9017bfe816ec939, type: 2}
+  - {fileID: 11400000, guid: c39fb73fc59ca0c438e59ae13a355fbd, type: 2}
   m_battlePointData:
-  - {fileID: 11400000, guid: 8f637e18d2f030e409d7bebad92effd1, type: 2}
-  - {fileID: 11400000, guid: 003ecbf28daac2f47a7edaa6963029e4, type: 2}
-  - {fileID: 11400000, guid: 36c12a8a0e55eb444809dc092ed5861d, type: 2}
-  m_battlePointDataEx: {fileID: 11400000, guid: 8fd021569dcda0e48a14a8bed92129ca,
-    type: 2}
-  m_bossPointData: {fileID: 11400000, guid: a07984532b236b145939ae1d4c73c42c, type: 2}
+  - {fileID: 0}
+  m_battlePointDataEx: {fileID: 0}
+  m_bossPointData: {fileID: 0}
   m_randomNextMap:
+  - {fileID: 11400000, guid: 1f2d414c101874042be12c89684b5899, type: 2}
   - {fileID: 11400000, guid: e72969d46dfb9e4408c7c95dd3ddd985, type: 2}
-  m_mapSize: {x: 10, y: 2}
+  - {fileID: 11400000, guid: 1f2d414c101874042be12c89684b5899, type: 2}
+  m_mapSize: {x: 10, y: 6}
   m_pointRange: 2
