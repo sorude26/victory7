@@ -34,6 +34,8 @@ namespace victory7
         protected int m_sp = default;
         protected int m_gp = default;
 
+        string[] m_actionList = { "idle","attack","heal","guard","charge","down","win"};
+
         public int CurrentSP { get => m_sp; }
         public int CurrentGP { get => m_gp; }
 
@@ -99,6 +101,10 @@ namespace victory7
                 PlaySkill();
                 ParameterUpdate();
             }
+        }
+        public void PlayAction()
+        {
+            m_animator.CrossFadeInFixedTime("", 0);
         }
         public int GetPower(int slotPower)
         {
