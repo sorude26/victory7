@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,7 +27,12 @@ namespace victory7
         [Header("スキルカウントテキスト")]
         [SerializeField]
         protected Text m_count = default;
-
+        [SerializeField]
+        CharacterAnimatonContoller m_anime = default;
+        [SerializeField]
+        private float m_changeAnimeTime = 0.1f;
+        [SerializeField]
+        private int m_panelOpenDelay = 3000;
         protected PlayerParameter m_parameter = default;
         protected SkillTypeData m_skill = default;
         protected int m_needSp = default;
@@ -35,7 +41,16 @@ namespace victory7
         protected int m_gp = default;
 
         string[] m_actionList = { "idle","attack","heal","guard","charge","down","win"};
-
+        enum ActionType
+        {
+            Idle,
+            Attack,
+            Heal,
+            Guard,
+            Charge,
+            Down,
+            Win,
+        }
         public int CurrentSP { get => m_sp; }
         public int CurrentGP { get => m_gp; }
 
@@ -49,6 +64,10 @@ namespace victory7
             m_skill = PlayerData.CurrentSkill;
 
             ParameterUpdate();
+        }
+        public override void AttackAction(CharacterControl target)
+        {
+            PlayAction(ActionType.Attack);
         }
         public override void CharacterUpdate()
         {
@@ -70,7 +89,7 @@ namespace victory7
             {
                 SkillCheck();
                 CharacterUpdate();
-                EffectManager.Instance.PlayEffect(EffectType.Damage2, transform.position);
+                EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
                 return;
             }
             if (m_gp > 0)
@@ -81,7 +100,7 @@ namespace victory7
                     base.Damage(-m_gp);
                     m_gp = 0;
                 }
-                EffectManager.Instance.PlayEffect(EffectType.Damage2, transform.position);
+                EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
                 ParameterUpdate();
                 return;
             }
@@ -89,9 +108,9 @@ namespace victory7
         }
         protected override void Dead()
         {
-            EffectManager.Instance.PlayEffect(EffectType.Damage3, transform.position);
-            gameObject.SetActive(false);
+            EffectManager.Instance.PlayEffect(EffectType.Damage3, CenterPos.position);
             BattleManager.Instance.CheckBattle();
+            PlayAction(ActionType.Down);
         }
         public void UseSkill()
         {
@@ -102,9 +121,15 @@ namespace victory7
                 ParameterUpdate();
             }
         }
-        public void PlayAction()
+        public void Fever()
         {
-            m_animator.CrossFadeInFixedTime("", 0);
+            PlayAction(ActionType.Charge);
+        }
+        public async void Win()
+        {
+            m_anime.SetBool("Win", true);
+            await Task.Delay(m_panelOpenDelay);
+            BattleManager.Instance.BuildPanelOpen();
         }
         public int GetPower(int slotPower)
         {
@@ -112,31 +137,25 @@ namespace victory7
         }
         public void AddGuard(int slotPower)
         {
+            PlayAction(ActionType.Guard);
             m_gp += m_parameter.Guard[slotPower];
             if (m_gp > PlayerData.MaxGP)
             {
                 m_gp = PlayerData.MaxGP;
             }
-            var view = Instantiate(EffectManager.Instance.Text);
-            view.transform.position = this.transform.position + Vector3.up;
-            view.View("+" + m_parameter.Guard[slotPower].ToString(), Color.blue);
-            EffectManager.Instance.PlayEffect(EffectType.Guard, transform.position);
+            EffectText(EffectType.Guard, SEType.PaylineGuard).View("+" + m_parameter.Guard[slotPower].ToString(), Color.blue);
             ParameterUpdate();
-            SoundManager.Play(SEType.PaylineGuard);
         }
         public void HeelPlayer(int heelPower)
         {
+            PlayAction(ActionType.Heal);
             CurrentHP += heelPower;
             if (CurrentHP > PlayerData.MaxHP)
             {
                 CurrentHP = PlayerData.MaxHP;
             }
-            var view = Instantiate(EffectManager.Instance.Text);
-            view.transform.position = this.transform.position + Vector3.up;
-            view.View("+" + heelPower.ToString(), Color.green);
-            EffectManager.Instance.PlayEffect(EffectType.Heel, transform.position);
+            EffectText(EffectType.Heel, SEType.PaylineHeel).View("+" + heelPower.ToString(), Color.green);
             ParameterUpdate();
-            SoundManager.Play(SEType.PaylineHeel);
         }
         public void HeelSlot(int slotPower)
         {
@@ -144,17 +163,14 @@ namespace victory7
         }
         public void Charge(int slotPower)
         {
+            PlayAction(ActionType.Charge);
             m_sp += m_parameter.Charge[slotPower];
             if (m_sp > PlayerData.MaxSP)
             {
                 m_sp = PlayerData.MaxSP;
             }
-            var view = Instantiate(EffectManager.Instance.Text);
-            view.transform.position = this.transform.position + Vector3.up;
-            view.View("+" + m_parameter.Charge[slotPower].ToString(), Color.yellow);
-            EffectManager.Instance.PlayEffect(EffectType.Chage, transform.position);
+            EffectText(EffectType.Chage, SEType.PaylineCharge).View("+" + m_parameter.Charge[slotPower].ToString(), Color.yellow);
             ParameterUpdate();
-            SoundManager.Play(SEType.PaylineCharge);
         }
         public void PlaySkill()
         {
@@ -176,15 +192,17 @@ namespace victory7
                     BattleManager.Instance.AttackEnemyCritical(m_skill.Damage);
                     break;
                 case PlayerSkill.Barrier:
-                    EffectManager.Instance.PlayEffect(EffectType.Guard, transform.position);
+                    PlayAction(ActionType.Guard);
+                    EffectManager.Instance.PlayEffect(EffectType.Guard, CenterPos.position);
                     SoundManager.Play(SEType.PaylineCharge);
                     break;
                 case PlayerSkill.DelayEnemy:
                     BattleManager.Instance.AddEnemyActionCount(m_skill.MaxCount);
                     break;
                 case PlayerSkill.DelaySlot:
+                    PlayAction(ActionType.Charge);
                     GameManager.Instance.SlotSpeedChange(m_skill.Effect);
-                    EffectManager.Instance.PlayEffect(EffectType.Guard, transform.position);
+                    EffectManager.Instance.PlayEffect(EffectType.Guard, CenterPos.position);
                     SoundManager.Play(SEType.PaylineCharge);
                     break;
                 case PlayerSkill.Heel:
@@ -198,11 +216,11 @@ namespace victory7
                     }
                     else if (r == 1)
                     {
-                        BattleManager.Instance.Player?.AddGuard(2);
+                        AddGuard(2);
                     }
                     else if (r == 2)
                     {
-                        BattleManager.Instance.Player?.HeelSlot(2);
+                        HeelSlot(2);
                     }
                     else
                     {
@@ -238,6 +256,18 @@ namespace victory7
                     }
                 }
             }
+        }
+        private void PlayAction(ActionType action)
+        {
+            m_anime.PlayAction(m_actionList[(int)action], m_changeAnimeTime);
+        }
+        private ViewText EffectText(EffectType effect,SEType se)
+        {
+            var view = Instantiate(EffectManager.Instance.Text);
+            view.transform.position = CenterPos.position + Vector3.up;
+            EffectManager.Instance.PlayEffect(effect, CenterPos.position);
+            SoundManager.Play(se);
+            return view;
         }
     }
 }

@@ -63,7 +63,7 @@ namespace victory7
                 {
                     return;
                 }
-                Player.UseSkill();
+                m_player.UseSkill();
             }
         }
         /// <summary>
@@ -136,8 +136,13 @@ namespace victory7
         /// <param name="slotPower"></param>
         public void AttackEnemy(int slotPower)
         {
-            GetRandomEnemy()?.Damage(m_player.GetPower(slotPower));
-            SoundManager.Play(SEType.PaylineAttack);
+            var enemy = GetRandomEnemy();
+            if (enemy)
+            {
+                enemy.Damage(m_player.GetPower(slotPower));
+                m_player.AttackAction(enemy);
+                SoundManager.Play(SEType.PaylineAttack);
+            }
         }
         /// <summary>
         /// 敵に割合ダメージを与える攻撃
@@ -145,8 +150,13 @@ namespace victory7
         /// <param name="percentage"></param>
         public void AttackEnemyPercentage(int percentage)
         {
-            GetRandomEnemy()?.PercentageDamage(percentage);
-            SoundManager.Play(SEType.PaylineAttack);
+            var enemy = GetRandomEnemy();
+            if (enemy)
+            {
+                enemy.PercentageDamage(percentage);
+                m_player.AttackAction(enemy);
+                SoundManager.Play(SEType.PaylineAttack); 
+            }
         }
         /// <summary>
         /// 敵の回避計算を含めた割合ダメージ攻撃を行う
@@ -154,8 +164,13 @@ namespace victory7
         /// <param name="percentage"></param>
         public void AttackEnemyCritical(int percentage)
         {
-            GetRandomEnemy()?.CheckPercentageDamage(percentage);
-            SoundManager.Play(SEType.PaylineAttack);
+            var enemy = GetRandomEnemy();
+            if (enemy)
+            {
+                enemy.CheckPercentageDamage(percentage);
+                m_player.AttackAction(enemy);
+                SoundManager.Play(SEType.PaylineAttack);
+            }
         }
         /// <summary>
         /// 指定カウント分敵の行動を遅らせる
@@ -163,8 +178,13 @@ namespace victory7
         /// <param name="addCount"></param>
         public void AddEnemyActionCount(int addCount = 1)
         {
-            GetRandomEnemy()?.AddAttackCount(addCount);
-            SoundManager.Play(SEType.PaylineCharge);
+            var enemy = GetRandomEnemy();
+            if (enemy)
+            {
+                enemy.AddAttackCount(addCount);
+                m_player.AttackAction(enemy);
+                SoundManager.Play(SEType.PaylineCharge);
+            }
         }
         /// <summary>
         /// プレイヤーに指定ダメージを与える
@@ -180,6 +200,7 @@ namespace victory7
         /// </summary>
         public void ChargeFeverTime()
         {
+            m_player.Fever();
             SoundManager.Play(SEType.Jackpot);
             m_fever = true;
         }
@@ -199,7 +220,7 @@ namespace victory7
             {
                 return;
             }
-            if (Player.CurrentHP <= 0)
+            if (m_player.CurrentHP <= 0)
             {
                 //Debug.Log("ゲームオーバー");
                 FadeController.Instance.StartFadeOut(LoadResult);
@@ -218,7 +239,11 @@ namespace victory7
                 //Debug.Log("ステージClear");
                 BattleEnd = true;
                 MapData.AddBattleCount();
+                m_player.Win();
             }
+        }
+        public void BuildPanelOpen()
+        {
             buildControl.gameObject.SetActive(true);
         }
         /// <summary>
@@ -259,7 +284,7 @@ namespace victory7
                 m_normalSlot.SlotStartInput();
                 yield return SlotWait();
                 yield return SlotChackWait();
-                Player.CharacterUpdate();
+                m_player.CharacterUpdate();
                 EnemyUpdate(); 
                 yield return null;
                 yield return BattleAction();
