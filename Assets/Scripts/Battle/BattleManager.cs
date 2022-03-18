@@ -31,6 +31,9 @@ namespace victory7
         int m_maxFeverCount = 5;
         [SerializeField]
         float m_actionInterval = 1f;
+        [SerializeField]
+        float m_waitInterval = 0.2f;
+        float m_waitAction = 0.2f;
         int m_feverCount = 0;
         bool m_fever = false;
         bool m_start = false;
@@ -139,9 +142,10 @@ namespace victory7
             var enemy = GetRandomEnemy();
             if (enemy)
             {
-                enemy.Damage(m_player.GetPower(slotPower));
+                m_player.ActionStack.Push(() => enemy.Damage(m_player.GetPower(slotPower)));
                 m_player.AttackAction(enemy);
                 SoundManager.Play(SEType.PaylineAttack);
+                m_waitAction = m_player.ActionTime;
             }
         }
         /// <summary>
@@ -153,9 +157,10 @@ namespace victory7
             var enemy = GetRandomEnemy();
             if (enemy)
             {
-                enemy.PercentageDamage(percentage);
+                m_player.ActionStack.Push(() => enemy.PercentageDamage(percentage));
                 m_player.AttackAction(enemy);
-                SoundManager.Play(SEType.PaylineAttack); 
+                SoundManager.Play(SEType.PaylineAttack);
+                m_waitAction = m_player.ActionTime;
             }
         }
         /// <summary>
@@ -167,9 +172,10 @@ namespace victory7
             var enemy = GetRandomEnemy();
             if (enemy)
             {
-                enemy.CheckPercentageDamage(percentage);
+                m_player.ActionStack.Push(() => enemy.CheckPercentageDamage(percentage));
                 m_player.AttackAction(enemy);
                 SoundManager.Play(SEType.PaylineAttack);
+                m_waitAction = m_player.ActionTime;
             }
         }
         /// <summary>
@@ -181,9 +187,10 @@ namespace victory7
             var enemy = GetRandomEnemy();
             if (enemy)
             {
-                enemy.AddAttackCount(addCount);
+                m_player.ActionStack.Push(() => enemy.AddAttackCount(addCount));
                 m_player.AttackAction(enemy);
                 SoundManager.Play(SEType.PaylineCharge);
+                m_waitAction = m_player.ActionTime;
             }
         }
         /// <summary>
@@ -194,6 +201,10 @@ namespace victory7
         {
             m_player.Damage(damege);
             SoundManager.Play(SEType.Attack);
+        }
+        public void SetActionTime(CharacterControl character)
+        {
+            m_waitAction = character.ActionTime;
         }
         /// <summary>
         /// Fever状態に変更する
@@ -300,9 +311,9 @@ namespace victory7
             while (m_effectActions.Count > 0 && !BattleEnd)
             {
                 m_effectActions.Pop()?.Invoke();
-                yield return WaitTime(0.2f);
+                yield return WaitTime(m_waitAction);
             }
-            yield return WaitTime(0.2f);
+            yield return WaitTime(m_waitAction);
         }
         /// <summary>
         /// 戦闘の順次実行を行う
@@ -312,10 +323,12 @@ namespace victory7
         {
             while (m_battleActions.Count > 0 && !BattleEnd)
             {
+                m_waitAction = m_actionInterval;
                 m_battleActions.Pop()?.Invoke();
-                yield return WaitTime();
+                yield return WaitTime(m_waitAction);
             }
-            yield return WaitTime(0.2f);
+            m_waitAction = m_waitInterval;
+            yield return WaitTime(m_waitAction);
         }
         /// <summary>
         /// スロット停止を待つ

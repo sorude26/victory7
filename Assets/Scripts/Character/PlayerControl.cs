@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -30,9 +31,12 @@ namespace victory7
         [SerializeField]
         CharacterAnimatonContoller m_anime = default;
         [SerializeField]
+        private float m_attackSpeed = 0.1f;
+        [SerializeField]
         private float m_changeAnimeTime = 0.1f;
         [SerializeField]
         private int m_panelOpenDelay = 3000;
+
         protected PlayerParameter m_parameter = default;
         protected SkillTypeData m_skill = default;
         protected int m_needSp = default;
@@ -40,7 +44,7 @@ namespace victory7
         protected int m_sp = default;
         protected int m_gp = default;
 
-        string[] m_actionList = { "idle","attack","heal","guard","charge","down","win"};
+        string[] m_actionList = { "idle", "attack", "heal", "guard", "charge", "down", "win", "attack_01", "attack_02", "attack_03", "attack_04" };
         enum ActionType
         {
             Idle,
@@ -50,10 +54,14 @@ namespace victory7
             Charge,
             Down,
             Win,
+            Attack1,
+            Attack2,
+            Attack3,
+            Attack4,
         }
         public int CurrentSP { get => m_sp; }
         public int CurrentGP { get => m_gp; }
-
+        public Stack<Action> ActionStack { get; protected set; }
         public void StartSet()
         {
             m_parameter = PlayerData.DefaultParameter;
@@ -62,12 +70,16 @@ namespace victory7
             m_sp = PlayerData.CurrentSP;
             m_gp = PlayerData.CurrentGP;
             m_skill = PlayerData.CurrentSkill;
-
+            m_startPos = transform.position;
+            ActionStack = new Stack<Action>();
+            m_anime.OnPlayEnd += PlayActionEnd;
             ParameterUpdate();
         }
         public override void AttackAction(CharacterControl target)
         {
-            PlayAction(ActionType.Attack);
+            m_moveTarget = m_targetPos + target.CenterPos.position;
+            m_moveTarget.y = m_startPos.y;
+            PlayAction(ActionType.Attack1);
         }
         public override void CharacterUpdate()
         {
@@ -87,6 +99,7 @@ namespace victory7
         {
             if (m_skill.SkillType == PlayerSkill.Barrier && m_skillCount > 0)
             {
+                PlayAction(ActionType.Guard);
                 SkillCheck();
                 CharacterUpdate();
                 EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
@@ -100,6 +113,7 @@ namespace victory7
                     base.Damage(-m_gp);
                     m_gp = 0;
                 }
+                PlayAction(ActionType.Guard);
                 EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
                 ParameterUpdate();
                 return;
@@ -209,7 +223,7 @@ namespace victory7
                     HeelPlayer((int)(PlayerData.MaxHP * m_skill.Effect));
                     break;
                 case PlayerSkill.Random:
-                    int r = Random.Range(0, 4);
+                    int r = UnityEngine.Random.Range(0, 4);
                     if (r == 0)
                     {
                         BattleManager.Instance.AttackEnemy(2);
@@ -260,6 +274,32 @@ namespace victory7
         private void PlayAction(ActionType action)
         {
             m_anime.PlayAction(m_actionList[(int)action], m_changeAnimeTime);
+        }
+        private void SetAction(ActionType action)
+        {
+            m_anime.SetAction(m_actionList[(int)action]);
+        }
+        private void PlayActionEnd(string action)
+        {
+            switch (action)
+            {
+                case "attack_01":
+                    PlayAction(ActionType.Attack2);
+                    StartCoroutine(CharacterMove(m_moveTarget, m_attackSpeed));
+                    break;
+                case "attack_02":
+                    SetAction(ActionType.Attack3);
+                    ActionStack.Pop()?.Invoke();
+                    break;
+                case "attack_03":
+                    SetAction(ActionType.Attack4);
+                    StartCoroutine(CharacterMove(m_startPos, m_attackSpeed));
+                    break;
+                case "attack_04":
+                    break;
+                default:
+                    break;
+            }
         }
         private ViewText EffectText(EffectType effect,SEType se)
         {

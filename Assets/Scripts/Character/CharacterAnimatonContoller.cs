@@ -14,6 +14,10 @@ public class CharacterAnimatonContoller : MonoBehaviour
         m_current = action;
         m_animator.CrossFadeInFixedTime(action, m_changeAnimeTime);
     }
+    public void SetAction(string action)
+    {
+        m_current = action;
+    }
     public void ChangeSpeed(float speed = 1f)
     {
         m_animator.SetFloat("PlaySpeed", speed);

@@ -18,7 +18,14 @@ namespace victory7
         protected Transform m_topPos = default;
         [SerializeField]
         protected Transform m_bottomPos = default;
+        [SerializeField]
+        protected float m_actionTime = 1f;
+        [SerializeField]
+        protected Vector3 m_targetPos = default;
+        protected Vector3 m_startPos = default;
+        protected Vector3 m_moveTarget = default;
         public int CurrentHP { get; protected set; }
+        public float ActionTime { get => m_actionTime; }
         public Transform CenterPos
         {
             get
@@ -58,7 +65,7 @@ namespace victory7
             CurrentHP -= damage;
             //Debug.Log($"{gameObject.name}は{damage}のダメージ");
             var view = Instantiate(EffectManager.Instance.Text);
-            view.transform.position = this.CenterPos.position + Vector3.up;
+            view.transform.position = TopPos.position + Vector3.up;
             view.View("-" + damage.ToString(), Color.red);
             EffectManager.Instance.PlayEffect(EffectType.Damage1, CenterPos.position);
             if (CurrentHP <= 0)
@@ -78,7 +85,7 @@ namespace victory7
             {
                 //Debug.Log("miss!");
                 var view = Instantiate(EffectManager.Instance.Text);
-                view.transform.position = CenterPos.position + Vector3.up;
+                view.transform.position = TopPos.position + Vector3.up;
                 view.View("miss!", Color.white);
                 return;
             }
@@ -87,5 +94,13 @@ namespace victory7
         public virtual void AttackAction(CharacterControl target) { }
         public virtual bool AvoidanceCheck() { return false; }
         protected abstract void Dead();
+        protected IEnumerator CharacterMove(Vector3 target, float moveSpeed = 1f)
+        {
+            while (transform.position != target)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+                yield return null;
+            }
+        }
     }
 }
