@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace victory7
 {
@@ -11,7 +12,9 @@ namespace victory7
         [SerializeField]
         SkillType m_type = default;
         [SerializeField]
-        int m_testDebagEffect = default;
+        int m_effect = default;
+        [SerializeField]
+        Image m_slotImage = default;
         [Header("レベルアップ先のスロット")]
         [SerializeField]
         Slot m_levelUpTarget = default;
@@ -22,9 +25,10 @@ namespace victory7
 
         public int ID { get => m_id; }
         public SkillType Type { get => m_type; }
-        public int EffectID { get => m_testDebagEffect; }
+        public int EffectID { get => m_effect; }
         public RectTransform SlotRect { get => m_rect; }
         public Slot LevelUpTarget { get => m_levelUpTarget; }
+        public Sprite SlotSprite { get => m_slotImage.sprite; }
         public void PlayEffect()
         {
             //Debug.Log($"{Type}が発動！、効果：{m_testDebagEffect}");
@@ -34,7 +38,7 @@ namespace victory7
                 message.transform.position = new Vector2(0, -4f);
                 message.View("Fever！！", new Color(1f, 0, 0.7f), 200, 3f);
             }
-            SkillController.Skill(m_type, m_testDebagEffect);
+            SkillController.Skill(m_type, m_effect);
         }
         public void DestroySlot()
         {

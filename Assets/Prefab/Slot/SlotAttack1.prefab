@@ -201,7 +201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_id: 1
   m_type: 1
-  m_testDebagEffect: 0
+  m_effect: 0
+  m_slotImage: {fileID: 3268881380101153490}
   m_levelUpTarget: {fileID: 2743720436271891750, guid: 6c75f95f6a04e394ca9a2a7fd4c22279,
     type: 3}
   m_rect: {fileID: 3268881380637817040}

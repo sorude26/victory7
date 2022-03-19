@@ -411,19 +411,19 @@ namespace victory7
         /// <returns></returns>
         IEnumerator FeverMode()
         {
-            while (m_normalSlot.CheckNow)
+            while (m_normalSlot.CheckNow && !BattleEnd)
             {
                 yield return null;
             }
             m_feverCount = 0;
             m_normalSlot.StopAll();
-            while (!m_normalSlot.Stop)
+            while (!m_normalSlot.Stop && !BattleEnd)
             {
                 yield return null;
             }
             m_normalSlot.gameObject.SetActive(false);
             m_sevenSlot.gameObject.SetActive(true);
-            while (m_feverCount < m_maxFeverCount)
+            while (m_feverCount < m_maxFeverCount && !BattleEnd)
             {
                 m_sevenSlot.StartSlot();
                 yield return WaitTime(0.5f);
@@ -432,7 +432,7 @@ namespace victory7
                 yield return SlotChackFever();
             }
             m_sevenSlot.StopAll();
-            while (!m_sevenSlot.Stop)
+            while (!m_sevenSlot.Stop && !BattleEnd)
             {
                 yield return null;
             }

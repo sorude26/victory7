@@ -127,7 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_id: 7
   m_type: 4
-  m_testDebagEffect: 2
+  m_effect: 2
+  m_slotImage: {fileID: 4427164740540649151}
   m_levelUpTarget: {fileID: 0}
   m_rect: {fileID: 4427164741077570749}
   m_selectMark: {fileID: 8800023182109234195}
@@ -149,7 +150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8755361046169318349
 RectTransform:
   m_ObjectHideFlags: 0
