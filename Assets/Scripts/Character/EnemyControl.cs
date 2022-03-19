@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,8 +15,9 @@ namespace victory7
         protected float m_rbtTimer = default;
         [SerializeField]
         protected Text m_count = default;
-        public bool IsDead { get; protected set; }
         protected int[] m_attackCounts = default;
+        public bool IsDead { get; protected set; }
+        private Stack<Action> m_actionStack = default;
         public void StartSet()
         {
             if (!m_parameter)
@@ -40,6 +42,7 @@ namespace victory7
                     m_count.text += attackCount + ",";
                 }
             }
+            m_actionStack = new Stack<Action>(); ;
         }
         public override void CharacterUpdate()
         {
@@ -56,7 +59,8 @@ namespace victory7
                     int a = m_parameter.AttackData[i].x;
                     BattleManager.Instance.BattleActions.Push(() =>
                     {
-                        BattleManager.Instance.AttackPlayer(a);
+                        m_actionStack.Push(() => BattleManager.Instance.AttackPlayer(a));
+                        BattleManager.Instance.SetActionTime(this);
                         if (m_animator)
                         {
                             m_animator.Play("attack");
@@ -88,7 +92,7 @@ namespace victory7
         }
         public override bool AvoidanceCheck()
         {
-            int r = Random.Range(0, 100);
+            int r = UnityEngine.Random.Range(0, 100);
             if (m_parameter.Avoidance > r)
             {
                 return true;
@@ -115,6 +119,10 @@ namespace victory7
         {
             EffectManager.Instance.PlayEffect(EffectType.Damage3, transform.position);
             gameObject.SetActive(false);
+        }
+        void PlayAction()
+        {
+            m_actionStack.Pop()?.Invoke();
         }
     } 
 }

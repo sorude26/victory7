@@ -128,7 +128,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_id: 16
   m_type: 3
-  m_testDebagEffect: 3
+  m_effect: 3
+  m_slotImage: {fileID: 2917220759405132013}
   m_levelUpTarget: {fileID: 0}
   m_rect: {fileID: 2917220759940342511}
   m_selectMark: {fileID: 3270004837706720147}
