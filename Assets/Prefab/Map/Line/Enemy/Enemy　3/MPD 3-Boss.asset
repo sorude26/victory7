@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MPD 3-Boss
   m_EditorClassIdentifier: 
   m_enemys:
-  - {fileID: 105722252596338042, guid: a638ff905b2f9324f9e27043443455e9, type: 3}
+  - {fileID: 6161074130087121605, guid: 585649ae325a04148af0160cb2e7bdc0, type: 3}
   m_popSlot:
   - {fileID: 2656186941505260069, guid: 4b497a651710c03439303cdf333d2737, type: 3}
   - {fileID: 4427164741077570748, guid: 35bdf2a438aeec34ca37e9dd1c9211af, type: 3}

@@ -44,8 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_startMapData:
-  - {fileID: 11400000, guid: e72969d46dfb9e4408c7c95dd3ddd985, type: 2}
-  - {fileID: 11400000, guid: 1f2d414c101874042be12c89684b5899, type: 2}
+  - {fileID: 11400000, guid: 26cfa8e9ce7976f44badb59d7c555ddb, type: 2}
+  - {fileID: 11400000, guid: cf17a29a168e6244f97e72c5b9229492, type: 2}
+  - {fileID: 11400000, guid: d4fc0583119ecaf449db39cdd0b66291, type: 2}
+  - {fileID: 11400000, guid: c91ec9a85960f5649b2bea1f05ae177f, type: 2}
+  - {fileID: 11400000, guid: bded722a6349eb145809c2c22ee4cb87, type: 2}
   m_slotSeven:
   - {fileID: 8109587253676642796, guid: deed7f1d69453a544ab303164769dbae, type: 3}
   - {fileID: 3795590828439321476, guid: c19c36947cc787b4aaf162e1654da020, type: 3}

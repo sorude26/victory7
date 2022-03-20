@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MPD 5-Boss
   m_EditorClassIdentifier: 
   m_enemys:
-  - {fileID: 105722252596338042, guid: 5dd0e85031dcee24e8f474f5b1668164, type: 3}
+  - {fileID: 2296065387538299842, guid: 2026470f5c866b44895ab8410e506683, type: 3}
   m_popSlot:
   - {fileID: 2656186941505260069, guid: 4b497a651710c03439303cdf333d2737, type: 3}
   - {fileID: 4427164741077570748, guid: 35bdf2a438aeec34ca37e9dd1c9211af, type: 3}
