@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: MPD 3-3
   m_EditorClassIdentifier: 
   m_enemys:
-  - {fileID: 3426257156627287622, guid: b857d2ec298206944b5639bb5d881a2b, type: 3}
-  - {fileID: 3426257156627287622, guid: b857d2ec298206944b5639bb5d881a2b, type: 3}
-  - {fileID: 3426257156627287622, guid: b857d2ec298206944b5639bb5d881a2b, type: 3}
+  - {fileID: 6662449724288236207, guid: 2d6d6ae315a5df44d9e0277808e5f42a, type: 3}
+  - {fileID: 6662449724288236207, guid: 2d6d6ae315a5df44d9e0277808e5f42a, type: 3}
+  - {fileID: 6662449724288236207, guid: 2d6d6ae315a5df44d9e0277808e5f42a, type: 3}
   m_popSlot:
   - {fileID: 2656186941505260069, guid: 4b497a651710c03439303cdf333d2737, type: 3}
   - {fileID: 4427164741077570748, guid: 35bdf2a438aeec34ca37e9dd1c9211af, type: 3}

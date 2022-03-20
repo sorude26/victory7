@@ -77,6 +77,14 @@ namespace victory7
                 }
             }
         }
+        public override void Damage(int damage)
+        {
+            if (m_animator)
+            {
+                m_animator.Play("damage");
+            }
+            base.Damage(damage);
+        }
         protected override void Dead()
         {
             if (m_animator)

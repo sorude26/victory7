@@ -28,6 +28,10 @@ namespace victory7
         HeelControl m_heel = default;
         [SerializeField]
         MaxHPUpControl m_maxHPUp = default;
+        [SerializeField]
+        Text m_mapCount = default;
+        [SerializeField]
+        MapPlayerData m_mapPlayerData = default;
         int m_currentPos = 0;
         bool m_gard = false;
         bool m_create = default;
@@ -46,11 +50,12 @@ namespace victory7
             LodeMap();
             m_removeSlot.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
             m_levelUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
-            m_heel.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
-            m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
+            m_heel.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
+            m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
             FadeController.Instance?.StartFadeIn(() => m_gard = false);
             m_gard = true;
             m_background.sprite = MapData.CurrentMap.Background;
+            m_mapCount.text = (1 + MapData.ClearStageCount).ToString();
         }
         private void Update()
         {

@@ -25,8 +25,6 @@ namespace victory7
         [SerializeField]
         SkillPanel m_skillPanel = default;
         [SerializeField]
-        SkillDataLibrary m_dataLibrary = default;
-        [SerializeField]
         SkillSelectMassage m_massage = default;
         GameObject[] m_characters = default;
         StartSlotDataView[] m_characterData = default;
