@@ -11,9 +11,6 @@ namespace victory7
     {
         Text m_scoreText;
 
-        [Header("表示したいスコア名")]
-        [SerializeField] string m_scoreName = default;
-
         [Header("スコアが表示されるまでの秒数")]
         [SerializeField] float m_scoreChangeInterval = 2f;
 
@@ -102,7 +99,7 @@ namespace victory7
 
         void AddScore()
         {
-            m_scoreText.DOText(m_scoreName + "     " + m_myScore.ToString(),m_scoreChangeInterval);
+            m_scoreText.DOText(m_myScore.ToString(),m_scoreChangeInterval);
         }
 
         void ReturnTitle()

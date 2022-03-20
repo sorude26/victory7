@@ -8,10 +8,6 @@ using victory7;
 public class RankManager : MonoBehaviour
 {
     [SerializeField]
-    [Header("表示するテキスト")]
-    Text m_text;
-
-    [SerializeField]
     [Header("表示する画像")]
     Image[] m_image = null;
 
@@ -28,10 +24,6 @@ public class RankManager : MonoBehaviour
     [Header("ランク設定時のしきい値")]
     int[] m_rankThreshold;
 
-    [SerializeField]
-    [Header("設定するランク")]
-    string[] m_rankName;
-
     int m_score;
 
     string m_rank;
@@ -46,10 +38,6 @@ public class RankManager : MonoBehaviour
         if(m_flag)
         {
             m_image[CheckRank(m_rankThreshold, m_score)].enabled = true;
-        }
-        else
-        {
-            m_text.DOText("Rank" + m_rankName[CheckRank(m_rankThreshold, m_score)], m_ChangeInterval);
         }
     }
 
