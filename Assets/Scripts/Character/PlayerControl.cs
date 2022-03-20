@@ -29,7 +29,9 @@ namespace victory7
         [SerializeField]
         protected Text m_count = default;
         [SerializeField]
-        CharacterAnimatonContoller m_anime = default;
+        CharacterAnimatonContoller m_anime1 = default;
+        [SerializeField]
+        CharacterAnimatonContoller m_anime2 = default;
         [SerializeField]
         private float m_attackSpeed = 0.1f;
         [SerializeField]
@@ -44,7 +46,7 @@ namespace victory7
         protected int m_sp = default;
         protected int m_gp = default;
 
-        string[] m_actionList = { "idle", "attack", "heal", "guard", "charge", "down", "win", "attack_01", "attack_02", "attack_03", "attack_04" };
+        string[] m_actionList = { "idle", "attack", "heal", "guard", "charge", "down", "win", "attack_01", "attack_02", "attack_03", "attack_04", "damage" };
         enum ActionType
         {
             Idle,
@@ -58,6 +60,7 @@ namespace victory7
             Attack2,
             Attack3,
             Attack4,
+            Damage,
         }
         public int CurrentSP { get => m_sp; }
         public int CurrentGP { get => m_gp; }
@@ -72,7 +75,8 @@ namespace victory7
             m_skill = PlayerData.CurrentSkill;
             m_startPos = transform.position;
             ActionStack = new Stack<Action>();
-            m_anime.OnPlayEnd += PlayActionEnd;
+            m_anime1.OnPlayEnd += PlayActionEnd;
+            m_anime2.OnPlayEnd += PlayActionEnd;
             ParameterUpdate();
         }
         public override void AttackAction(CharacterControl target)
@@ -110,6 +114,7 @@ namespace victory7
                 m_gp -= damage;
                 if (m_gp < 0)
                 {
+                    PlayAction(ActionType.Damage);
                     base.Damage(-m_gp);
                     m_gp = 0;
                 }
@@ -118,6 +123,7 @@ namespace victory7
                 ParameterUpdate();
                 return;
             }
+            PlayAction(ActionType.Damage);
             base.Damage(damage);
         }
         protected override void Dead()
@@ -141,7 +147,8 @@ namespace victory7
         }
         public async void Win()
         {
-            m_anime.SetBool("Win", true);
+            m_anime1.SetBool("Win", true);
+            m_anime2.SetBool("Win", true);
             await Task.Delay(m_panelOpenDelay);
             BattleManager.Instance.BuildPanelOpen();
         }
@@ -273,11 +280,13 @@ namespace victory7
         }
         private void PlayAction(ActionType action)
         {
-            m_anime.PlayAction(m_actionList[(int)action], m_changeAnimeTime);
+            m_anime1.PlayAction(m_actionList[(int)action], m_changeAnimeTime);
+            m_anime2.PlayAction(m_actionList[(int)action], m_changeAnimeTime);
         }
         private void SetAction(ActionType action)
         {
-            m_anime.SetAction(m_actionList[(int)action]);
+            m_anime1.SetAction(m_actionList[(int)action]);
+            m_anime2.SetAction(m_actionList[(int)action]);
         }
         private void PlayActionEnd(string action)
         {
