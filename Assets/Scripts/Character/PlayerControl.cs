@@ -129,7 +129,6 @@ namespace victory7
         protected override void Dead()
         {
             EffectManager.Instance.PlayEffect(EffectType.Damage3, CenterPos.position);
-            BattleManager.Instance.CheckBattle();
             PlayAction(ActionType.Down);
         }
         public void UseSkill()
@@ -304,7 +303,8 @@ namespace victory7
                     SetAction(ActionType.Attack4);
                     StartCoroutine(CharacterMove(m_startPos, m_attackSpeed));
                     break;
-                case "attack_04":
+                case "down":
+                    BattleManager.Instance.CheckBattle();
                     break;
                 default:
                     break;

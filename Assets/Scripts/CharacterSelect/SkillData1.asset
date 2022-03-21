@@ -15,3 +15,7 @@ MonoBehaviour:
   m_skillType: 0
   m_skillName: "\u82F1\u96C4\u306E\u4E00\u6483"
   m_skillGuide: "\u30A2\u30BF\u30C3\u30AF\u7CFB\u3002\u5272\u5408\u30C0\u30E1\u30FC\u30B8\u3002"
+  m_needSp: 50
+  m_maxCount: 0
+  m_effect: 0.5
+  m_damage: 30
