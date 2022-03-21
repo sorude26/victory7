@@ -109,12 +109,11 @@ namespace victory7
                 EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
                 return;
             }
-            if (m_gp > 0)
+            if (m_gp > 0 && CurrentHP > 0)
             {
                 m_gp -= damage;
                 if (m_gp < 0)
                 {
-                    PlayAction(ActionType.Damage);
                     base.Damage(-m_gp);
                     m_gp = 0;
                 }
@@ -194,15 +193,6 @@ namespace victory7
         }
         public void PlaySkill()
         {
-            m_skillCount += m_skill.MaxCount;
-            if (m_count)
-            {
-                m_count.text = "";
-                if (m_skillCount > 0)
-                {
-                    m_count.text = m_skillCount.ToString();
-                }
-            }
             switch (m_skill.SkillType)
             {
                 case PlayerSkill.PercentageAttack:
@@ -212,6 +202,15 @@ namespace victory7
                     BattleManager.Instance.AttackEnemyCritical(m_skill.Damage);
                     break;
                 case PlayerSkill.Barrier:
+                    m_skillCount += m_skill.MaxCount;
+                    if (m_count)
+                    {
+                        m_count.text = "";
+                        if (m_skillCount > 0)
+                        {
+                            m_count.text = m_skillCount.ToString();
+                        }
+                    }
                     PlayAction(ActionType.Guard);
                     EffectManager.Instance.PlayEffect(EffectType.Guard, CenterPos.position);
                     SoundManager.Play(SEType.PaylineCharge);
