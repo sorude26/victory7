@@ -7603,7 +7603,7 @@ PrefabInstance:
     - target: {fileID: 8858608169806597794, guid: c85d2f9be2b06224baf56af313ccf419,
         type: 3}
       propertyPath: m_oneRotaionTime
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8858608169806597796, guid: c85d2f9be2b06224baf56af313ccf419,
         type: 3}

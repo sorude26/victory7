@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 964337a5d6030264aaeb1eac0d2b40af, type: 3}
+  m_Name: Player woman
+  m_EditorClassIdentifier: 
+  m_name: test1
+  m_maxHP: 100
+  m_avoidance: 70
+  m_character: {fileID: 7316030798449903231, guid: c823f9cde4e40db49ad770d3b57529a3,
+    type: 3}
+  m_id: 0
+  m_maxSp: 50
+  m_maxGp: 50
+  m_power: 0a000000140000001e0000001e000000
+  m_guard: 0f0000001e0000002d0000002d000000
+  m_charge: 0a000000140000001e0000001e000000
+  m_heel: 0a000000140000001e0000001e000000
+  m_startSlotL:
+  - {fileID: 3268881380637817041, guid: 1fab185930d931546876edb268ce6aa5, type: 3}
+  - {fileID: 6983066875947716018, guid: 001c4c63a7fec9646afeff7cba4ae3eb, type: 3}
+  - {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309, type: 3}
+  - {fileID: 8206175632662022187, guid: 9106770d4fc11474ca06f9a91dabd659, type: 3}
+  - {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309, type: 3}
+  - {fileID: 2656186941505260069, guid: 4b497a651710c03439303cdf333d2737, type: 3}
+  m_startSlotC:
+  - {fileID: 3268881380637817041, guid: 1fab185930d931546876edb268ce6aa5, type: 3}
+  - {fileID: 6983066875947716018, guid: 001c4c63a7fec9646afeff7cba4ae3eb, type: 3}
+  - {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309, type: 3}
+  - {fileID: 8206175632662022187, guid: 9106770d4fc11474ca06f9a91dabd659, type: 3}
+  - {fileID: 3268881380637817041, guid: 1fab185930d931546876edb268ce6aa5, type: 3}
+  - {fileID: 4427164741077570748, guid: 35bdf2a438aeec34ca37e9dd1c9211af, type: 3}
+  m_startSlotR:
+  - {fileID: 3268881380637817041, guid: 1fab185930d931546876edb268ce6aa5, type: 3}
+  - {fileID: 6983066875947716018, guid: 001c4c63a7fec9646afeff7cba4ae3eb, type: 3}
+  - {fileID: 116240428755412227, guid: a4933f09fb48eea4aa03e806aa4b7309, type: 3}
+  - {fileID: 8206175632662022187, guid: 9106770d4fc11474ca06f9a91dabd659, type: 3}
+  - {fileID: 6983066875947716018, guid: 001c4c63a7fec9646afeff7cba4ae3eb, type: 3}
+  - {fileID: 6450643909515395638, guid: a66605e0db98db14ab792ab4abd98dc6, type: 3}
+  m_haveSkills: 000000000200000005000000010000000300000004000000
