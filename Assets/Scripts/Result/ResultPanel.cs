@@ -10,9 +10,6 @@ namespace victory7
         [SerializeField]
         RectTransform[] m_base = default;
 
-        [SerializeField]
-        GameObject m_rankPanel;
-
         List<Slot> m_leftData;
         List<Slot> m_centerData;
         List<Slot> m_rightData;
@@ -33,7 +30,6 @@ namespace victory7
                 m_jump = true;
                 Debug.Log("jump");
                 SetResultSlot();
-                m_rankPanel.SetActive(true);
             }
         }
         void SetResultSlot()
