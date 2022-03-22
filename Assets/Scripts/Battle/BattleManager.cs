@@ -427,12 +427,15 @@ namespace victory7
             {
                 yield return null;
             }
+            EffectManager.Instance.PlayEffect(EffectType.Fever, Vector2.zero);
+            yield return WaitTime(SlotWaitTime);
             m_normalSlot.gameObject.SetActive(false);
             m_sevenSlot.gameObject.SetActive(true);
+            yield return WaitTime(SlotWaitTime);
             while (m_feverCount < m_maxFeverCount && !BattleEnd)
             {
                 m_sevenSlot.StartSlot();
-                yield return WaitTime(0.5f);
+                yield return WaitTime(SlotWaitTime);
                 m_sevenSlot.SlotStartInput();
                 yield return SlotWait();
                 yield return SlotChackFever();
