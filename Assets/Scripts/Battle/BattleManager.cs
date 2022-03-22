@@ -10,6 +10,7 @@ namespace victory7
     public class BattleManager : MonoBehaviour
     {
         public static BattleManager Instance { get; private set; }
+
         [Header("遷移先シーン名")]
         [SerializeField]
         private string m_targetScene = "MapScene";
@@ -33,11 +34,15 @@ namespace victory7
         float m_actionInterval = 1f;
         [SerializeField]
         float m_waitInterval = 0.2f;
+
+        const float SlotWaitTime = 0.5f;
+
         float m_waitAction = 0.2f;
         int m_feverCount = 0;
         bool m_fever = false;
         bool m_start = false;
         bool m_waitNow = false;
+
         Stack<Action> m_battleActions = default;
         Stack<Action> m_effectActions = default;
         public Stack<Action> BattleActions { get => m_battleActions; }
@@ -290,7 +295,7 @@ namespace victory7
             while (!BattleEnd)
             {
                 m_normalSlot.StartSlot();
-                yield return WaitTime(0.5f);
+                yield return WaitTime(SlotWaitTime);
                 m_waitNow = true;
                 m_normalSlot.SlotStartInput();
                 yield return SlotWait();
@@ -310,6 +315,7 @@ namespace victory7
         {
             while (m_effectActions.Count > 0 && !BattleEnd)
             {
+                m_waitAction = m_actionInterval;
                 m_effectActions.Pop()?.Invoke();
                 yield return WaitTime(m_waitAction);
             }

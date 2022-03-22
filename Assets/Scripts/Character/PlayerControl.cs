@@ -111,13 +111,13 @@ namespace victory7
             }
             if (m_gp > 0 && CurrentHP > 0)
             {
+                PlayAction(ActionType.Guard);
                 m_gp -= damage;
                 if (m_gp < 0)
                 {
                     base.Damage(-m_gp);
                     m_gp = 0;
                 }
-                PlayAction(ActionType.Guard);
                 EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
                 ParameterUpdate();
                 return;
