@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 using victory7;
 
 public class RankManager : MonoBehaviour
@@ -10,12 +9,6 @@ public class RankManager : MonoBehaviour
     [SerializeField]
     [Header("表示する画像")]
     Image[] m_image = null;
-
-    [SerializeField]
-    bool m_flag = false;
-
-    [SerializeField]
-    float m_ChangeInterval = 2f;
 
     [SerializeField]
     TextChanger m_textChanger;
@@ -26,8 +19,6 @@ public class RankManager : MonoBehaviour
 
     int m_score;
 
-    string m_rank;
-
     private void OnEnable()
     {
         m_score = m_textChanger.Score;
@@ -35,10 +26,7 @@ public class RankManager : MonoBehaviour
 
     private void Start()
     {
-        if(m_flag)
-        {
-            m_image[CheckRank(m_rankThreshold, m_score)].enabled = true;
-        }
+        m_image[CheckRank(m_rankThreshold, m_score)].enabled = true;
     }
 
     int CheckRank(int[] array, int score)

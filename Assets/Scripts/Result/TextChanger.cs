@@ -34,10 +34,6 @@ namespace victory7
         
         bool m_start = false;
 
-        bool m_flag = false;
-
-        bool m_jump = false;
-
         public int Score => m_handOverScore;
 
         int m_handOverScore;
@@ -81,17 +77,13 @@ namespace victory7
                 }
                 m_handOverScore = m_myScore;
             }
+
+            AddScore();
         }
 
         void Update()
         {
-            if (!m_jump && Input.GetButtonDown("Jump"))
-            {
-                StartCoroutine(WaitInput());
-                m_jump = true;
-                AddScore();
-            }
-            if(m_flag && Input.GetButtonDown("Jump"))
+            if(Input.GetButtonDown("Jump"))
             {
                 ReturnTitle();
             }
@@ -112,12 +104,6 @@ namespace victory7
         void LoadTitle()
         {
             SceneManager.LoadScene("αTitle");
-        }
-
-        IEnumerator WaitInput()
-        {
-            yield return new WaitForSeconds(1);
-            m_flag = true;
         }
     }
 }
