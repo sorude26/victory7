@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: "\u901A\u5E38\u30004-2"
   m_maxHP: 100
-  m_avoidance: 70
+  m_avoidance: 50
   m_attackData:
   - {x: 7, y: 1}
   m_reduction: 0

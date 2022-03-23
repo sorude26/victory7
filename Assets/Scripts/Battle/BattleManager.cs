@@ -31,7 +31,7 @@ namespace victory7
         [SerializeField]
         int m_maxFeverCount = 5;
         [SerializeField]
-        float m_actionInterval = 1f;
+        float m_actionInterval = 0.2f;
         [SerializeField]
         float m_waitInterval = 0.2f;
 
@@ -80,9 +80,7 @@ namespace victory7
         void StartBattle()
         {
             GameManager.Instance.SlotSpeedChange();
-            var m = Instantiate(EffectManager.Instance.Text);
-            m.transform.position = new Vector2(1, 0);
-            m.View("Start!!",Color.red,80);
+            EffectManager.Instance.PlayEffect(EffectType.Start, Vector2.zero);
             m_start = true;
             StartCoroutine(BattleUpdate());
         }
@@ -217,6 +215,7 @@ namespace victory7
         public void ChargeFeverTime()
         {
             m_player.Fever();
+            EffectManager.Instance.PlayEffect(EffectType.Fever, Vector2.zero);
             SoundManager.Play(SEType.Jackpot);
             m_fever = true;
         }
@@ -427,7 +426,6 @@ namespace victory7
             {
                 yield return null;
             }
-            EffectManager.Instance.PlayEffect(EffectType.Fever, Vector2.zero);
             yield return WaitTime(SlotWaitTime);
             m_normalSlot.gameObject.SetActive(false);
             m_sevenSlot.gameObject.SetActive(true);

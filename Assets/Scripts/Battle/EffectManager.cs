@@ -13,6 +13,7 @@ namespace victory7
         Damage2,
         Damage3,
         Fever,
+        Start,
     }
     public class EffectManager : MonoBehaviour
     {

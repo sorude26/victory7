@@ -19,7 +19,7 @@ MonoBehaviour:
     type: 3}
   m_id: 1
   m_maxSp: 50
-  m_maxGp: 50
+  m_maxGp: 100
   m_power: 0a000000140000001e0000001e000000
   m_guard: 0f0000001e0000002d0000002d000000
   m_charge: 0a000000140000001e0000001e000000

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Boss 1
   m_maxHP: 180
-  m_avoidance: 95
+  m_avoidance: 70
   m_attackData:
   - {x: 5, y: 2}
   - {x: 5, y: 4}
