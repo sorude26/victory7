@@ -339,7 +339,7 @@ RectTransform:
   - {fileID: 1587384525}
   - {fileID: 1436125157}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -399,10 +399,10 @@ MonoBehaviour:
   - {fileID: 380391470}
   - {fileID: 8393313}
   - {fileID: 1002841099}
-  m_flag: 1
-  m_ChangeInterval: 2
   m_textChanger: {fileID: 1555031417}
-  m_rankThreshold: f4010000e8030000b80b000088130000
+  m_rankThreshold: 6400000004290000204e000050c30000
+  m_mapCalculation: 2500
+  m_victoryCalculation: 100
 --- !u!1 &331043202
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,12 +477,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 331043202}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.5, y: -5, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.5, y: -5.5, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &339002960
 GameObject:
@@ -1680,8 +1680,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_scoreChangeInterval: 2
   m_takeNum: 2
-  m_scoreCalculation: 10000
-  m_scoreCalculationForClearMapCount: 2500
 --- !u!114 &1277234199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2331,8 +2329,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_scoreChangeInterval: 2
   m_takeNum: 1
-  m_scoreCalculation: 10000
-  m_scoreCalculationForClearMapCount: 2500
 --- !u!114 &1555031418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2603,8 +2599,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_scoreChangeInterval: 2
   m_takeNum: 3
-  m_scoreCalculation: 10000
-  m_scoreCalculationForClearMapCount: 2500
 --- !u!114 &1701338892
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -130,6 +130,7 @@ namespace victory7
         {
             EffectManager.Instance.PlayEffect(EffectType.Damage3, CenterPos.position);
             BattleManager.Instance.CheckBattle();
+            SoundManager.Play(SEType.Dead);
             PlayAction(ActionType.Down);
         }
         public void UseSkill()
@@ -208,14 +209,16 @@ namespace victory7
             {
                 case PlayerSkill.PercentageAttack:
                     BattleManager.Instance.AttackEnemyPercentage(m_skill.Damage);
+                    SoundManager.Play(SEType.SkillAttack);
                     break;
                 case PlayerSkill.InstantDeathAttack:
                     BattleManager.Instance.AttackEnemyCritical(m_skill.Damage);
+                    SoundManager.Play(SEType.SkillAttack);
                     break;
                 case PlayerSkill.Barrier:
                     PlayAction(ActionType.Guard);
                     EffectManager.Instance.PlayEffect(EffectType.Guard, CenterPos.position);
-                    SoundManager.Play(SEType.PaylineCharge);
+                    SoundManager.Play(SEType.SkillGuard);
                     break;
                 case PlayerSkill.DelayEnemy:
                     BattleManager.Instance.AddEnemyActionCount(m_skill.MaxCount);
@@ -228,6 +231,7 @@ namespace victory7
                     break;
                 case PlayerSkill.Heel:
                     HeelPlayer((int)(PlayerData.MaxHP * m_skill.Effect));
+                    SoundManager.Play(SEType.SkillHeel);
                     break;
                 case PlayerSkill.Random:
                     int r = UnityEngine.Random.Range(0, 4);
