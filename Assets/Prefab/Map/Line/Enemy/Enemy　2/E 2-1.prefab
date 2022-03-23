@@ -688,7 +688,7 @@ MonoBehaviour:
   m_centerPos: {fileID: 6604052051503543637}
   m_topPos: {fileID: 4693537262478113385}
   m_bottomPos: {fileID: 3534106340208544967}
-  m_actionTime: 1.4
+  m_actionTime: 2
   m_targetPos: {x: 0, y: 0, z: 0}
   m_parameter: {fileID: 11400000, guid: a0940d57b6b7b8a4ba943a17b055af9a, type: 2}
   m_rtgGauge: {fileID: 5653919818212556635}

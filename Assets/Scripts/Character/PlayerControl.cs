@@ -109,16 +109,15 @@ namespace victory7
                 EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
                 return;
             }
-            if (m_gp > 0)
+            if (m_gp > 0 && CurrentHP > 0)
             {
+                PlayAction(ActionType.Guard);
                 m_gp -= damage;
                 if (m_gp < 0)
                 {
-                    PlayAction(ActionType.Damage);
                     base.Damage(-m_gp);
                     m_gp = 0;
                 }
-                PlayAction(ActionType.Guard);
                 EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
                 ParameterUpdate();
                 return;
@@ -129,8 +128,6 @@ namespace victory7
         protected override void Dead()
         {
             EffectManager.Instance.PlayEffect(EffectType.Damage3, CenterPos.position);
-            BattleManager.Instance.CheckBattle();
-            SoundManager.Play(SEType.Dead);
             PlayAction(ActionType.Down);
         }
         public void UseSkill()
@@ -196,29 +193,27 @@ namespace victory7
         }
         public void PlaySkill()
         {
-            m_skillCount += m_skill.MaxCount;
-            if (m_count)
-            {
-                m_count.text = "";
-                if (m_skillCount > 0)
-                {
-                    m_count.text = m_skillCount.ToString();
-                }
-            }
             switch (m_skill.SkillType)
             {
                 case PlayerSkill.PercentageAttack:
                     BattleManager.Instance.AttackEnemyPercentage(m_skill.Damage);
-                    SoundManager.Play(SEType.SkillAttack);
                     break;
                 case PlayerSkill.InstantDeathAttack:
                     BattleManager.Instance.AttackEnemyCritical(m_skill.Damage);
-                    SoundManager.Play(SEType.SkillAttack);
                     break;
                 case PlayerSkill.Barrier:
+                    m_skillCount += m_skill.MaxCount;
+                    if (m_count)
+                    {
+                        m_count.text = "";
+                        if (m_skillCount > 0)
+                        {
+                            m_count.text = m_skillCount.ToString();
+                        }
+                    }
                     PlayAction(ActionType.Guard);
                     EffectManager.Instance.PlayEffect(EffectType.Guard, CenterPos.position);
-                    SoundManager.Play(SEType.SkillGuard);
+                    SoundManager.Play(SEType.PaylineCharge);
                     break;
                 case PlayerSkill.DelayEnemy:
                     BattleManager.Instance.AddEnemyActionCount(m_skill.MaxCount);
@@ -231,7 +226,6 @@ namespace victory7
                     break;
                 case PlayerSkill.Heel:
                     HeelPlayer((int)(PlayerData.MaxHP * m_skill.Effect));
-                    SoundManager.Play(SEType.SkillHeel);
                     break;
                 case PlayerSkill.Random:
                     int r = UnityEngine.Random.Range(0, 4);
@@ -308,7 +302,8 @@ namespace victory7
                     SetAction(ActionType.Attack4);
                     StartCoroutine(CharacterMove(m_startPos, m_attackSpeed));
                     break;
-                case "attack_04":
+                case "down":
+                    BattleManager.Instance.CheckBattle();
                     break;
                 default:
                     break;

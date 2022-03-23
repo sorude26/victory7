@@ -312,10 +312,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_target: MapScene
   m_playerParameters:
-  - {fileID: 11400000, guid: 3a9e615bdb0cce64eaec44c7867e5926, type: 2}
-  - {fileID: 11400000, guid: 3c78fbc18d6b08e4bb539a657342a1c6, type: 2}
-  - {fileID: 11400000, guid: 3a9e615bdb0cce64eaec44c7867e5926, type: 2}
-  - {fileID: 11400000, guid: 3c78fbc18d6b08e4bb539a657342a1c6, type: 2}
+  - {fileID: 11400000, guid: 1890b2dbdafd1b04a8f8df20fc9a6164, type: 2}
+  - {fileID: 11400000, guid: 996dd3a77bc8de34daad107c14577403, type: 2}
+  - {fileID: 11400000, guid: 1890b2dbdafd1b04a8f8df20fc9a6164, type: 2}
+  - {fileID: 11400000, guid: 996dd3a77bc8de34daad107c14577403, type: 2}
   m_dataViewPrefab: {fileID: 364142544097917109, guid: 650ff044716ad3f48b0152db1ae106dc,
     type: 3}
   m_top: {fileID: 1949755458}

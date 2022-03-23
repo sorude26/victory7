@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: "Assets/Scenes/Result\u03B1.unity"
     guid: 899e9d1dd717bbf4784fb89ccb4cdb3d
-  - enabled: 1
+  - enabled: 0
     path: "Assets/Scenes/\u03B2/\u03B2 Map 5.unity"
     guid: a5be9081fb1d3ce40888f581c2ebc77a
   - enabled: 0
