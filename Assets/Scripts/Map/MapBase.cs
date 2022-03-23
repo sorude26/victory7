@@ -113,11 +113,11 @@ namespace victory7
             if (map.PosNumber < m_mapData[map.LineNumber].Count - 1)
             {
                 m_targetPos.Add(m_mapData[map.LineNumber][map.PosNumber + 1]);
-                if (map.LineNumber < m_mapData.Length - 1 && map.UpTarget > 0 && map.UpTarget < MapData.CurrentMap.MapLines.Length)
+                if (map.LineNumber < m_mapData.Length - 1 && map.UpTarget > 0 && map.UpTarget < MapData.CurrentMap.MapLines[map.LineNumber + 1].Points.Length)
                 {
                     m_targetPos.Add(m_mapData[map.LineNumber + 1][map.UpTarget]);
                 }
-                if (map.LineNumber > 0 && map.DownTarget > 0 && map.DownTarget < MapData.CurrentMap.MapLines.Length)
+                if (map.LineNumber > 0 && map.DownTarget > 0 && map.DownTarget < MapData.CurrentMap.MapLines[map.LineNumber - 1].Points.Length)
                 {
                     m_targetPos.Add(m_mapData[map.LineNumber - 1][map.DownTarget]);
                 }
@@ -259,7 +259,7 @@ namespace victory7
                         int pos = m_mapData[i][k].DownTarget;
                         if (pos > 0 && pos < m_mapData[i - 1].Count)
                         {
-                            var map = m_mapData[i - 1][m_mapData[i][k].DownTarget];
+                            var map = m_mapData[i - 1][pos];
                             map.DrawLine(m_mapData[i][k].transform.position, map.transform.position);
                         }
                     }
