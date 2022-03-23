@@ -10,6 +10,7 @@ namespace victory7
     public class BattleManager : MonoBehaviour
     {
         public static BattleManager Instance { get; private set; }
+
         [Header("遷移先シーン名")]
         [SerializeField]
         private string m_targetScene = "MapScene";
@@ -30,14 +31,18 @@ namespace victory7
         [SerializeField]
         int m_maxFeverCount = 5;
         [SerializeField]
-        float m_actionInterval = 1f;
+        float m_actionInterval = 0.2f;
         [SerializeField]
         float m_waitInterval = 0.2f;
+
+        const float SlotWaitTime = 0.5f;
+
         float m_waitAction = 0.2f;
         int m_feverCount = 0;
         bool m_fever = false;
         bool m_start = false;
         bool m_waitNow = false;
+
         Stack<Action> m_battleActions = default;
         Stack<Action> m_effectActions = default;
         public Stack<Action> BattleActions { get => m_battleActions; }
@@ -75,9 +80,7 @@ namespace victory7
         void StartBattle()
         {
             GameManager.Instance.SlotSpeedChange();
-            var m = Instantiate(EffectManager.Instance.Text);
-            m.transform.position = new Vector2(1, 0);
-            m.View("Start!!",Color.red,80);
+            EffectManager.Instance.PlayEffect(EffectType.Start, Vector2.zero);
             m_start = true;
             StartCoroutine(BattleUpdate());
         }
@@ -212,6 +215,7 @@ namespace victory7
         public void ChargeFeverTime()
         {
             m_player.Fever();
+            EffectManager.Instance.PlayEffect(EffectType.Fever, Vector2.zero);
             SoundManager.Play(SEType.Jackpot);
             m_fever = true;
         }
@@ -290,7 +294,7 @@ namespace victory7
             while (!BattleEnd)
             {
                 m_normalSlot.StartSlot();
-                yield return WaitTime(0.5f);
+                yield return WaitTime(SlotWaitTime);
                 m_waitNow = true;
                 m_normalSlot.SlotStartInput();
                 yield return SlotWait();
@@ -310,6 +314,7 @@ namespace victory7
         {
             while (m_effectActions.Count > 0 && !BattleEnd)
             {
+                m_waitAction = m_actionInterval;
                 m_effectActions.Pop()?.Invoke();
                 yield return WaitTime(m_waitAction);
             }
@@ -421,12 +426,14 @@ namespace victory7
             {
                 yield return null;
             }
+            yield return WaitTime(SlotWaitTime);
             m_normalSlot.gameObject.SetActive(false);
             m_sevenSlot.gameObject.SetActive(true);
+            yield return WaitTime(SlotWaitTime);
             while (m_feverCount < m_maxFeverCount && !BattleEnd)
             {
                 m_sevenSlot.StartSlot();
-                yield return WaitTime(0.5f);
+                yield return WaitTime(SlotWaitTime);
                 m_sevenSlot.SlotStartInput();
                 yield return SlotWait();
                 yield return SlotChackFever();
