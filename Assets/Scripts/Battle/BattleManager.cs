@@ -203,7 +203,14 @@ namespace victory7
         public void AttackPlayer(int damege)
         {
             m_player.Damage(damege);
-            SoundManager.Play(SEType.Attack);
+            if(PlayerData.CurrentGP >= 1)
+            {
+                SoundManager.Play(SEType.Guard);
+            }
+            else
+            {
+                SoundManager.Play(SEType.Attack);
+            }
         }
         public void SetActionTime(CharacterControl character)
         {
