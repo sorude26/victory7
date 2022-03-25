@@ -21,7 +21,7 @@ namespace victory7
         {
             m_maxHP = parameter.MaxHP;
             MaxSP = parameter.MaxSp;
-            MaxGP = parameter.MaxGp;
+            MaxGP = parameter.MaxHP;
             CurrentHP = parameter.MaxHP;
             m_additionHP = 0;
             CurrentSP = 0;
