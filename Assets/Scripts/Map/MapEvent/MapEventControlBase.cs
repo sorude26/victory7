@@ -72,7 +72,7 @@ namespace victory7
             {
                 return;
             }
-            m_lineData[m_selectNum].Move(dir);
+            m_lineData[m_selectNum].Move(-dir);
         }
 
         protected virtual void Select()
