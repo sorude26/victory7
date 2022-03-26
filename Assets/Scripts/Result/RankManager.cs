@@ -2,24 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 using victory7;
 
 public class RankManager : MonoBehaviour
 {
     [SerializeField]
-    [Header("表示するテキスト")]
-    Text m_text;
-
-    [SerializeField]
     [Header("表示する画像")]
     Image[] m_image = null;
-
-    [SerializeField]
-    bool m_flag = false;
-
-    [SerializeField]
-    float m_ChangeInterval = 2f;
 
     [SerializeField]
     TextChanger m_textChanger;
@@ -29,28 +18,45 @@ public class RankManager : MonoBehaviour
     int[] m_rankThreshold;
 
     [SerializeField]
-    [Header("設定するランク")]
-    string[] m_rankName;
+    [Header("スコア計算用の値(マップクリア数)")]
+    int m_mapCalculation = 2500;
+
+    [SerializeField]
+    [Header("スコア計算用の値(バトルクリア数)")]
+    int m_victoryCalculation = 100;
 
     int m_score;
 
-    string m_rank;
-
     private void OnEnable()
     {
-        m_score = m_textChanger.Score;
+        m_score = Calculation();
     }
 
     private void Start()
     {
-        if(m_flag)
+        m_image[CheckRank(m_rankThreshold, m_score)].enabled = true;
+    }
+
+    int Calculation()
+    {
+        int s = default;
+        for (int i = 0; i < MapData.BattleCount; i++)
         {
-            m_image[CheckRank(m_rankThreshold, m_score)].enabled = true;
+            s += m_victoryCalculation;
         }
-        else
+        
+        if(MapData.ClearStageCount > 0)
         {
-            m_text.DOText("Rank" + m_rankName[CheckRank(m_rankThreshold, m_score)], m_ChangeInterval);
+            s += 10000;
+            if(MapData.ClearStageCount > 1)
+            {
+                for (int i = 0; i < MapData.ClearStageCount; i++)
+                {
+                    s += m_mapCalculation;
+                }
+            }
         }
+        return s;
     }
 
     int CheckRank(int[] array, int score)

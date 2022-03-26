@@ -4,15 +4,52 @@ using UnityEngine;
 
 public enum SEType
 {
-    StopSpin,
-    StopSpin7,
-    StartSpin,
-    PaylineAttack,
-    PaylineHeel,
-    PaylineGuard,
-    PaylineCharge,
-    Jackpot,
-    Attack,
+    StopSpin,//リールを止める：通常
+    StopSpin7,//絵柄「7」揃う
+    StartSpin,//リールが回っている
+
+    PaylineAttack,//「攻撃」絵柄を実行
+    PaylineHeel,//「回復」絵柄を実行
+    PaylineGuard,//「ガード」絵柄を実行
+    PaylineCharge,//「チャージ」絵柄を実行
+
+    Jackpot,//絵柄が揃う
+    Attack,//被弾：通常
+    Guard,//被弾：ガード
+    Dead,//倒れる
+
+    SkillHeel,//スキル発動：回復系
+    SkillAttack,//スキル発動：攻撃系
+    SkillGuard,//スキル発動：ガード系
+
+    WeakAttackDragon,//弱攻撃：ドラゴン
+    StrongAttackDragon,//強攻撃：ドラゴン
+
+    WeakAttackGoblin,//弱攻撃：ゴブリン
+    StrongAttackGoblin,//強攻撃：ゴブリン
+    
+    WeakAttackGolem,//弱攻撃：ゴーレム
+    StrongAttackGolem,//強攻撃：ゴーレム
+    
+    WeakAttackSlime,//弱攻撃：スライム
+    StrongAttackSlime,//強攻撃：スライム
+    
+    WeakAttackSpecial,//弱攻撃：特殊
+    StrongAttackSpecial,//強攻撃：特殊
+    
+    DragonDeath,//死亡ボイス：ドラゴン
+    GoblinDeath,//死亡ボイス：ゴブリン
+    GolemDeath,//死亡ボイス：ゴーレム
+    SlimeDeath,//死亡ボイス：スライム
+    SpecialDeath,//死亡ボイス：特殊
+    
+    HeelSquares,//回復マス
+    LevelUPSquares,//レベルアップマス
+    
+    Decision,//決定
+    Choice,//選択
+    Cancel,//キャンセル
+    Deployment//展開
 }
 
 [RequireComponent(typeof(AudioSource))]
