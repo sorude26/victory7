@@ -29,6 +29,8 @@ namespace victory7
         [SerializeField]
         MaxHPUpControl m_maxHPUp = default;
         [SerializeField]
+        MapPlayerDataPanel m_playerDataPanel = default;
+        [SerializeField]
         Text m_mapCount = default;
         [SerializeField]
         MapPlayerData m_mapPlayerData = default;
@@ -52,6 +54,7 @@ namespace victory7
             m_levelUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
             m_heel.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
             m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
+            m_playerDataPanel.OnEventEnd += () => m_event = false;
             FadeController.Instance?.StartFadeIn(() => m_gard = false);
             m_gard = true;
             m_background.sprite = MapData.CurrentMap.Background;
@@ -93,6 +96,22 @@ namespace victory7
                     return;
                 }
                 Next();
+            }
+            if (Input.GetButtonDown("Cancel"))
+            {
+                if (m_event)
+                {
+                    m_currentEvent?.CancelAction();
+                    return;
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Q) && !m_event)
+            {
+                m_currentEvent = m_playerDataPanel;
+                m_currentEvent.SelectEvent();
+                m_event = true;
+                m_load = false;
+                return;
             }
         }
         void Next()
