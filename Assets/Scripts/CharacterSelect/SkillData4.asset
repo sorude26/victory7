@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_skillType: 3
   m_skillName: "\u6575\u884C\u52D5\u9045\u5EF6"
+  m_skillNameSprite: {fileID: 21300000, guid: 6e9cd6c5b1c42f744bcac616a7d4b889, type: 3}
   m_skillGuide: "\u30AB\u30A6\u30F3\u30C8\u3092\u9045\u5EF6\u3059\u308B"
+  m_skillGuideSprite: {fileID: 21300000, guid: 2c982d7385f2de34d9842875c9bac0e0, type: 3}
   m_needSp: 30
   m_maxCount: 2
   m_effect: 0

@@ -13,9 +13,13 @@ namespace victory7
         [Header("スキル名称")]
         [SerializeField]
         string m_skillName = default;
+        [SerializeField]
+        Sprite m_skillNameSprite = default;
         [Header("スキル解説テキスト")]
         [SerializeField]
         string m_skillGuide = default;
+        [SerializeField]
+        Sprite m_skillGuideSprite = default;
         [Header("消費スキルポイント")]
         [SerializeField]
         protected int m_needSp = 50;
@@ -30,7 +34,9 @@ namespace victory7
         protected int m_damage = 30;
         public PlayerSkill SkillType { get => m_skillType; }
         public string SkillName { get => m_skillName; }
+        public Sprite SkillNameSprite { get => m_skillNameSprite; }
         public string SkillGuide { get => m_skillGuide; }
+        public Sprite SkillGuideSprite { get => m_skillGuideSprite; }
         public int NeedSp { get => m_needSp; }
         public int MaxCount { get => m_maxCount; }
         public float Effect { get => m_effect; }
