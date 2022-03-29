@@ -87,10 +87,7 @@ namespace victory7
         }
         public override void CharacterUpdate()
         {
-            if (m_skill.SkillType == PlayerSkill.DelaySlot)
-            {
-                SkillCheck();
-            }
+            SkillCheck();
             ParameterUpdate();
         }
         protected void ParameterUpdate()
@@ -104,8 +101,6 @@ namespace victory7
             if (m_skill.SkillType == PlayerSkill.Barrier && m_skillCount > 0)
             {
                 PlayAction(ActionType.Guard);
-                SkillCheck();
-                CharacterUpdate();
                 EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
                 return;
             }
@@ -162,7 +157,7 @@ namespace victory7
             {
                 m_gp = PlayerData.MaxGP;
             }
-            EffectText(EffectType.Guard, SEType.PaylineGuard).View("+" + m_parameter.Guard[slotPower].ToString(), Color.blue);
+            EffectText(EffectType.Guard, SEType.PaylineGuard);
             ParameterUpdate();
         }
         public void HeelPlayer(int heelPower)
@@ -173,7 +168,7 @@ namespace victory7
             {
                 CurrentHP = PlayerData.MaxHP;
             }
-            EffectText(EffectType.Heel, SEType.PaylineHeel).View("+" + heelPower.ToString(), Color.green);
+            EffectText(EffectType.Heel, SEType.PaylineHeel);
             ParameterUpdate();
         }
         public void HeelSlot(int slotPower)
@@ -188,7 +183,7 @@ namespace victory7
             {
                 m_sp = PlayerData.MaxSP;
             }
-            EffectText(EffectType.Chage, SEType.PaylineCharge).View("+" + m_parameter.Charge[slotPower].ToString(), Color.yellow);
+            EffectText(EffectType.Chage, SEType.PaylineCharge);
             ParameterUpdate();
         }
         public void PlaySkill()
@@ -203,14 +198,6 @@ namespace victory7
                     break;
                 case PlayerSkill.Barrier:
                     m_skillCount += m_skill.MaxCount;
-                    if (m_count)
-                    {
-                        m_count.text = "";
-                        if (m_skillCount > 0)
-                        {
-                            m_count.text = m_skillCount.ToString();
-                        }
-                    }
                     PlayAction(ActionType.Guard);
                     EffectManager.Instance.PlayEffect(EffectType.Guard, CenterPos.position);
                     SoundManager.Play(SEType.PaylineCharge);
@@ -219,6 +206,7 @@ namespace victory7
                     BattleManager.Instance.AddEnemyActionCount(m_skill.MaxCount);
                     break;
                 case PlayerSkill.DelaySlot:
+                    m_skillCount += m_skill.MaxCount;
                     PlayAction(ActionType.Charge);
                     GameManager.Instance.SlotSpeedChange(m_skill.Effect);
                     EffectManager.Instance.PlayEffect(EffectType.Guard, CenterPos.position);
@@ -248,6 +236,14 @@ namespace victory7
                     break;
                 default:
                     break;
+            }
+            if (m_count)
+            {
+                m_count.text = "";
+                if (m_skillCount > 0)
+                {
+                    m_count.text = m_skillCount.ToString();
+                }
             }
         }
         public void SkillCheck()
@@ -309,13 +305,10 @@ namespace victory7
                     break;
             }
         }
-        private ViewText EffectText(EffectType effect,SEType se)
+        private void EffectText(EffectType effect,SEType se)
         {
-            var view = Instantiate(EffectManager.Instance.Text);
-            view.transform.position = CenterPos.position + Vector3.up;
             EffectManager.Instance.PlayEffect(effect, CenterPos.position);
             SoundManager.Play(se);
-            return view;
         }
     }
 }

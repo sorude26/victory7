@@ -72,7 +72,7 @@ namespace victory7
             {
                 return;
             }
-            m_lineData[m_selectNum].Move(dir);
+            m_lineData[m_selectNum].Move(-dir);
         }
 
         protected virtual void Select()
@@ -84,7 +84,7 @@ namespace victory7
             m_selectMark.position = m_lineData[m_selectNum].Center.position;
             m_lineData[m_selectNum].Select();
         }
-
+        public virtual void CancelAction() { }
         public virtual LineDataView Target()
         {
             return m_lineData[m_selectNum];

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ namespace victory7
 {
     public class CharacterSelectController : MonoBehaviour
     {
+        const int viewCharaCount = 4;
         [SerializeField]
         string m_target = "MapScene";
         [SerializeField]
@@ -26,6 +28,10 @@ namespace victory7
         SkillPanel m_skillPanel = default;
         [SerializeField]
         SkillSelectMassage m_massage = default;
+        [SerializeField]
+        float m_dataScale = 0.3f;
+        [SerializeField]
+        Vector2 m_dataPos = Vector2.zero;
         GameObject[] m_characters = default;
         StartSlotDataView[] m_characterData = default;
         SkillPanel[] m_skillPanels = default;
@@ -116,21 +122,18 @@ namespace victory7
                     m_massageOpen = false;
                     m_massage.CloseMassage();
                     SelectPanel().gameObject.SetActive(true);
+                    int targetNum = GetSelectNum();
+                    m_characterData[targetNum].gameObject.transform.localScale = Vector3.one;
+                    m_characterData[targetNum].gameObject.transform.localPosition = Vector3.zero;
+                    m_characterData[targetNum].gameObject.SetActive(false);
                     return;
                 }
                 if (m_select)
                 {
                     m_select = false;
-                    if (m_selectNumber + 1 < m_characterData.Length)
-                    {
-                        m_skillPanels[m_selectNumber + 1].gameObject.SetActive(false);
-                        m_characterData[m_selectNumber + 1].gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        m_characterData[0].gameObject.SetActive(true);
-                        m_skillPanels[0].gameObject.SetActive(false);
-                    }
+                    int targetNum = GetSelectNum();
+                    m_characterData[targetNum].gameObject.SetActive(true);
+                    m_skillPanels[targetNum].gameObject.SetActive(false);
                     foreach (var item in m_characters)
                     {
                         item.SetActive(true);
@@ -145,7 +148,11 @@ namespace victory7
                     if (m_massage.Decision())
                     {
                         m_massageOpen = false;
-                        SelectPanel().gameObject.SetActive(true);
+                        SelectPanel().gameObject.SetActive(true); 
+                        int targetNum = GetSelectNum();
+                        m_characterData[targetNum].gameObject.transform.localScale = Vector3.one;
+                        m_characterData[targetNum].gameObject.transform.localPosition = Vector3.zero;
+                        m_characterData[targetNum].gameObject.SetActive(false);
                     }
                     else
                     {
@@ -158,29 +165,25 @@ namespace victory7
                 {
                     m_massage.Skill.SetData(SelectPanel().CurrentSkill);
                     m_massage.OpenMassage();
-                    m_massageOpen = true; 
+                    m_massageOpen = true;
                     SelectPanel().gameObject.SetActive(false);
+                    int targetNum = GetSelectNum();
+                    m_characterData[targetNum].gameObject.SetActive(true);
+                    m_characterData[targetNum].gameObject.transform.localScale *= m_dataScale;
+                    m_characterData[targetNum].gameObject.transform.localPosition = m_dataPos;
                     return;
                 }
                 if (!m_move)
                 {
-                    m_select = true; 
+                    m_select = true;
                     foreach (var item in m_characters)
                     {
                         item.SetActive(false);
                     }
-                    if (m_selectNumber + 1 < m_characterData.Length)
-                    {
-                        m_characters[m_selectNumber + 1].gameObject.SetActive(true);
-                        m_skillPanels[m_selectNumber + 1].gameObject.SetActive(true);
-                        m_characterData[m_selectNumber + 1].gameObject.SetActive(false);
-                    }
-                    else
-                    {
-                        m_characters[0].gameObject.SetActive(true);
-                        m_characterData[0].gameObject.SetActive(false);
-                        m_skillPanels[0].gameObject.SetActive(true);
-                    }
+                    int targetNum = GetSelectNum();
+                    m_characters[targetNum].gameObject.SetActive(true);
+                    m_characterData[targetNum].gameObject.SetActive(false);
+                    m_skillPanels[targetNum].gameObject.SetActive(true);
                     SelectPanel().SelectGuide();
                 }
             }
@@ -222,48 +225,23 @@ namespace victory7
             }
             for (int i = 0; i < 3; i++)
             {
-                if (i + m_selectNumber >= m_characters.Length)
-                {
-                    m_characters[i + m_selectNumber - m_characters.Length].transform.position = m_bottom.position + Vector3.up * m_size * i;
-                }
-                else
-                {
-                    m_characters[i + m_selectNumber].transform.position = m_bottom.position + Vector3.up * m_size * i;
-                }
+                m_characters[GetSelectNum(i)].transform.position = m_bottom.position + Vector3.up * m_size * i;
             }
             DataChange();
         }
         void CharaMoveDown()
         {
             m_posY -= m_size * m_characters.Length * m_speed * Time.deltaTime;
-            if (m_posY < -m_size)
-            {
-                m_posY = 0;
-                m_characters[m_selectNumber].transform.position = m_top.position;
-                m_selectNumber++;
-                if (m_selectNumber >= m_characters.Length)
-                {
-                    m_selectNumber = 0;
-                }
-                DataChange();
-                m_move = false;
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                if (i + m_selectNumber >= m_characters.Length)
-                {
-                    m_characters[i + m_selectNumber - m_characters.Length].transform.position = m_bottom.position + Vector3.up * m_size * i + new Vector3(0, m_posY, 0);
-                }
-                else
-                {
-                    m_characters[i + m_selectNumber].transform.position = m_bottom.position + Vector3.up * m_size * i + new Vector3(0, m_posY, 0);
-                }
-            }
+            CharaChange(() => m_posY < -m_size);
         }
         void CharaMoveUp()
         {
             m_posY += m_size * m_characters.Length * m_speed * Time.deltaTime;
-            if (m_posY > m_size)
+            CharaChange(() => m_posY > m_size);
+        }
+        void CharaChange(Func<bool> changeCheck)
+        {
+            if (changeCheck())
             {
                 m_posY = 0;
                 m_characters[m_selectNumber].transform.position = m_top.position;
@@ -275,16 +253,9 @@ namespace victory7
                 DataChange();
                 m_move = false;
             }
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < viewCharaCount; i++)
             {
-                if (i + m_selectNumber >= m_characters.Length)
-                {
-                    m_characters[i + m_selectNumber - m_characters.Length].transform.position = m_bottom.position + Vector3.up * m_size * i + new Vector3(0, m_posY, 0);
-                }
-                else
-                {
-                    m_characters[i + m_selectNumber].transform.position = m_bottom.position + Vector3.up * m_size * i + new Vector3(0, m_posY, 0);
-                }
+                m_characters[GetSelectNum(i)].transform.position = m_bottom.position + Vector3.up * m_size * i + new Vector3(0, m_posY, 0);
             }
         }
         void DataChange()
@@ -293,38 +264,33 @@ namespace victory7
             {
                 item.gameObject.SetActive(false);
             }
-            if (m_selectNumber + 1 < m_characterData.Length)
-            {
-                m_characterData[m_selectNumber + 1].gameObject.SetActive(true);
-            }
-            else
-            {
-                m_characterData[0].gameObject.SetActive(true);
-            }
+            m_characterData[GetSelectNum()].gameObject.SetActive(true);
         }
         SkillPanel SelectPanel()
         {
-            if (m_selectNumber + 1 < m_characterData.Length)
-            {
-                return m_skillPanels[m_selectNumber + 1];
-            }
-            else
-            {
-                return m_skillPanels[0];
-            }
+            return m_skillPanels[GetSelectNum()];
         }
         void StartGame()
         {
             FadeController.Instance.StartFadeOut(LoadGame);
-            if (m_selectNumber + 1 < m_characterData.Length)
-            {
-                GameManager.Instance.StartSet(m_playerParameters[m_selectNumber + 1],SelectPanel().CurrentSkill);
-            }
-            else
-            {
-                GameManager.Instance.StartSet(m_playerParameters[0], SelectPanel().CurrentSkill);
-            }
+            GameManager.Instance.StartSet(m_playerParameters[GetSelectNum()], SelectPanel().CurrentSkill);
             MapData.ClearReset();
+        }
+        int GetSelectNum()
+        {
+            if (m_selectNumber + 1 >= m_characterData.Length)
+            {
+                return 0;
+            }
+            return m_selectNumber + 1;
+        }
+        int GetSelectNum(int i)
+        {
+            if (m_selectNumber + i >= m_characterData.Length)
+            {
+                return m_selectNumber + i - m_characterData.Length;
+            }
+            return m_selectNumber + i;
         }
         void LoadGame()
         {
