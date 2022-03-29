@@ -13,6 +13,8 @@ namespace victory7
         [SerializeField]
         string m_target = "MapScene";
         [SerializeField]
+        BGMType m_bgm = BGMType.Select;
+        [SerializeField]
         PlayerParameter[] m_playerParameters = default;
         [SerializeField]
         StartSlotDataView m_dataViewPrefab = default;
@@ -24,6 +26,8 @@ namespace victory7
         float m_size = 400f;
         [SerializeField]
         float m_speed = 2f;
+        [SerializeField]
+        float m_bgmTime = 1f;
         [SerializeField]
         SkillPanel m_skillPanel = default;
         [SerializeField]
@@ -47,6 +51,7 @@ namespace victory7
             m_massage.CloseMassage();
             StartSet();
             m_inGame = true;
+            SoundManager.PlayBGM(m_bgm, m_bgmTime);
             FadeController.Instance.StartFadeIn(() => m_inGame = false);
         }
 

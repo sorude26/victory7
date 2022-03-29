@@ -26,6 +26,7 @@ namespace victory7
             PositionReset();
             ClearStageCount = 0;
             BattleCount = 0;
+            BattleData.Next = false;
         }
         public static void AddClearCount()
         {
