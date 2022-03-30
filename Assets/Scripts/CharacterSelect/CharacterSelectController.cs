@@ -75,11 +75,13 @@ namespace victory7
                         if (!m_move)
                         {
                             m_move = true;
+                            SoundManager.Play(SEType.Choice);
                         }
                     }
                     else
                     {
                         SelectPanel().Back();
+                        SoundManager.Play(SEType.Choice);
                     }
                 }
                 else
@@ -90,11 +92,13 @@ namespace victory7
                         if (!m_move)
                         {
                             m_move = true;
+                            SoundManager.Play(SEType.Choice);
                         }
                     }
                     else
                     {
                         SelectPanel().Next();
+                        SoundManager.Play(SEType.Choice);
                     }
                 }
             }
@@ -103,6 +107,7 @@ namespace victory7
                 if (m_massageOpen)
                 {
                     m_massage.ChangeTarget();
+                    SoundManager.Play(SEType.Choice);
                     return;
                 }
                 if (Input.GetAxisRaw("Horizontal") > 0)
@@ -110,6 +115,7 @@ namespace victory7
                     if (m_select)
                     {
                         SelectPanel().Back();
+                        SoundManager.Play(SEType.Choice);
                     }
                 }
                 else
@@ -117,6 +123,7 @@ namespace victory7
                     if (m_select)
                     {
                         SelectPanel().Next();
+                        SoundManager.Play(SEType.Choice);
                     }
                 }
             }
@@ -131,6 +138,7 @@ namespace victory7
                     m_characterData[targetNum].gameObject.transform.localScale = Vector3.one;
                     m_characterData[targetNum].gameObject.transform.localPosition = Vector3.zero;
                     m_characterData[targetNum].gameObject.SetActive(false);
+                    SoundManager.Play(SEType.Cancel);
                     return;
                 }
                 if (m_select)
@@ -143,6 +151,7 @@ namespace victory7
                     {
                         item.SetActive(true);
                     }
+                    SoundManager.Play(SEType.Cancel);
                     return;
                 }
             }
@@ -158,11 +167,13 @@ namespace victory7
                         m_characterData[targetNum].gameObject.transform.localScale = Vector3.one;
                         m_characterData[targetNum].gameObject.transform.localPosition = Vector3.zero;
                         m_characterData[targetNum].gameObject.SetActive(false);
+                        SoundManager.Play(SEType.Cancel);
                     }
                     else
                     {
                         StartGame();
                         m_inGame = true;
+                        SoundManager.Play(SEType.Decision);
                     }
                     return;
                 }
@@ -176,6 +187,7 @@ namespace victory7
                     m_characterData[targetNum].gameObject.SetActive(true);
                     m_characterData[targetNum].gameObject.transform.localScale *= m_dataScale;
                     m_characterData[targetNum].gameObject.transform.localPosition = m_dataPos;
+                    SoundManager.Play(SEType.Decision);
                     return;
                 }
                 if (!m_move)
@@ -189,6 +201,7 @@ namespace victory7
                     m_characters[targetNum].gameObject.SetActive(true);
                     m_characterData[targetNum].gameObject.SetActive(false);
                     m_skillPanels[targetNum].gameObject.SetActive(true);
+                    SoundManager.Play(SEType.Decision);
                     SelectPanel().SelectGuide();
                 }
             }

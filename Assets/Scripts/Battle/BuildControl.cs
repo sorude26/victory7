@@ -42,7 +42,7 @@ namespace victory7
                 m_popSlot[i] = m_popSlot[r];
                 m_popSlot[r] = a;
             }
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < SlotLine.Count; i++)
             {
                 var oneSlot = Instantiate(m_popSlot[i]);
                 oneSlot.SlotRect.transform.position = m_slotPos[i + 1].position;
@@ -63,11 +63,13 @@ namespace victory7
                     m_selectSlot.HideSlot();
                     m_panel.ClosePanel();
                     m_base.SetActive(true);
+                    SoundManager.Play(SEType.Cancel);
                 }
-                else
+                else if(m_targetNum != 0)
                 {
                     m_targetNum = 0;
                     m_target.transform.position = m_slotPos[m_targetNum].position;
+                    SoundManager.Play(SEType.Cancel);
                 }
                 return;
             }
@@ -102,6 +104,7 @@ namespace victory7
                         m_panel.Select(m_targetNum - 1);
                     }
                 }
+                SoundManager.Play(SEType.Choice);
                 return;
             }
             if (Input.GetButtonDown("Vertical"))
@@ -117,6 +120,7 @@ namespace victory7
                     m_lineMark.SetActive(true);
                     m_panel.Select(m_targetNum - 1);
                 }
+                SoundManager.Play(SEType.Choice);
                 return;
             }
             if (Input.GetButtonDown("Submit"))
@@ -135,6 +139,7 @@ namespace victory7
                     m_lineMark.SetActive(false);
                     m_panel.OpenPanel();
                     m_base.SetActive(false);
+                    SoundManager.Play(SEType.Decision);
                 }
                 else if(lineMode)
                 {
@@ -145,6 +150,7 @@ namespace victory7
                     m_selectSlot.PlayGetSlotAnime();
                     SlotData.AddSlot(m_popSlot[m_slotNum], m_targetNum - 1);
                     m_panel.ClosePanel();
+                    SoundManager.Play(SEType.Decision);
                 }
             }
         }

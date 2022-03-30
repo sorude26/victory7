@@ -210,6 +210,7 @@ namespace victory7
                 default:
                     break;
             }
+            SoundManager.Play(SEType.Deployment);
         }
 
         void BattlePoint(int lineNumber, int posNumber, int typeNumber)
@@ -261,6 +262,7 @@ namespace victory7
                     m_currentPos = m_targetPos.Count - 1;
                 }
             }
+            SoundManager.Play(SEType.Choice);
             m_target.transform.position = m_targetPos[m_currentPos].transform.position;
         }
         void CreateMap()

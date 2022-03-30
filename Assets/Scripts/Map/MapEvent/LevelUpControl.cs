@@ -24,6 +24,7 @@ namespace victory7
             {
                 return false;
             }
+            SoundManager.Play(SEType.LevelUPSquares);
             m_lineData[0].SetLine(SlotData.LeftSlotData);
             m_lineData[1].SetLine(SlotData.CenterSlotData);
             m_lineData[2].SetLine(SlotData.RightSlotData);

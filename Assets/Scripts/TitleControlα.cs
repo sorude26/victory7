@@ -38,6 +38,7 @@ namespace victory7
                 return;
             }
             m_start = false;
+            SoundManager.Play(SEType.Decision);
             FadeController.Instance.StartFadeOut(LoadMap);
         }
         void LoadMap()

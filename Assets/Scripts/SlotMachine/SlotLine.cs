@@ -12,6 +12,7 @@ namespace victory7
     }
     public class SlotLine : MonoBehaviour
     {
+        public const int Count = 3;
         List<Slot> m_line = new List<Slot>();
         [SerializeField]
         RectTransform m_base = default;

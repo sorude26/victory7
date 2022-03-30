@@ -157,7 +157,6 @@ namespace victory7
             {
                 m_player.ActionStack.Push(() => enemy.Damage(m_player.GetPower(slotPower)));
                 m_player.AttackAction(enemy);
-                SoundManager.Play(SEType.PaylineAttack);
                 m_waitAction = m_player.ActionTime;
             }
         }
@@ -226,6 +225,10 @@ namespace victory7
         {
             m_waitAction = character.ActionTime;
         }
+        public void SetActionTime(float actionTime)
+        {
+            m_waitAction = actionTime;
+        }
         /// <summary>
         /// Fever状態に変更する
         /// </summary>
@@ -277,6 +280,7 @@ namespace victory7
         public void BuildPanelOpen()
         {
             buildControl.gameObject.SetActive(true);
+            SoundManager.PlayBGM(m_buildBGM);
         }
         /// <summary>
         /// フェードアウトし、シーン遷移する
@@ -434,6 +438,7 @@ namespace victory7
         /// <returns></returns>
         IEnumerator FeverMode()
         {
+            m_player.GetFeverEffect.Play();
             SoundManager.PlayBGM(m_feverBGM);
             while (m_normalSlot.CheckNow && !BattleEnd)
             {
@@ -458,6 +463,7 @@ namespace victory7
                 yield return SlotChackFever();
             }
             m_sevenSlot.StopAll();
+            m_player.GetFeverEffect.Stop();
             SoundManager.PlayBGM(m_battleBGM);
             while (!m_sevenSlot.Stop && !BattleEnd)
             {

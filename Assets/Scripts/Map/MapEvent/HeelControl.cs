@@ -22,6 +22,7 @@ namespace victory7
             {
                 return;
             }
+            SoundManager.Play(SEType.HeelSquares);
             PlayerData.HeelHP((int)(PlayerData.MaxHP * _recoveryRate / 100));
             OutSelectEvent();
         }
