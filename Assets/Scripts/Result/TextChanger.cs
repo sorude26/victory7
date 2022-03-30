@@ -36,11 +36,12 @@ namespace victory7
 
             m_sevenSlot = SlotData.SevenSlotCount();
 
-            FadeController.Instance.StartFadeIn(() => m_start = true);
         }
 
         private void Start()
         {
+            FadeController.Instance.StartFadeIn(() => m_start = true);
+
             if (m_takeNum == 1)
             {
                 m_myScore = m_ClearStageCountData; 
