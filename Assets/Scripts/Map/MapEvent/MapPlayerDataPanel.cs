@@ -20,6 +20,7 @@ namespace victory7
         }
         public override void CancelAction()
         {
+            SoundManager.Play(SEType.Cancel);
             OutSelectEvent();
         }
     }

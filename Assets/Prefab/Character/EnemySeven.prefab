@@ -40011,6 +40011,16 @@ MonoBehaviour:
   m_parameter: {fileID: 11400000, guid: a452e833bd1cda84689d8fa7ed0499ee, type: 2}
   m_rtgGauge: {fileID: 0}
   m_count: {fileID: 4906235836501583197}
+  m_deadVoice: 28
+  m_attackVoices: 160000001700000017000000
+  m_enemyAction:
+  - attack
+  - attack
+  - attack
+  m_actionTimes:
+  - 1.2
+  - 1.2
+  - 1.2
 --- !u!1 &4906235836726386724
 GameObject:
   m_ObjectHideFlags: 0

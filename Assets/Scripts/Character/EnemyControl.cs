@@ -16,6 +16,14 @@ namespace victory7
         [SerializeField]
         protected Text m_count = default;
         protected int[] m_attackCounts = default;
+        [SerializeField]
+        SEType m_deadVoice = SEType.GolemDeath;
+        [SerializeField]
+        SEType[] m_attackVoices = { SEType.WeakAttackGolem, SEType.StrongAttackGolem, SEType.WeakAttackGolem };
+        [SerializeField]
+        private string[] m_enemyAction = { "attack", "attack", "attack" };
+        [SerializeField]
+        private float[] m_actionTimes = { 1f, 1f, 1f };
         public bool IsDead { get; protected set; }
         private Stack<Action> m_actionStack = default;
         public void StartSet()
@@ -57,194 +65,11 @@ namespace victory7
                 {
                     m_attackCounts[i] = m_parameter.AttackData[i].y;
                     int a = m_parameter.AttackData[i].x;
+                    int count = i;
                     BattleManager.Instance.BattleActions.Push(() =>
                     {
                         m_actionStack.Push(() => BattleManager.Instance.AttackPlayer(a));
-                        BattleManager.Instance.SetActionTime(this);
-                        if (m_animator)
-                        {
-                            m_animator.Play("attack");
-                            SEType audio = default;
-                            switch (m_parameter.Name)
-                            {
-                                case "通常 1-1"://ゴブリン
-                                    if(a == 15)
-                                    {
-                                        audio = SEType.StrongAttackGoblin;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackGoblin;
-                                    }
-                                    break;
-                                case "通常 2-1"://ゴブリン
-                                    if (a == 15)
-                                    {
-                                        audio = SEType.StrongAttackGoblin;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackGoblin;
-                                    }
-                                    break;
-                                case "通常 3-1"://ゴブリン
-                                    if (a == 15)
-                                    {
-                                        audio = SEType.StrongAttackGoblin;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackGoblin;
-                                    }
-                                    break;
-                                case "通常 4-1"://ゴブリン
-                                    if (a == 10)
-                                    {
-                                        audio = SEType.StrongAttackGoblin;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackGoblin;
-                                    }
-                                    break;
-                                case "通常 5-1"://ゴブリン
-                                    if (a == 10)
-                                    {
-                                        audio = SEType.StrongAttackGoblin;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackGoblin;
-                                    }
-                                    break;
-                                case "通常 1-2"://ゴーレム
-                                    audio = SEType.WeakAttackGolem;
-                                    break;
-                                case "通常 2-2"://ゴーレム
-                                    audio = SEType.WeakAttackGolem;
-                                    break;
-                                case "通常 3-2"://ゴーレム
-                                    audio = SEType.WeakAttackGolem;
-                                    break;
-                                case "通常 4-2"://ゴーレム
-                                    audio = SEType.WeakAttackGolem;
-                                    break;
-                                case "通常 5-2"://ゴーレム
-                                    audio = SEType.WeakAttackGolem;
-                                    break;
-                                case "通常　1-3"://スライム
-                                    if (a == 5)
-                                    {
-                                        audio = SEType.StrongAttackSlime;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackSlime;
-                                    }
-                                    break;
-                                case "通常　2-3"://スライム
-                                    if (a == 5)
-                                    {
-                                        audio = SEType.StrongAttackSlime;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackSlime;
-                                    }
-                                    break;
-                                case "通常　3-3"://スライム
-                                    if (a == 5)
-                                    {
-                                        audio = SEType.StrongAttackSlime;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackSlime;
-                                    }
-                                    break;
-                                case "通常　4-3"://スライム
-                                    if (a == 7)
-                                    {
-                                        audio = SEType.StrongAttackSlime;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackSlime;
-                                    }
-                                    break;
-                                case "通常　5-3"://スライム
-                                    if (a == 7)
-                                    {
-                                        audio = SEType.StrongAttackSlime;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackSlime;
-                                    }
-                                    break;
-                                case "Seven chan"://イレギュラーバトル
-                                    if(a == 77)
-                                    {
-                                        audio = SEType.StrongAttackSpecial;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackSpecial;
-                                    }
-                                    break;
-                                case "Boss 1"://ドラゴン
-                                    if(a == 20)
-                                    {
-                                        audio = SEType.StrongAttackDragon;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackDragon;
-                                    }
-                                    break;
-                                case "Boss 2"://ドラゴン
-                                    if (a == 30)
-                                    {
-                                        audio = SEType.StrongAttackDragon;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackDragon;
-                                    }
-                                    break;
-                                case "Boss 3"://ドラゴン
-                                    if (a == 50)
-                                    {
-                                        audio = SEType.StrongAttackDragon;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackDragon;
-                                    }
-                                    break;
-                                case "Boss 4"://ドラゴン
-                                    if (a == 50)
-                                    {
-                                        audio = SEType.StrongAttackDragon;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackDragon;
-                                    }
-                                    break;
-                                case "Boss 5"://ドラゴン
-                                    if (a == 77)
-                                    {
-                                        audio = SEType.StrongAttackDragon;
-                                    }
-                                    else
-                                    {
-                                        audio = SEType.WeakAttackDragon;
-                                    }
-                                    break;
-                            }
-                                    SoundManager.Play(audio);
-                        }
+                        PlayAttack(count);
                     });
                 }
             }
@@ -272,6 +97,7 @@ namespace victory7
                 m_animator.Play("dead");
             }
             IsDead = true;
+            SoundManager.Play(m_deadVoice);
             BattleManager.Instance.CheckBattle();
         }
         public override void PercentageDamage(int percentage)
@@ -311,6 +137,12 @@ namespace victory7
         void PlayAction()
         {
             m_actionStack.Pop()?.Invoke();
+        }
+        void PlayAttack(int count)
+        {
+            BattleManager.Instance.SetActionTime(m_actionTimes[count]);
+            m_animator.Play(m_enemyAction[count]);
+            SoundManager.Play(m_attackVoices[count]);
         }
     } 
 }

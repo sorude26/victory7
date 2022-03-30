@@ -9,11 +9,14 @@ namespace victory7
     {
         [SerializeField]
         string m_target = "MapScene";
+        [SerializeField]
+        BGMType m_bgm = BGMType.Title;
         bool m_start = false;
         void Start()
         {
             FadeController.Instance.StartFadeIn(() => m_start = true);
             //GameManager.Instance.StartSet();
+            SoundManager.PlayBGM(m_bgm);
             MapData.ClearReset();
         }
 
@@ -35,6 +38,7 @@ namespace victory7
                 return;
             }
             m_start = false;
+            SoundManager.Play(SEType.Decision);
             FadeController.Instance.StartFadeOut(LoadMap);
         }
         void LoadMap()

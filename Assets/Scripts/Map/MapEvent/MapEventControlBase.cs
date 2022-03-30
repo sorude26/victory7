@@ -64,6 +64,7 @@ namespace victory7
             {
                 m_selectNum += m_lineData.Length;
             }
+            SoundManager.Play(SEType.Choice);
             Select();
         }
         public virtual void MoveSlot(int dir)
@@ -73,6 +74,7 @@ namespace victory7
                 return;
             }
             m_lineData[m_selectNum].Move(-dir);
+            SoundManager.Play(SEType.Choice);
         }
 
         protected virtual void Select()

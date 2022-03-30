@@ -29,6 +29,8 @@ namespace victory7
         [SerializeField]
         protected Text m_count = default;
         [SerializeField]
+        ParticleSystem m_effect = default;
+        [SerializeField]
         CharacterAnimatonContoller m_anime1 = default;
         [SerializeField]
         CharacterAnimatonContoller m_anime2 = default;
@@ -64,6 +66,7 @@ namespace victory7
         }
         public int CurrentSP { get => m_sp; }
         public int CurrentGP { get => m_gp; }
+        public ParticleSystem GetFeverEffect { get => m_effect; }
         public Stack<Action> ActionStack { get; protected set; }
         public void StartSet()
         {
@@ -293,6 +296,7 @@ namespace victory7
                 case "attack_02":
                     SetAction(ActionType.Attack3);
                     ActionStack.Pop()?.Invoke();
+                    SoundManager.Play(SEType.PaylineAttack);
                     break;
                 case "attack_03":
                     SetAction(ActionType.Attack4);

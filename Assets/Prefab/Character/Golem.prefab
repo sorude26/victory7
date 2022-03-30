@@ -135,7 +135,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1744396922083980934}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -1.26, z: 0}
+  m_LocalPosition: {x: -0, y: -2.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8386053407706026029}
@@ -1875,6 +1875,16 @@ MonoBehaviour:
   m_parameter: {fileID: 11400000, guid: 9fd5ef514c5f375448747be089a78511, type: 2}
   m_rtgGauge: {fileID: 8386053407350400669}
   m_count: {fileID: 1301044547561786044}
+  m_deadVoice: 26
+  m_attackVoices: 120000001300000012000000
+  m_enemyAction:
+  - attack
+  - attack
+  - attack
+  m_actionTimes:
+  - 5.4
+  - 5.4
+  - 5.4
 --- !u!95 &6624159119839114114
 Animator:
   serializedVersion: 3
