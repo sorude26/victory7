@@ -2,6 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BGMType
+{
+    Battle1,
+    Battle2,
+    Battle3,
+    Battle4,
+    Battle5,
+    Battle6,
+    Battle7,
+    Battle8,
+    Map1,
+    Map2,
+    Result,
+    Select,
+    Title,
+    Build,
+}
 public enum SEType
 {
     StopSpin,//リールを止める：通常
@@ -27,25 +44,25 @@ public enum SEType
 
     WeakAttackGoblin,//弱攻撃：ゴブリン
     StrongAttackGoblin,//強攻撃：ゴブリン
-    
+
     WeakAttackGolem,//弱攻撃：ゴーレム
     StrongAttackGolem,//強攻撃：ゴーレム
-    
+
     WeakAttackSlime,//弱攻撃：スライム
     StrongAttackSlime,//強攻撃：スライム
-    
+
     WeakAttackSpecial,//弱攻撃：特殊
     StrongAttackSpecial,//強攻撃：特殊
-    
+
     DragonDeath,//死亡ボイス：ドラゴン
     GoblinDeath,//死亡ボイス：ゴブリン
     GolemDeath,//死亡ボイス：ゴーレム
     SlimeDeath,//死亡ボイス：スライム
     SpecialDeath,//死亡ボイス：特殊
-    
+
     HeelSquares,//回復マス
     LevelUPSquares,//レベルアップマス
-    
+
     Decision,//決定
     Choice,//選択
     Cancel,//キャンセル
@@ -56,20 +73,77 @@ public enum SEType
 public class SoundManager : MonoBehaviour
 {
     static SoundManager instance = default;
-
+    const int MaxVolume = 1;
     [SerializeField]
     AudioClip[] m_seClips = default;
+    [SerializeField]
+    AudioClip[] m_bgmClips = default;
+    [SerializeField]
+    AudioSource m_bgmSource = default;
 
     AudioSource m_audio = default;
     Dictionary<SEType, AudioClip> m_seDic = default;
+    Dictionary<BGMType, AudioClip> m_bgmDic = default;
+    bool m_isPlaying = false;
+    float m_bgmVolume = MaxVolume;
+    float m_seVolume = MaxVolume;
+
+    public static BGMType CurrentBGM { get; private set; }
+    public float BGMVolume
+    {
+        get => m_bgmVolume;
+        set
+        {
+            if (value > MaxVolume)
+            {
+                m_bgmVolume = MaxVolume;
+            }
+            else if (value < 0)
+            {
+                m_bgmVolume = 0;
+            }
+            else { m_bgmVolume = value; }
+            m_bgmSource.volume = m_bgmVolume;
+        }
+    }
+    public float SEVolume
+    {
+        get => m_seVolume;
+        set
+        {
+            if (value > MaxVolume)
+            {
+                m_seVolume = MaxVolume;
+            }
+            else if (value < 0)
+            {
+                m_seVolume = 0;
+            }
+            else { m_seVolume = value; }
+            m_audio.volume = m_seVolume;
+        }
+    }
     private void Awake()
     {
-        instance = this;
-        m_audio = GetComponent<AudioSource>();
-        m_seDic = new Dictionary<SEType, AudioClip>();
-        for (int i = 0; i < m_seClips.Length; i++)
+        if (instance == null)
         {
-            m_seDic.Add((SEType)i, m_seClips[i]);
+            instance = this;
+            m_audio = GetComponent<AudioSource>();
+            m_seDic = new Dictionary<SEType, AudioClip>();
+            m_bgmDic = new Dictionary<BGMType, AudioClip>();
+            for (int i = 0; i < m_seClips.Length; i++)
+            {
+                m_seDic.Add((SEType)i, m_seClips[i]);
+            }
+            for (int i = 0; i < m_bgmClips.Length; i++)
+            {
+                m_bgmDic.Add((BGMType)i, m_bgmClips[i]);
+            }
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -81,8 +155,45 @@ public class SoundManager : MonoBehaviour
             //Debug.Log(type);
         }
     }
-    public static void PlayBGM()
+    public static void PlayBGM(BGMType type, float fadeTime = 1f)
     {
-        instance.m_audio.Play();
+        if (instance)
+        {
+            if (instance.m_isPlaying)
+            {
+                instance.ChangeBGM(type, fadeTime);
+            }
+            else
+            {
+                instance.SetBGM(type);
+            }
+        }
+    }
+    void SetBGM(BGMType type)
+    {
+        m_bgmSource.clip = m_bgmDic[type];
+        m_bgmSource.Play();
+        m_bgmSource.loop = true;
+        CurrentBGM = type;
+        m_isPlaying = true;
+    }
+    void ChangeBGM(BGMType type, float fadeTime)
+    {
+        if (type != CurrentBGM)
+        {
+            StartCoroutine(FadeChangeBGM(type, fadeTime));
+        }
+    }
+    IEnumerator FadeChangeBGM(BGMType type, float fadeChangeTime)
+    {
+        float timer = 0f;
+        while (timer < fadeChangeTime)
+        {
+            timer += Time.deltaTime;
+            m_bgmSource.volume = m_bgmVolume * (1 - timer / fadeChangeTime);
+            yield return null;
+        }
+        m_bgmSource.volume = m_bgmVolume;
+        SetBGM(type);
     }
 }

@@ -23,6 +23,7 @@ namespace victory7
             {
                 return false;
             }
+            SoundManager.Play(SEType.Decision);
             SlotData.RemoveSlot(m_lineData[m_selectNum].SelectNum, m_selectNum);
             m_lineData[0].SetLine(SlotData.LeftSlotData);
             m_lineData[1].SetLine(SlotData.CenterSlotData);

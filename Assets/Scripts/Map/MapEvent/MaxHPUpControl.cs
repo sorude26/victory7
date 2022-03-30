@@ -32,6 +32,7 @@ namespace victory7
             {
                 return;
             }
+            SoundManager.Play(SEType.HeelSquares);
             PlayerData.AddMaxHP(m_upHP);
             OutSelectEvent();
         }

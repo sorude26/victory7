@@ -34,6 +34,24 @@ namespace victory7
         Text m_mapCount = default;
         [SerializeField]
         MapPlayerData m_mapPlayerData = default;
+        [SerializeField]
+        float m_bgmChangeTime = 0.5f;
+        [Header("BGM変更マップ走破数")]
+        [SerializeField]
+        int m_bgmChangeCount = 4;
+        [SerializeField]
+        BGMType m_startMapBGM = BGMType.Map1;
+        [SerializeField]
+        BGMType m_hardMapBGM = BGMType.Map2;
+        [SerializeField]
+        BGMType m_normalBattleBGM = BGMType.Battle1;
+        [SerializeField]
+        BGMType m_hardBattleBGM = BGMType.Battle3;
+        [SerializeField]
+        BGMType m_bossBattleBGM = BGMType.Battle5;
+        [SerializeField]
+        BGMType m_exBattleBGM = BGMType.Battle6;
+
         int m_currentPos = 0;
         bool m_gard = false;
         bool m_create = default;
@@ -44,6 +62,7 @@ namespace victory7
         MapEventControlBase m_currentEvent = default;
         List<MapPoint> m_targetPos = default;
         List<MapPoint>[] m_mapData = default;
+        BGMType m_battleBGM = BGMType.Battle1;
         private void Start()
         {
             m_create = MapData.Create;
@@ -59,6 +78,14 @@ namespace victory7
             m_gard = true;
             m_background.sprite = MapData.CurrentMap.Background;
             m_mapCount.text = (1 + MapData.ClearStageCount).ToString();
+            if (MapData.ClearStageCount < m_bgmChangeCount)
+            {
+                SoundManager.PlayBGM(m_startMapBGM, m_bgmChangeTime);
+            }
+            else
+            {
+                SoundManager.PlayBGM(m_hardMapBGM, m_bgmChangeTime);
+            }
         }
         private void Update()
         {
@@ -122,6 +149,7 @@ namespace victory7
                 MapData.PositionReset();
                 BattleData.SetData(MapData.CurrentMap.BossBattleData);
                 BattleData.Next = true;
+                m_battleBGM = m_bossBattleBGM;
                 FadeController.Instance.StartFadeOut(Battle);
                 return;
             }
@@ -182,6 +210,7 @@ namespace victory7
                 default:
                     break;
             }
+            SoundManager.Play(SEType.Deployment);
         }
 
         void BattlePoint(int lineNumber, int posNumber, int typeNumber)
@@ -190,10 +219,19 @@ namespace victory7
             if (typeNumber < 0)
             {
                 BattleData.SetData(MapData.CurrentMap.ExBattleData);
+                m_battleBGM = m_exBattleBGM;
             }
             else
             {
                 BattleData.SetData(MapData.CurrentMap.GetNormalBattle());
+                if (MapData.ClearStageCount < m_bgmChangeCount)
+                {
+                    m_battleBGM = m_normalBattleBGM;
+                }
+                else
+                {
+                    m_battleBGM = m_hardBattleBGM;
+                }
             }
             FadeController.Instance.StartFadeOut(Battle);
         }
@@ -224,6 +262,7 @@ namespace victory7
                     m_currentPos = m_targetPos.Count - 1;
                 }
             }
+            SoundManager.Play(SEType.Choice);
             m_target.transform.position = m_targetPos[m_currentPos].transform.position;
         }
         void CreateMap()
@@ -335,6 +374,7 @@ namespace victory7
         }
         void Battle()
         {
+            SoundManager.PlayBGM(m_battleBGM, m_bgmChangeTime);
             SceneManager.LoadScene(m_targetScene);
         }
     }

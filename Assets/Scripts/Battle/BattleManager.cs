@@ -34,6 +34,14 @@ namespace victory7
         float m_actionInterval = 0.2f;
         [SerializeField]
         float m_waitInterval = 0.2f;
+        [SerializeField]
+        float m_buildTime = 3f;
+        [SerializeField]
+        BGMType m_buildBGM = BGMType.Build;
+        [SerializeField]
+        BGMType m_resultBGM = BGMType.Result;
+        [SerializeField]
+        BGMType m_feverBGM = BGMType.Battle8;
 
         const float SlotWaitTime = 0.5f;
 
@@ -42,6 +50,7 @@ namespace victory7
         bool m_fever = false;
         bool m_start = false;
         bool m_waitNow = false;
+        BGMType m_battleBGM = default;
 
         Stack<Action> m_battleActions = default;
         Stack<Action> m_effectActions = default;
@@ -57,6 +66,7 @@ namespace victory7
         {
             StartSet();
             buildControl.StartSet();
+            m_battleBGM = SoundManager.CurrentBGM;
             FadeController.Instance.StartFadeIn(StartBattle);
         }
         private void Update()
@@ -147,7 +157,6 @@ namespace victory7
             {
                 m_player.ActionStack.Push(() => enemy.Damage(m_player.GetPower(slotPower)));
                 m_player.AttackAction(enemy);
-                SoundManager.Play(SEType.PaylineAttack);
                 m_waitAction = m_player.ActionTime;
             }
         }
@@ -216,6 +225,10 @@ namespace victory7
         {
             m_waitAction = character.ActionTime;
         }
+        public void SetActionTime(float actionTime)
+        {
+            m_waitAction = actionTime;
+        }
         /// <summary>
         /// Fever状態に変更する
         /// </summary>
@@ -267,6 +280,7 @@ namespace victory7
         public void BuildPanelOpen()
         {
             buildControl.gameObject.SetActive(true);
+            SoundManager.PlayBGM(m_buildBGM);
         }
         /// <summary>
         /// フェードアウトし、シーン遷移する
@@ -290,6 +304,7 @@ namespace victory7
         }
         void LoadResult()
         {
+            SoundManager.PlayBGM(m_resultBGM);
             SceneManager.LoadScene("Result");
         }
         /// <summary>
@@ -423,6 +438,8 @@ namespace victory7
         /// <returns></returns>
         IEnumerator FeverMode()
         {
+            m_player.GetFeverEffect.Play();
+            SoundManager.PlayBGM(m_feverBGM);
             while (m_normalSlot.CheckNow && !BattleEnd)
             {
                 yield return null;
@@ -446,6 +463,8 @@ namespace victory7
                 yield return SlotChackFever();
             }
             m_sevenSlot.StopAll();
+            m_player.GetFeverEffect.Stop();
+            SoundManager.PlayBGM(m_battleBGM);
             while (!m_sevenSlot.Stop && !BattleEnd)
             {
                 yield return null;
