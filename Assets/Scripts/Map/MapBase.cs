@@ -74,7 +74,7 @@ namespace victory7
             m_heel.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
             m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
             m_playerDataPanel.OnEventEnd += () => m_event = false;
-            FadeController.Instance?.StartFadeIn(() => m_gard = false);
+            FadeController.Instance?.StartFadeIn(() => TutorialController.Instance.PlayTutorial(TutorialType.Map, () => m_gard = false));
             m_gard = true;
             m_background.sprite = MapData.CurrentMap.Background;
             m_mapCount.text = (1 + MapData.ClearStageCount).ToString();

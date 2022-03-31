@@ -28,7 +28,7 @@ namespace victory7
         int m_slotNum = 0;
         LineType m_selectLine = default;
         bool lineMode = false;
-
+        bool m_start = false;
         public void StartSet()
         {
             if (BattleData.PopSlot != null && BattleData.PopSlot.Length > 0)
@@ -53,8 +53,14 @@ namespace victory7
             m_selectSlot.OnGetSlot += BattleManager.Instance.NextScene;
             gameObject.SetActive(false);
         }
+        public void StartBuild()
+        {
+            gameObject.SetActive(true);
+            TutorialController.Instance.PlayTutorial(TutorialType.Build, () => m_start = true);
+        }
         void Update()
         {
+            if (!m_start) { return; }
             if (Input.GetButtonDown("Cancel"))
             {
                 if (lineMode)

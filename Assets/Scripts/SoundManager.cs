@@ -89,38 +89,38 @@ public class SoundManager : MonoBehaviour
     float m_seVolume = MaxVolume;
 
     public static BGMType CurrentBGM { get; private set; }
-    public float BGMVolume
+    public static float BGMVolume
     {
-        get => m_bgmVolume;
+        get => instance.m_bgmVolume;
         set
         {
             if (value > MaxVolume)
             {
-                m_bgmVolume = MaxVolume;
+                instance.m_bgmVolume = MaxVolume;
             }
             else if (value < 0)
             {
-                m_bgmVolume = 0;
+                instance.m_bgmVolume = 0;
             }
-            else { m_bgmVolume = value; }
-            m_bgmSource.volume = m_bgmVolume;
+            else { instance.m_bgmVolume = value; }
+            instance.m_bgmSource.volume = instance.m_bgmVolume;
         }
     }
-    public float SEVolume
+    public static float SEVolume
     {
-        get => m_seVolume;
+        get => instance.m_seVolume;
         set
         {
             if (value > MaxVolume)
             {
-                m_seVolume = MaxVolume;
+                instance.m_seVolume = MaxVolume;
             }
             else if (value < 0)
             {
-                m_seVolume = 0;
+                instance.m_seVolume = 0;
             }
-            else { m_seVolume = value; }
-            m_audio.volume = m_seVolume;
+            else { instance.m_seVolume = value; }
+            instance.m_audio.volume = instance.m_seVolume;
         }
     }
     private void Awake()

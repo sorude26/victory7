@@ -66,8 +66,7 @@ namespace victory7
         {
             StartSet();
             buildControl.StartSet();
-            m_battleBGM = SoundManager.CurrentBGM;
-            FadeController.Instance.StartFadeIn(StartBattle);
+            FadeController.Instance.StartFadeIn(() => TutorialController.Instance.PlayTutorial(TutorialType.Battle, StartBattle));
         }
         private void Update()
         {
@@ -279,7 +278,7 @@ namespace victory7
         }
         public void BuildPanelOpen()
         {
-            buildControl.gameObject.SetActive(true);
+            buildControl.StartBuild();
             SoundManager.PlayBGM(m_buildBGM);
         }
         /// <summary>
@@ -313,6 +312,7 @@ namespace victory7
         /// <returns></returns>
         IEnumerator BattleUpdate()
         {
+            m_battleBGM = SoundManager.CurrentBGM;
             while (!BattleEnd)
             {
                 m_normalSlot.StartSlot();

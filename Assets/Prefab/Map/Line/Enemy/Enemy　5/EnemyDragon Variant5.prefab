@@ -5107,6 +5107,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6161074130476175321, guid: 492cb96472393ed4295f2f1ec66ce81f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6191520831154249568, guid: 492cb96472393ed4295f2f1ec66ce81f,
         type: 3}
       propertyPath: m_SortingOrder
