@@ -35,6 +35,8 @@ namespace victory7
         [SerializeField]
         MapPlayerData m_mapPlayerData = default;
         [SerializeField]
+        OptionControl m_optionControl = default;
+        [SerializeField]
         float m_bgmChangeTime = 0.5f;
         [Header("BGM変更マップ走破数")]
         [SerializeField]
@@ -74,6 +76,7 @@ namespace victory7
             m_heel.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
             m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
             m_playerDataPanel.OnEventEnd += () => m_event = false;
+            m_optionControl.OnEventEnd += () => m_event = false;
             FadeController.Instance?.StartFadeIn(() => TutorialController.Instance.PlayTutorial(TutorialType.Map, () => m_gard = false));
             m_gard = true;
             m_background.sprite = MapData.CurrentMap.Background;
@@ -137,8 +140,13 @@ namespace victory7
                 m_currentEvent = m_playerDataPanel;
                 m_currentEvent.SelectEvent();
                 m_event = true;
-                m_load = false;
                 return;
+            }
+            if (Input.GetKeyDown(KeyCode.E) && !m_event)
+            {
+                m_currentEvent = m_optionControl;
+                m_currentEvent.SelectEvent();
+                m_event = true;
             }
         }
         void Next()
