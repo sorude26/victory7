@@ -39952,9 +39952,10 @@ MonoBehaviour:
   - attack
   - attack
   m_actionTimes:
-  - 1
-  - 1
-  - 1
+  - 1.2
+  - 1.2
+  - 1.2
+  m_attackEffects: 0c0000000d0000000d000000
 --- !u!1 &4906235836726386724
 GameObject:
   m_ObjectHideFlags: 0

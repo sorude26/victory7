@@ -24,6 +24,8 @@ namespace victory7
         private string[] m_enemyAction = { "attack", "attack", "attack" };
         [SerializeField]
         private float[] m_actionTimes = { 1f, 1f, 1f };
+        [SerializeField]
+        private EffectType[] m_attackEffects = { EffectType.Attack8, EffectType.Attack9, EffectType.Attack9 };
         public bool IsDead { get; protected set; }
         private Stack<Action> m_actionStack = default;
         public void StartSet()
@@ -68,7 +70,7 @@ namespace victory7
                     int count = i;
                     BattleManager.Instance.BattleActions.Push(() =>
                     {
-                        m_actionStack.Push(() => BattleManager.Instance.AttackPlayer(a));
+                        m_actionStack.Push(() => BattleManager.Instance.AttackPlayer(a,m_attackEffects[count]));
                         PlayAttack(count);
                     });
                 }
@@ -127,7 +129,7 @@ namespace victory7
                     m_count.text += attackCount + ",";
                 }
             }
-            EffectManager.Instance.PlayEffect(EffectType.Damage2, transform.position);
+            EffectManager.Instance.PlayEffect(EffectType.AttackPlayer, transform.position);
         }
         void GameOut()
         {

@@ -700,9 +700,10 @@ MonoBehaviour:
   - attack
   - attack
   m_actionTimes:
-  - 1.4
-  - 1.4
-  - 1.4
+  - 1.6
+  - 1.6
+  - 1.6
+  m_attackEffects: 0e0000000f0000000f000000
 --- !u!95 &7060026445219113540
 Animator:
   serializedVersion: 3

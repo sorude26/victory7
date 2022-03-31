@@ -116,7 +116,6 @@ namespace victory7
                     base.Damage(-m_gp);
                     m_gp = 0;
                 }
-                EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
                 ParameterUpdate();
                 return;
             }

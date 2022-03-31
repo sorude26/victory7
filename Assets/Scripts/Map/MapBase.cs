@@ -12,6 +12,8 @@ namespace victory7
         [SerializeField]
         GameObject m_target = default;
         [SerializeField]
+        GameObject m_healEffect = default;
+        [SerializeField]
         Image m_background = default;
         [Header("遷移先シーン名")]
         [SerializeField]
@@ -73,8 +75,8 @@ namespace victory7
             LodeMap();
             m_removeSlot.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
             m_levelUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
-            m_heel.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
-            m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
+            m_heel.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); m_healEffect.SetActive(true); });
+            m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); m_healEffect.SetActive(true); });
             m_playerDataPanel.OnEventEnd += () => m_event = false;
             m_optionControl.OnEventEnd += () => m_event = false;
             FadeController.Instance?.StartFadeIn(() => TutorialController.Instance.PlayTutorial(TutorialType.Map, () => m_gard = false));

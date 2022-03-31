@@ -5068,6 +5068,7 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  m_attackEffects: 120000001300000013000000
 --- !u!95 &8056136959627905293
 Animator:
   serializedVersion: 3

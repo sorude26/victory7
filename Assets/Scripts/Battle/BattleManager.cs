@@ -35,8 +35,6 @@ namespace victory7
         [SerializeField]
         float m_waitInterval = 0.2f;
         [SerializeField]
-        float m_buildTime = 3f;
-        [SerializeField]
         BGMType m_buildBGM = BGMType.Build;
         [SerializeField]
         BGMType m_resultBGM = BGMType.Result;
@@ -208,10 +206,11 @@ namespace victory7
         /// プレイヤーに指定ダメージを与える
         /// </summary>
         /// <param name="damege"></param>
-        public void AttackPlayer(int damege)
+        public void AttackPlayer(int damege,EffectType attackEffect)
         {
             m_player.Damage(damege);
-            if(PlayerData.CurrentGP >= 1)
+            EffectManager.Instance.PlayEffect(attackEffect, m_player.CenterPos.position);
+            if (PlayerData.CurrentGP >= 1)
             {
                 SoundManager.Play(SEType.Guard);
             }

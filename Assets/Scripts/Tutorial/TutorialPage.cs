@@ -21,11 +21,13 @@ public class TutorialPage : MonoBehaviour
     {
         if (m_currentPage < m_pages.Length - 1)
         {
+            SoundManager.Play(SEType.Choice);
             m_currentPage++;
             OpenPage();
         }
         else
         {
+            SoundManager.Play(SEType.Cancel);
             ClosePage();
             IsEnd = true;
         }
@@ -34,6 +36,7 @@ public class TutorialPage : MonoBehaviour
     {
         if (m_currentPage > 0)
         {
+            SoundManager.Play(SEType.Choice);
             m_currentPage--;
             OpenPage();
         }

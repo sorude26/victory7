@@ -85,8 +85,8 @@ public class SoundManager : MonoBehaviour
     Dictionary<SEType, AudioClip> m_seDic = default;
     Dictionary<BGMType, AudioClip> m_bgmDic = default;
     bool m_isPlaying = false;
-    float m_bgmVolume = MaxVolume;
-    float m_seVolume = MaxVolume;
+    float m_bgmVolume = MaxVolume / 2f;
+    float m_seVolume = MaxVolume / 2f;
 
     public static BGMType CurrentBGM { get; private set; }
     public static float BGMVolume
@@ -169,6 +169,13 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
+    public static void StopBGM(float fadeTime = 1f)
+    {
+        if (instance)
+        {
+            instance.StartCoroutine(instance.FadeOutBGM(fadeTime));
+        }
+    }
     void SetBGM(BGMType type)
     {
         m_bgmSource.clip = m_bgmDic[type];
@@ -193,7 +200,20 @@ public class SoundManager : MonoBehaviour
             m_bgmSource.volume = m_bgmVolume * (1 - timer / fadeChangeTime);
             yield return null;
         }
-        m_bgmSource.volume = m_bgmVolume;
+        m_bgmSource.Stop();
         SetBGM(type);
+        m_bgmSource.volume = m_bgmVolume;
+    }
+    IEnumerator FadeOutBGM(float fadeTime)
+    {
+        float timer = 0f;
+        while (timer < fadeTime)
+        {
+            timer += Time.deltaTime;
+            m_bgmSource.volume = m_bgmVolume * (1 - timer / fadeTime);
+            yield return null;
+        }
+        m_bgmSource.Stop();
+        m_bgmSource.volume = m_bgmVolume;
     }
 }
