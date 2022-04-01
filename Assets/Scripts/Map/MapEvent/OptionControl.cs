@@ -12,9 +12,15 @@ namespace victory7
         private Slider m_bgmSlider = default;
         [SerializeField]
         private Slider m_seSlider = default;
+        [SerializeField]
+        private float m_moveInterval = 0.1f;
+        [SerializeField]
+        private float m_inputInterval = 0.7f;
         private int m_bgmVolume = default;
         private int m_seVolume = default;
         private TargetSlider m_target = default;
+        float m_inputTimer = 0f;
+        float m_moveTimer = 0f;
         private enum TargetSlider 
         { 
             BGM,
@@ -31,6 +37,39 @@ namespace victory7
             m_seSlider.value = SoundManager.SEVolume * SoundScale;
             m_bgmVolume = (int)m_bgmSlider.value;
             m_seVolume = (int)m_seSlider.value;
+        }
+        private void Update()
+        {
+            if (!m_select)
+            {
+                return;
+            }
+            if (Input.GetButton("Horizontal"))
+            {
+                if (m_inputTimer < m_inputInterval)
+                {
+                    m_inputTimer += Time.deltaTime;
+                    return;
+                }
+                if (m_moveTimer < m_moveInterval)
+                {
+                    m_moveTimer += Time.deltaTime;
+                    return;
+                }
+                if (Input.GetAxisRaw("Horizontal") > 0)
+                {
+                    MoveLine(1);
+                }
+                else
+                {
+                    MoveLine(-1);
+                }
+                m_moveTimer = 0;
+            }
+            else if (m_inputTimer > 0)
+            {
+                m_inputTimer = 0;
+            }
         }
         public override void SelectAction()
         {

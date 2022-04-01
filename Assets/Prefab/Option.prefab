@@ -818,6 +818,8 @@ MonoBehaviour:
   m_hidePos: {x: 0, y: 2000}
   m_bgmSlider: {fileID: 163749744112057710}
   m_seSlider: {fileID: 3266278871263246039}
+  m_moveInterval: 0.05
+  m_inputInterval: 0.3
 --- !u!1 &6978235569760870886
 GameObject:
   m_ObjectHideFlags: 0
