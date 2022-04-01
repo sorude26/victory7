@@ -15,6 +15,8 @@ namespace victory7
         [SerializeField]
         float m_oneSlotSpeed = 1f;
         [SerializeField]
+        Image m_slotFrame = default;
+        [SerializeField]
         SlotLine m_leftLine = default;
         [SerializeField]
         SlotLine m_centerLine = default;
@@ -74,6 +76,7 @@ namespace victory7
                     m_rightLine.SetSlot(SlotData.RightSlotData[i]);
                 }
             }
+            m_slotFrame.sprite = MapData.CurrentMap.SlotFrame;
             m_leftLine.StopSE = m_stopSE;
             m_centerLine.StopSE = m_stopSE;
             m_rightLine.StopSE = m_stopSE;

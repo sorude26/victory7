@@ -11,6 +11,8 @@ namespace victory7
         RectTransform[] m_slotBases = default;
         [SerializeField]
         HaveNumberView[] m_haveViews = default;
+        [SerializeField]
+        GameObject[] m_uiObjects = default;
         List<Slot> m_lineSlot = default;
         public void StartSet(PlayerParameter player)
         {
@@ -22,6 +24,20 @@ namespace victory7
                     m_lineSlot.Add(Instantiate(slot, m_slotBases[i]));
                 }
                 SetView();
+            }
+        }
+        public void CloseUI()
+        {
+            foreach(var ui in m_uiObjects)
+            {
+                ui.SetActive(false);
+            }
+        }
+        public void OpenUI()
+        {
+            foreach (var ui in m_uiObjects)
+            {
+                ui.SetActive(true);
             }
         }
         void SetView()

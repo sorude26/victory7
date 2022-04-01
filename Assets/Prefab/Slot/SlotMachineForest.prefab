@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 1337449089174216974}
   - component: {fileID: 6526744800170004159}
   m_Layer: 5
-  m_Name: Image (5)
+  m_Name: SlotFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -494,7 +494,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 12}
+  m_AnchoredPosition: {x: -18, y: 12}
   m_SizeDelta: {x: 550, y: 565}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1337449089174216974
@@ -524,7 +524,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 47a2f56b04b1a504e8aae81d242f0402, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4f5b09db5eb6f5e4ca544290aa3ca7ab, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -958,6 +958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_oneRotaionTime: 0.85
   m_oneSlotSpeed: 1
+  m_slotFrame: {fileID: 6526744800170004159}
   m_leftLine: {fileID: 8858608169857520246}
   m_centerLine: {fileID: 8858608171000586504}
   m_rightLine: {fileID: 8858608171369565212}

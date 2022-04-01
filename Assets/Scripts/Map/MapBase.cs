@@ -139,6 +139,7 @@ namespace victory7
             }
             if (Input.GetKeyDown(KeyCode.Q) && !m_event)
             {
+                SoundManager.Play(SEType.Deployment);
                 m_currentEvent = m_playerDataPanel;
                 m_currentEvent.SelectEvent();
                 m_event = true;
@@ -146,6 +147,7 @@ namespace victory7
             }
             if (Input.GetKeyDown(KeyCode.E) && !m_event)
             {
+                SoundManager.Play(SEType.Deployment);
                 m_currentEvent = m_optionControl;
                 m_currentEvent.SelectEvent();
                 m_event = true;

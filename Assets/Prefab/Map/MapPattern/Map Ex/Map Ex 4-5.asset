@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_background: {fileID: 21300000, guid: f867472da8667db42a461e2eba0ea853, type: 3}
   m_battlebackground: {fileID: 21300000, guid: 86bab5aa54c8ced409a1232c2accda41, type: 3}
+  m_slotFrame: {fileID: 21300000, guid: 4f5b09db5eb6f5e4ca544290aa3ca7ab, type: 3}
   m_mapLines:
   - {fileID: 11400000, guid: 9b6f989b8603bb241916c7e76e753d17, type: 2}
   - {fileID: 11400000, guid: 09f5d16b8dc1e2b4d97111eb5a36edd5, type: 2}

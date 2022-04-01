@@ -146,6 +146,7 @@ namespace victory7
                     m_select = false;
                     int targetNum = GetSelectNum();
                     m_characterData[targetNum].gameObject.SetActive(true);
+                    m_characterData[targetNum].OpenUI();
                     m_skillPanels[targetNum].gameObject.SetActive(false);
                     foreach (var item in m_characters)
                     {
@@ -185,6 +186,7 @@ namespace victory7
                     SelectPanel().gameObject.SetActive(false);
                     int targetNum = GetSelectNum();
                     m_characterData[targetNum].gameObject.SetActive(true);
+                    m_characterData[targetNum].CloseUI();
                     m_characterData[targetNum].gameObject.transform.localScale *= m_dataScale;
                     m_characterData[targetNum].gameObject.transform.localPosition = m_dataPos;
                     SoundManager.Play(SEType.Decision);
@@ -235,6 +237,7 @@ namespace victory7
                 Instantiate(m_playerParameters[i].Character, carabase.transform);
                 m_characters[i] = carabase;
                 m_characters[i].transform.position = m_top.position + Vector3.up * m_size;
+                m_characters[i].transform.SetParent(m_top);
                 m_characterData[i] = Instantiate(m_dataViewPrefab, transform);
                 m_characterData[i].StartSet(m_playerParameters[i]);
                 m_skillPanels[i] = Instantiate(m_skillPanel, transform);
