@@ -90,7 +90,6 @@ namespace victory7
         }
         public override void CharacterUpdate()
         {
-            SkillCheck();
             ParameterUpdate();
         }
         protected void ParameterUpdate()

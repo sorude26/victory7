@@ -7020,6 +7020,7 @@ MonoBehaviour:
   m_enemys:
   - {fileID: 1177124499}
   - {fileID: 1464659758}
+  - {fileID: 1261367914}
   m_normalSlot: {fileID: 1163195297811069370}
   m_sevenSlot: {fileID: 592168381}
   buildControl: {fileID: 1323169934}
@@ -7036,6 +7037,18 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 904860388}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1261367914 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1249862174136849120, guid: 0f0e880c1530b724896a5f458b5494c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2048802807}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40cc0ede3d59afe4e91116b67766978f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1323169934 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6483485838302222894, guid: 702bb833905b0534abbe2bd302dbe2be,
