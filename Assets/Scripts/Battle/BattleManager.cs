@@ -88,6 +88,7 @@ namespace victory7
         {
             GameManager.Instance.SlotSpeedChange();
             EffectManager.Instance.PlayEffect(EffectType.Start, Vector2.zero);
+            SoundManager.Play(SEType.StartSpin);
             m_start = true;
             StartCoroutine(BattleUpdate());
         }

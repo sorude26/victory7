@@ -45,6 +45,7 @@ public class TutorialController : MonoBehaviour
         if (!m_tutorialIsEnds[(int)type])
         {
             IsActive = true;
+            SoundManager.Play(SEType.Deployment);
             StartCoroutine(ActiveTutorial(endAction));
         }
         else

@@ -31,10 +31,10 @@ namespace victory7
         }
         void Start()
         {
+            SoundManager.PlayBGM(m_bgm);
             FadeController.Instance.StartFadeIn(() => 
             { 
                 m_isStart = true;
-                SoundManager.PlayBGM(m_bgm); 
             });
             m_control.OnEventEnd += () => m_isOption = false;
             MapData.ClearReset();

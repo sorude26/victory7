@@ -137,7 +137,7 @@ namespace victory7
             m_rightLine.StartSlot();
             if (m_start)
             {
-                SoundManager.Play(SEType.StartSpin);
+                //SoundManager.Play(SEType.StartSpin);
             }
             else
             {
