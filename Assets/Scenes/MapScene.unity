@@ -189,7 +189,7 @@ PrefabInstance:
     - target: {fileID: 5264786837324370215, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5264786837324370215, guid: 6129574af90c5e84b8dfc646cb19d414,
         type: 3}
@@ -5369,7 +5369,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3678844547881479443
 PrefabInstance:
@@ -5504,15 +5504,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 138049374, guid: 23f48f43afd95ef4f8123f5bc22f8612, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 138049374, guid: 23f48f43afd95ef4f8123f5bc22f8612, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 138049374, guid: 23f48f43afd95ef4f8123f5bc22f8612, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 944280668, guid: 23f48f43afd95ef4f8123f5bc22f8612, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5532,15 +5532,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1559231228, guid: 23f48f43afd95ef4f8123f5bc22f8612, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.69
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1559231228, guid: 23f48f43afd95ef4f8123f5bc22f8612, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1559231228, guid: 23f48f43afd95ef4f8123f5bc22f8612, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.69
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 984613708222414215, guid: 23f48f43afd95ef4f8123f5bc22f8612,
         type: 3}

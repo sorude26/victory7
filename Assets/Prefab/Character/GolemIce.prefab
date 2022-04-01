@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 2546176761355397732}
   - component: {fileID: 2546176761355397733}
   - component: {fileID: 925864644467771851}
+  - component: {fileID: 3700604066906128620}
   m_Layer: 0
   m_Name: GolemIce
   m_TagString: Untagged
@@ -183,6 +184,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3700604066906128620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2546176761355397731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71ac2039b583a940876847f9c218047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_endDestroy: 0
+  m_shakeTime: 0.1
 --- !u!1 &5693041001500593359
 GameObject:
   m_ObjectHideFlags: 0

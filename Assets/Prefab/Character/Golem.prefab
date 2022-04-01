@@ -1261,6 +1261,7 @@ GameObject:
   - component: {fileID: 8386053407706026029}
   - component: {fileID: 8386053407706026028}
   - component: {fileID: 6624159119839114114}
+  - component: {fileID: 1095009985508070155}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Untagged
@@ -1341,6 +1342,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1095009985508070155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8386053407706026026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71ac2039b583a940876847f9c218047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_endDestroy: 0
+  m_shakeTime: 0.1
 --- !u!1001 &8630766753528312282
 PrefabInstance:
   m_ObjectHideFlags: 0

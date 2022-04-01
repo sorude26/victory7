@@ -112,7 +112,7 @@ namespace victory7
                 m_enemys = new EnemyControl[BattleData.Enemys.Length];
                 for (int i = 0; i < BattleData.Enemys.Length; i++)
                 {
-                    var enemy = Instantiate(BattleData.Enemys[i]);
+                    var enemy = Instantiate(BattleData.Enemys[i],transform);
                     enemy.transform.position = m_enemyPos[i].position;
                     m_enemys[i] = enemy;
                 }
@@ -293,6 +293,7 @@ namespace victory7
         /// </summary>
         void Next()
         {
+            ShakeController.ResetEvent();
             if (BattleData.Next)
             {
                 BattleData.Next = false;
@@ -303,6 +304,7 @@ namespace victory7
         }
         void LoadResult()
         {
+            ShakeController.ResetEvent();
             SoundManager.PlayBGM(m_resultBGM);
             SceneManager.LoadScene("Result");
         }
@@ -336,11 +338,11 @@ namespace victory7
         {
             while (m_effectActions.Count > 0 && !BattleEnd)
             {
-                m_waitAction = m_actionInterval;
                 m_effectActions.Pop()?.Invoke();
-                yield return WaitTime(m_waitAction);
+                yield return WaitTime();
             }
-            yield return WaitTime(m_waitAction);
+            m_waitAction = m_waitInterval;
+            yield return WaitTime();
         }
         /// <summary>
         /// 戦闘の順次実行を行う
@@ -354,8 +356,7 @@ namespace victory7
                 m_battleActions.Pop()?.Invoke();
                 yield return WaitTime(m_waitAction);
             }
-            m_waitAction = m_waitInterval;
-            yield return WaitTime(m_waitAction);
+            yield return WaitTime();
         }
         /// <summary>
         /// スロット停止を待つ
@@ -411,7 +412,7 @@ namespace victory7
         /// <returns></returns>
         IEnumerator WaitTime()
         {
-            float timer = m_actionInterval;
+            float timer = m_waitInterval;
             while (timer > 0 && !BattleEnd)
             {
                 timer -= Time.deltaTime;

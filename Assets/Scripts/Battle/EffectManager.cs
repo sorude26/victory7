@@ -34,6 +34,8 @@ namespace victory7
         ViewText m_viewText = default;
         [SerializeField]
         GameObject[] m_effectPrefabs = default;
+        [SerializeField]
+        float m_shakeTime = 0.1f;
         public ViewText Text { get => m_viewText; }
         private void Awake()
         {
@@ -42,6 +44,20 @@ namespace victory7
         public void PlayEffect(EffectType type, Vector2 pos)
         {
             Instantiate(m_effectPrefabs[(int)type], transform).transform.position = pos;
+            switch (type)
+            {
+                case EffectType.Heel:
+                    return;
+                case EffectType.Chage:
+                    return;
+                case EffectType.Guard:
+                    return;
+                case EffectType.Start:
+                    return;
+                default:
+                    ShakeController.PlayShake(m_shakeTime);
+                    break;
+            }
         }
     }
 }

@@ -36,6 +36,8 @@ namespace victory7
         SEType m_stopSE = SEType.StopSpin;
         [SerializeField]
         LineControl m_lineControl = default;
+        [SerializeField]
+        GameObject[] m_marks = default;
         bool m_start = false;
         public bool CheckNow { get; private set; } = false;
         public bool Stop { get; private set; } = false;
@@ -134,6 +136,10 @@ namespace victory7
                 m_rightLine.RotationTime = m_oneRotaionTime;
                 m_rightLine.SlotSpeed = m_oneSlotSpeed;
             }
+            foreach (var mark in m_marks)
+            {
+                mark.SetActive(false);
+            }
             Stop = false;
             m_leftLine.StartSlot();
             m_centerLine.StartSlot();
@@ -185,6 +191,7 @@ namespace victory7
             {
                 return;
             }
+            m_marks[0].SetActive(true);
             if (m_sevenSlot)
             {
                 StartCoroutine(SpanStop1());
@@ -199,6 +206,7 @@ namespace victory7
             {
                 return;
             }
+            m_marks[1].SetActive(true);
             if (m_sevenSlot)
             {
                 StartCoroutine(SpanStop3());
@@ -213,6 +221,7 @@ namespace victory7
             {
                 return;
             }
+            m_marks[2].SetActive(true);
             if (m_sevenSlot)
             {
                 StartCoroutine(SpanStop2());
@@ -227,8 +236,10 @@ namespace victory7
             yield return WaitTime(m_stopSpan);
             m_leftLine.Move = false;
             yield return WaitTime(m_stopSpan);
+            m_marks[1].SetActive(true);
             m_centerLine.TargetStop(m_leftLine.CrrentNum);
             yield return WaitTime(m_stopSpan);
+            m_marks[2].SetActive(true);
             m_rightLine.TargetStop(m_leftLine.CrrentNum);
             CheckSlot();
         }
@@ -238,8 +249,10 @@ namespace victory7
             yield return WaitTime(m_stopSpan);
             m_rightLine.Move = false;
             yield return WaitTime(m_stopSpan);
+            m_marks[1].SetActive(true);
             m_centerLine.TargetStop(m_rightLine.CrrentNum);
             yield return WaitTime(m_stopSpan);
+            m_marks[0].SetActive(true);
             m_leftLine.TargetStop(m_rightLine.CrrentNum);
             CheckSlot();
         }
@@ -249,8 +262,10 @@ namespace victory7
             yield return WaitTime(m_stopSpan);
             m_centerLine.Move = false;
             yield return WaitTime(m_stopSpan);
+            m_marks[0].SetActive(true);
             m_leftLine.TargetStop(m_centerLine.CrrentNum);
             yield return WaitTime(m_stopSpan);
+            m_marks[2].SetActive(true);
             m_rightLine.TargetStop(m_centerLine.CrrentNum);
             CheckSlot();
         }

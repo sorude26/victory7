@@ -6,6 +6,8 @@ public class EffectController : MonoBehaviour
 {
     [SerializeField]
     bool m_endDestroy = true;
+    [SerializeField]
+    float m_shakeTime = 0.1f;
     void PlayEnd()
     {
         if (m_endDestroy)
@@ -16,5 +18,9 @@ public class EffectController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+    public void PlayShake()
+    {
+        ShakeController.PlayShake(m_shakeTime);
     }
 }
