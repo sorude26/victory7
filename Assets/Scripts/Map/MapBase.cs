@@ -157,6 +157,7 @@ namespace victory7
         {
             if (m_targetPos.Count <= 0)
             {
+                SoundManager.Play(SEType.Decision);
                 m_player.transform.position = m_bossPos;
                 MapData.PositionReset();
                 BattleData.SetData(MapData.CurrentMap.BossBattleData);
