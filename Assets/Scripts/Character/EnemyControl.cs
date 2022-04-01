@@ -11,10 +11,7 @@ namespace victory7
         [SerializeField]
         protected EnemyParameter m_parameter = default;
         [SerializeField]
-        protected Slider m_rtgGauge = default;
-        protected float m_rbtTimer = default;
-        [SerializeField]
-        protected Text m_count = default;
+        EDataControl m_dataControl = default;
         protected int[] m_attackCounts = default;
         [SerializeField]
         SEType m_deadVoice = SEType.GolemDeath;
@@ -26,6 +23,8 @@ namespace victory7
         private float[] m_actionTimes = { 1f, 1f, 1f };
         [SerializeField]
         private EffectType[] m_attackEffects = { EffectType.Attack8, EffectType.Attack9, EffectType.Attack9 };
+        [SerializeField]
+        private GameObject[] m_countFrames = default;
         public bool IsDead { get; protected set; }
         private Stack<Action> m_actionStack = default;
         public void StartSet()
@@ -44,13 +43,9 @@ namespace victory7
             {
                 m_attackCounts[i] = m_parameter.AttackData[i].y;
             }
-            if (m_count)
+            if (m_dataControl)
             {
-                m_count.text = "";
-                foreach (var attackCount in m_attackCounts)
-                {
-                    m_count.text += attackCount + ",";
-                }
+                m_dataControl.StartSetCount(m_attackCounts);
             }
             m_actionStack = new Stack<Action>(); ;
         }
@@ -75,13 +70,9 @@ namespace victory7
                     });
                 }
             }
-            if (m_count)
+            if (m_dataControl)
             {
-                m_count.text = "";
-                foreach (var attackCount in m_attackCounts)
-                {
-                    m_count.text += attackCount + ",";
-                }
+                m_dataControl.SetCount(m_attackCounts);
             }
         }
         public override void Damage(int damage)
@@ -121,13 +112,9 @@ namespace victory7
             {
                 m_attackCounts[i] += addCount;
             }
-            if (m_count)
+            if (m_dataControl)
             {
-                m_count.text = "";
-                foreach (var attackCount in m_attackCounts)
-                {
-                    m_count.text += attackCount + ",";
-                }
+                m_dataControl.SetCount(m_attackCounts);
             }
             EffectManager.Instance.PlayEffect(EffectType.AttackPlayer, transform.position);
         }

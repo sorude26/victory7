@@ -168,7 +168,7 @@ namespace victory7
             {
                 m_player.ActionStack.Push(() => enemy.PercentageDamage(percentage));
                 m_player.AttackAction(enemy);
-                SoundManager.Play(SEType.PaylineAttack);
+                SoundManager.Play(SEType.SkillAttack);
                 m_waitAction = m_player.ActionTime;
             }
         }
@@ -183,7 +183,7 @@ namespace victory7
             {
                 m_player.ActionStack.Push(() => enemy.CheckPercentageDamage(percentage));
                 m_player.AttackAction(enemy);
-                SoundManager.Play(SEType.PaylineAttack);
+                SoundManager.Play(SEType.SkillAttack);
                 m_waitAction = m_player.ActionTime;
             }
         }
@@ -210,13 +210,13 @@ namespace victory7
         {
             m_player.Damage(damege);
             EffectManager.Instance.PlayEffect(attackEffect, m_player.CenterPos.position);
-            if (PlayerData.CurrentGP >= 1)
+            if (m_player.CurrentGP >= 1)
             {
                 SoundManager.Play(SEType.Guard);
             }
             else
             {
-                SoundManager.Play(SEType.Attack);
+                //SoundManager.Play(SEType.Attack);
             }
         }
         public void SetActionTime(CharacterControl character)
