@@ -4985,6 +4985,7 @@ MonoBehaviour:
   m_dataControl: {fileID: 1122635487683459174}
   m_deadVoice: 27
   m_attackVoices: 140000001500000015000000
+  m_attackHit: 140000001500000015000000
   m_enemyAction:
   - attack
   - attack

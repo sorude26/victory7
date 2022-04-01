@@ -15969,7 +15969,8 @@ MonoBehaviour:
   m_parameter: {fileID: 11400000, guid: 1f948a18ba0bc3a44a8bbd14e69a0d0d, type: 2}
   m_dataControl: {fileID: 4948926618715254914}
   m_deadVoice: 24
-  m_attackVoices: 0e0000000e0000000f000000
+  m_attackVoices: 0f0000000f0000000f00000012000000
+  m_attackHit: 080000000e0000000f000000
   m_enemyAction:
   - attack
   - attack
@@ -15980,6 +15981,7 @@ MonoBehaviour:
   - 2.5
   m_attackEffects: 090000000a0000000b000000
   m_countFrames: []
+  m_playVoices: 3
 --- !u!95 &8794416251521216875
 Animator:
   serializedVersion: 3

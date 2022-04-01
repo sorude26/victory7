@@ -16,7 +16,9 @@ namespace victory7
         [SerializeField]
         SEType m_deadVoice = SEType.GolemDeath;
         [SerializeField]
-        SEType[] m_attackVoices = { SEType.WeakAttackGolem, SEType.StrongAttackGolem, SEType.WeakAttackGolem };
+        SEType[] m_attackVoices = { SEType.WeakAttackGolem, SEType.WeakAttackGolem, SEType.WeakAttackGolem };
+        [SerializeField]
+        SEType[] m_attackHit = { SEType.WeakAttackGolem, SEType.StrongAttackGolem, SEType.WeakAttackGolem };
         [SerializeField]
         private string[] m_enemyAction = { "attack", "attack", "attack" };
         [SerializeField]
@@ -25,6 +27,8 @@ namespace victory7
         private EffectType[] m_attackEffects = { EffectType.Attack8, EffectType.Attack9, EffectType.Attack9 };
         [SerializeField]
         private GameObject[] m_countFrames = default;
+        [SerializeField]
+        private int m_playVoices = 0;
         public bool IsDead { get; protected set; }
         private Stack<Action> m_actionStack = default;
         public void StartSet()
@@ -65,7 +69,11 @@ namespace victory7
                     int count = i;
                     BattleManager.Instance.BattleActions.Push(() =>
                     {
-                        m_actionStack.Push(() => BattleManager.Instance.AttackPlayer(a,m_attackEffects[count]));
+                        m_actionStack.Push(() => 
+                        { 
+                            BattleManager.Instance.AttackPlayer(a, m_attackEffects[count]);
+                            SoundManager.Play(m_attackHit[count]);
+                        });
                         PlayAttack(count);
                     });
                 }
@@ -126,6 +134,10 @@ namespace victory7
         void PlayAction()
         {
             m_actionStack.Pop()?.Invoke();
+        }
+        void PlayVoices()
+        {
+            SoundManager.Play(m_attackVoices[m_playVoices]);
         }
         void PlayAttack(int count)
         {
