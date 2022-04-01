@@ -116,7 +116,6 @@ namespace victory7
                     base.Damage(-m_gp);
                     m_gp = 0;
                 }
-                EffectManager.Instance.PlayEffect(EffectType.Damage2, CenterPos.position);
                 ParameterUpdate();
                 return;
             }
@@ -203,7 +202,7 @@ namespace victory7
                     m_skillCount += m_skill.MaxCount;
                     PlayAction(ActionType.Guard);
                     EffectManager.Instance.PlayEffect(EffectType.Guard, CenterPos.position);
-                    SoundManager.Play(SEType.PaylineCharge);
+                    SoundManager.Play(SEType.SkillGuard);
                     break;
                 case PlayerSkill.DelayEnemy:
                     BattleManager.Instance.AddEnemyActionCount(m_skill.MaxCount);
@@ -222,6 +221,7 @@ namespace victory7
                     int r = UnityEngine.Random.Range(0, 4);
                     if (r == 0)
                     {
+                        SoundManager.Play(SEType.SkillAttack);
                         BattleManager.Instance.AttackEnemy(2);
                     }
                     else if (r == 1)

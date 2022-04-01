@@ -12,6 +12,8 @@ namespace victory7
         [SerializeField]
         GameObject m_target = default;
         [SerializeField]
+        GameObject m_healEffect = default;
+        [SerializeField]
         Image m_background = default;
         [Header("遷移先シーン名")]
         [SerializeField]
@@ -34,6 +36,8 @@ namespace victory7
         Text m_mapCount = default;
         [SerializeField]
         MapPlayerData m_mapPlayerData = default;
+        [SerializeField]
+        OptionControl m_optionControl = default;
         [SerializeField]
         float m_bgmChangeTime = 0.5f;
         [Header("BGM変更マップ走破数")]
@@ -71,10 +75,11 @@ namespace victory7
             LodeMap();
             m_removeSlot.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
             m_levelUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => m_event = false);
-            m_heel.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
-            m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); });
+            m_heel.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); m_healEffect.SetActive(true); });
+            m_maxHPUp.OnEventEnd += () => FadeController.Instance?.StartFadeOutIn(() => { m_event = false; m_mapPlayerData.DataUpdate(); m_healEffect.SetActive(true); });
             m_playerDataPanel.OnEventEnd += () => m_event = false;
-            FadeController.Instance?.StartFadeIn(() => m_gard = false);
+            m_optionControl.OnEventEnd += () => m_event = false;
+            FadeController.Instance?.StartFadeIn(() => TutorialController.Instance.PlayTutorial(TutorialType.Map, () => m_gard = false));
             m_gard = true;
             m_background.sprite = MapData.CurrentMap.Background;
             m_mapCount.text = (1 + MapData.ClearStageCount).ToString();
@@ -134,17 +139,25 @@ namespace victory7
             }
             if (Input.GetKeyDown(KeyCode.Q) && !m_event)
             {
+                SoundManager.Play(SEType.Deployment);
                 m_currentEvent = m_playerDataPanel;
                 m_currentEvent.SelectEvent();
                 m_event = true;
-                m_load = false;
                 return;
+            }
+            if (Input.GetKeyDown(KeyCode.E) && !m_event)
+            {
+                SoundManager.Play(SEType.Deployment);
+                m_currentEvent = m_optionControl;
+                m_currentEvent.SelectEvent();
+                m_event = true;
             }
         }
         void Next()
         {
             if (m_targetPos.Count <= 0)
             {
+                SoundManager.Play(SEType.Decision);
                 m_player.transform.position = m_bossPos;
                 MapData.PositionReset();
                 BattleData.SetData(MapData.CurrentMap.BossBattleData);

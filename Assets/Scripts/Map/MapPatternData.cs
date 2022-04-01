@@ -15,6 +15,9 @@ namespace victory7
         [Header("戦闘背景画像")]
         [SerializeField]
         Sprite m_battlebackground = default;
+        [Header("スロットデザイン画像")]
+        [SerializeField]
+        Sprite m_slotFrame = default;
         [Header("配置ラインデータ")]
         [SerializeField]
         MapLine[] m_mapLines = default;
@@ -43,6 +46,8 @@ namespace victory7
         public Sprite Background { get => m_background; }
         /// <summary> 戦闘背景画像 </summary>
         public Sprite BattleBackground { get => m_battlebackground; }
+        /// <summary> スロット画像 </summary>
+        public Sprite SlotFrame { get => m_slotFrame; }
         /// <summary> 配置ライン </summary>
         public MapLine[] MapLines { get => m_mapLines; }
         /// <summary> 通常戦闘 </summary>

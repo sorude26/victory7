@@ -64,7 +64,7 @@ namespace victory7
         {
             CurrentHP -= damage;
             //Debug.Log($"{gameObject.name}は{damage}のダメージ");
-            EffectManager.Instance.PlayEffect(EffectType.Damage1, CenterPos.position);
+            EffectManager.Instance.PlayEffect(EffectType.AttackPlayer, CenterPos.position);
             if (CurrentHP <= 0)
             {
                 CurrentHP = 0;

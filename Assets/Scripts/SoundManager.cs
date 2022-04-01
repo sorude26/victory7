@@ -85,42 +85,42 @@ public class SoundManager : MonoBehaviour
     Dictionary<SEType, AudioClip> m_seDic = default;
     Dictionary<BGMType, AudioClip> m_bgmDic = default;
     bool m_isPlaying = false;
-    float m_bgmVolume = MaxVolume;
-    float m_seVolume = MaxVolume;
+    float m_bgmVolume = MaxVolume / 2f;
+    float m_seVolume = MaxVolume / 2f;
 
     public static BGMType CurrentBGM { get; private set; }
-    public float BGMVolume
+    public static float BGMVolume
     {
-        get => m_bgmVolume;
+        get => instance.m_bgmVolume;
         set
         {
             if (value > MaxVolume)
             {
-                m_bgmVolume = MaxVolume;
+                instance.m_bgmVolume = MaxVolume;
             }
             else if (value < 0)
             {
-                m_bgmVolume = 0;
+                instance.m_bgmVolume = 0;
             }
-            else { m_bgmVolume = value; }
-            m_bgmSource.volume = m_bgmVolume;
+            else { instance.m_bgmVolume = value; }
+            instance.m_bgmSource.volume = instance.m_bgmVolume;
         }
     }
-    public float SEVolume
+    public static float SEVolume
     {
-        get => m_seVolume;
+        get => instance.m_seVolume;
         set
         {
             if (value > MaxVolume)
             {
-                m_seVolume = MaxVolume;
+                instance.m_seVolume = MaxVolume;
             }
             else if (value < 0)
             {
-                m_seVolume = 0;
+                instance.m_seVolume = 0;
             }
-            else { m_seVolume = value; }
-            m_audio.volume = m_seVolume;
+            else { instance.m_seVolume = value; }
+            instance.m_audio.volume = instance.m_seVolume;
         }
     }
     private void Awake()
@@ -169,6 +169,13 @@ public class SoundManager : MonoBehaviour
             }
         }
     }
+    public static void StopBGM(float fadeTime = 1f)
+    {
+        if (instance)
+        {
+            instance.StartCoroutine(instance.FadeOutBGM(fadeTime));
+        }
+    }
     void SetBGM(BGMType type)
     {
         m_bgmSource.clip = m_bgmDic[type];
@@ -193,7 +200,20 @@ public class SoundManager : MonoBehaviour
             m_bgmSource.volume = m_bgmVolume * (1 - timer / fadeChangeTime);
             yield return null;
         }
-        m_bgmSource.volume = m_bgmVolume;
+        m_bgmSource.Stop();
         SetBGM(type);
+        m_bgmSource.volume = m_bgmVolume;
+    }
+    IEnumerator FadeOutBGM(float fadeTime)
+    {
+        float timer = 0f;
+        while (timer < fadeTime)
+        {
+            timer += Time.deltaTime;
+            m_bgmSource.volume = m_bgmVolume * (1 - timer / fadeTime);
+            yield return null;
+        }
+        m_bgmSource.Stop();
+        m_bgmSource.volume = m_bgmVolume;
     }
 }

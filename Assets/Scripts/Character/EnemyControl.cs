@@ -11,19 +11,24 @@ namespace victory7
         [SerializeField]
         protected EnemyParameter m_parameter = default;
         [SerializeField]
-        protected Slider m_rtgGauge = default;
-        protected float m_rbtTimer = default;
-        [SerializeField]
-        protected Text m_count = default;
+        EDataControl m_dataControl = default;
         protected int[] m_attackCounts = default;
         [SerializeField]
         SEType m_deadVoice = SEType.GolemDeath;
         [SerializeField]
-        SEType[] m_attackVoices = { SEType.WeakAttackGolem, SEType.StrongAttackGolem, SEType.WeakAttackGolem };
+        SEType[] m_attackVoices = { SEType.WeakAttackGolem, SEType.WeakAttackGolem, SEType.WeakAttackGolem };
+        [SerializeField]
+        SEType[] m_attackHit = { SEType.WeakAttackGolem, SEType.StrongAttackGolem, SEType.WeakAttackGolem };
         [SerializeField]
         private string[] m_enemyAction = { "attack", "attack", "attack" };
         [SerializeField]
         private float[] m_actionTimes = { 1f, 1f, 1f };
+        [SerializeField]
+        private EffectType[] m_attackEffects = { EffectType.Attack8, EffectType.Attack9, EffectType.Attack9 };
+        [SerializeField]
+        private GameObject[] m_countFrames = default;
+        [SerializeField]
+        private int m_playVoices = 0;
         public bool IsDead { get; protected set; }
         private Stack<Action> m_actionStack = default;
         public void StartSet()
@@ -42,13 +47,9 @@ namespace victory7
             {
                 m_attackCounts[i] = m_parameter.AttackData[i].y;
             }
-            if (m_count)
+            if (m_dataControl)
             {
-                m_count.text = "";
-                foreach (var attackCount in m_attackCounts)
-                {
-                    m_count.text += attackCount + ",";
-                }
+                m_dataControl.StartSetCount(m_attackCounts);
             }
             m_actionStack = new Stack<Action>(); ;
         }
@@ -68,18 +69,18 @@ namespace victory7
                     int count = i;
                     BattleManager.Instance.BattleActions.Push(() =>
                     {
-                        m_actionStack.Push(() => BattleManager.Instance.AttackPlayer(a));
+                        m_actionStack.Push(() => 
+                        { 
+                            BattleManager.Instance.AttackPlayer(a, m_attackEffects[count]);
+                            SoundManager.Play(m_attackHit[count]);
+                        });
                         PlayAttack(count);
                     });
                 }
             }
-            if (m_count)
+            if (m_dataControl)
             {
-                m_count.text = "";
-                foreach (var attackCount in m_attackCounts)
-                {
-                    m_count.text += attackCount + ",";
-                }
+                m_dataControl.SetCount(m_attackCounts);
             }
         }
         public override void Damage(int damage)
@@ -119,15 +120,11 @@ namespace victory7
             {
                 m_attackCounts[i] += addCount;
             }
-            if (m_count)
+            if (m_dataControl)
             {
-                m_count.text = "";
-                foreach (var attackCount in m_attackCounts)
-                {
-                    m_count.text += attackCount + ",";
-                }
+                m_dataControl.SetCount(m_attackCounts);
             }
-            EffectManager.Instance.PlayEffect(EffectType.Damage2, transform.position);
+            EffectManager.Instance.PlayEffect(EffectType.AttackPlayer, transform.position);
         }
         void GameOut()
         {
@@ -137,6 +134,10 @@ namespace victory7
         void PlayAction()
         {
             m_actionStack.Pop()?.Invoke();
+        }
+        void PlayVoices()
+        {
+            SoundManager.Play(m_attackVoices[m_playVoices]);
         }
         void PlayAttack(int count)
         {

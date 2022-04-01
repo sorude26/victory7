@@ -35,8 +35,6 @@ namespace victory7
         [SerializeField]
         float m_waitInterval = 0.2f;
         [SerializeField]
-        float m_buildTime = 3f;
-        [SerializeField]
         BGMType m_buildBGM = BGMType.Build;
         [SerializeField]
         BGMType m_resultBGM = BGMType.Result;
@@ -66,8 +64,7 @@ namespace victory7
         {
             StartSet();
             buildControl.StartSet();
-            m_battleBGM = SoundManager.CurrentBGM;
-            FadeController.Instance.StartFadeIn(StartBattle);
+            FadeController.Instance.StartFadeIn(() => TutorialController.Instance.PlayTutorial(TutorialType.Battle, StartBattle));
         }
         private void Update()
         {
@@ -91,6 +88,7 @@ namespace victory7
         {
             GameManager.Instance.SlotSpeedChange();
             EffectManager.Instance.PlayEffect(EffectType.Start, Vector2.zero);
+            SoundManager.Play(SEType.StartSpin);
             m_start = true;
             StartCoroutine(BattleUpdate());
         }
@@ -114,7 +112,7 @@ namespace victory7
                 m_enemys = new EnemyControl[BattleData.Enemys.Length];
                 for (int i = 0; i < BattleData.Enemys.Length; i++)
                 {
-                    var enemy = Instantiate(BattleData.Enemys[i]);
+                    var enemy = Instantiate(BattleData.Enemys[i],transform);
                     enemy.transform.position = m_enemyPos[i].position;
                     m_enemys[i] = enemy;
                 }
@@ -171,7 +169,7 @@ namespace victory7
             {
                 m_player.ActionStack.Push(() => enemy.PercentageDamage(percentage));
                 m_player.AttackAction(enemy);
-                SoundManager.Play(SEType.PaylineAttack);
+                SoundManager.Play(SEType.SkillAttack);
                 m_waitAction = m_player.ActionTime;
             }
         }
@@ -186,7 +184,7 @@ namespace victory7
             {
                 m_player.ActionStack.Push(() => enemy.CheckPercentageDamage(percentage));
                 m_player.AttackAction(enemy);
-                SoundManager.Play(SEType.PaylineAttack);
+                SoundManager.Play(SEType.SkillAttack);
                 m_waitAction = m_player.ActionTime;
             }
         }
@@ -209,16 +207,17 @@ namespace victory7
         /// プレイヤーに指定ダメージを与える
         /// </summary>
         /// <param name="damege"></param>
-        public void AttackPlayer(int damege)
+        public void AttackPlayer(int damege,EffectType attackEffect)
         {
             m_player.Damage(damege);
-            if(PlayerData.CurrentGP >= 1)
+            EffectManager.Instance.PlayEffect(attackEffect, m_player.CenterPos.position);
+            if (m_player.CurrentGP >= 1)
             {
                 SoundManager.Play(SEType.Guard);
             }
             else
             {
-                SoundManager.Play(SEType.Attack);
+                //SoundManager.Play(SEType.Attack);
             }
         }
         public void SetActionTime(CharacterControl character)
@@ -279,7 +278,7 @@ namespace victory7
         }
         public void BuildPanelOpen()
         {
-            buildControl.gameObject.SetActive(true);
+            buildControl.StartBuild();
             SoundManager.PlayBGM(m_buildBGM);
         }
         /// <summary>
@@ -294,6 +293,7 @@ namespace victory7
         /// </summary>
         void Next()
         {
+            ShakeController.ResetEvent();
             if (BattleData.Next)
             {
                 BattleData.Next = false;
@@ -304,6 +304,7 @@ namespace victory7
         }
         void LoadResult()
         {
+            ShakeController.ResetEvent();
             SoundManager.PlayBGM(m_resultBGM);
             SceneManager.LoadScene("Result");
         }
@@ -313,6 +314,7 @@ namespace victory7
         /// <returns></returns>
         IEnumerator BattleUpdate()
         {
+            m_battleBGM = SoundManager.CurrentBGM;
             while (!BattleEnd)
             {
                 m_normalSlot.StartSlot();
@@ -336,11 +338,11 @@ namespace victory7
         {
             while (m_effectActions.Count > 0 && !BattleEnd)
             {
-                m_waitAction = m_actionInterval;
                 m_effectActions.Pop()?.Invoke();
-                yield return WaitTime(m_waitAction);
+                yield return WaitTime();
             }
-            yield return WaitTime(m_waitAction);
+            m_waitAction = m_waitInterval;
+            yield return WaitTime();
         }
         /// <summary>
         /// 戦闘の順次実行を行う
@@ -354,8 +356,7 @@ namespace victory7
                 m_battleActions.Pop()?.Invoke();
                 yield return WaitTime(m_waitAction);
             }
-            m_waitAction = m_waitInterval;
-            yield return WaitTime(m_waitAction);
+            yield return WaitTime();
         }
         /// <summary>
         /// スロット停止を待つ
@@ -411,7 +412,7 @@ namespace victory7
         /// <returns></returns>
         IEnumerator WaitTime()
         {
-            float timer = m_actionInterval;
+            float timer = m_waitInterval;
             while (timer > 0 && !BattleEnd)
             {
                 timer -= Time.deltaTime;

@@ -109,6 +109,35 @@ namespace victory7
                 }
             }
         }
+        public static Slot GetSlot(int slot, int target)
+        {
+            if (target > 2 || target < 0 || slot < 0)
+            {
+                return null;
+            }
+            if (target == 0)
+            {
+                if (LeftSlotData.Count > slot)
+                {
+                    return LeftSlotData[slot];
+                }
+            }
+            else if (target == 1)
+            {
+                if (CenterSlotData.Count > slot)
+                {
+                    return CenterSlotData[slot];
+                }
+            }
+            else
+            {
+                if (RightSlotData.Count > slot)
+                {
+                    return RightSlotData[slot];
+                }
+            }
+            return null;
+        }
         public static void RemoveSlot(int slot, int target)
         {
             if (target > 2 || target < 0 || slot < 0)
