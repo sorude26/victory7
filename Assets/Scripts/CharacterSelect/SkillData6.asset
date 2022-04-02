@@ -16,7 +16,7 @@ MonoBehaviour:
   m_skillName: "\u6CBB\u7642"
   m_skillNameSprite: {fileID: 21300000, guid: cc3b0d87c5716d14fb41a008951764d5, type: 3}
   m_skillGuide: "\u5272\u5408\u56DE\u5FA9"
-  m_skillGuideSprite: {fileID: 21300000, guid: 7e534f804896c934f990549166d03eec, type: 3}
+  m_skillGuideSprite: {fileID: 21300000, guid: c569ff884daddbd49840cab45b9d665b, type: 3}
   m_needSp: 30
   m_maxCount: 0
   m_effect: 0.3
