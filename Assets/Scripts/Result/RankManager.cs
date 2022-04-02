@@ -19,11 +19,17 @@ public class RankManager : MonoBehaviour
 
     [SerializeField]
     [Header("スコア計算用の値(マップクリア数)")]
-    int m_mapCalculation = 2500;
+    int m_mapCalculation = 300;
 
     [SerializeField]
     [Header("スコア計算用の値(バトルクリア数)")]
     int m_victoryCalculation = 100;
+
+    ///sinndou
+    [SerializeField]
+    [Header("スコア計算用の値(7獲得数)")]
+    int m_sevenCalculation = 300;
+    ///
 
     int m_score;
 
@@ -47,7 +53,9 @@ public class RankManager : MonoBehaviour
         
         if(MapData.ClearStageCount > 0)
         {
-            s += 10000;
+            //sindou
+            //以下は多分スコアを表示する際にscoreを大きく見せるための数値だと思うので、計算から外しました。
+            //s += 10000;
             if(MapData.ClearStageCount > 1)
             {
                 for (int i = 0; i < MapData.ClearStageCount; i++)
@@ -56,6 +64,17 @@ public class RankManager : MonoBehaviour
                 }
             }
         }
+
+        ///sindou
+        if (SlotData.SevenSlotCount() > 0) 
+        {
+            for (int i = 0; i < SlotData.SevenSlotCount(); i++)
+            {
+                s += m_sevenCalculation;
+             }
+        }
+        ///
+
         return s;
     }
 

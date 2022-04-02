@@ -44,12 +44,14 @@ namespace victory7
                     m_panel[0].SetActive(false);
                 }
                 m_panel[1].SetActive(false);
+                SoundManager.Play(SEType.Choice);
             }
             if(Input.GetButtonDown("Vertical"))
             {
                 m_panel[1].SetActive(true);
                 m_panel[0].SetActive(false);
                 m_panel[2].SetActive(false);
+                SoundManager.Play(SEType.Choice);
             }
         }
         void SetResultSlot()
