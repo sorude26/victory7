@@ -153,6 +153,7 @@ namespace victory7
                     {
                         return;
                     }
+                    m_start = false;
                     m_selectSlot.PlayGetSlotAnime();
                     SlotData.AddSlot(m_popSlot[m_slotNum], m_targetNum - 1);
                     m_panel.ClosePanel();

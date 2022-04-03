@@ -75,6 +75,7 @@ namespace victory7
         {
             if (!m_start) return;
             m_start = false;
+            SoundManager.Play(SEType.Decision);
             FadeController.Instance.StartFadeOut(LoadTitle);
         }
 

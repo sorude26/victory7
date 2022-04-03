@@ -317,6 +317,7 @@ namespace victory7
             m_battleBGM = SoundManager.CurrentBGM;
             while (!BattleEnd)
             {
+                m_player.SkillCheck();
                 m_normalSlot.StartSlot();
                 yield return WaitTime(SlotWaitTime);
                 m_waitNow = true;
@@ -401,6 +402,7 @@ namespace victory7
             {
                 yield return null;
             }
+            m_waitNow = false;
             yield return null;
             yield return EffectAction();
             yield return null;
@@ -458,6 +460,7 @@ namespace victory7
             while (m_feverCount < m_maxFeverCount && !BattleEnd)
             {
                 m_sevenSlot.StartSlot();
+                m_waitNow = true;
                 yield return WaitTime(SlotWaitTime);
                 m_sevenSlot.SlotStartInput();
                 yield return SlotWait();
