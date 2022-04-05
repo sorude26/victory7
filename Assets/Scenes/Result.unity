@@ -640,7 +640,7 @@ MonoBehaviour:
   - {fileID: 8393313}
   - {fileID: 1002841099}
   m_textChanger: {fileID: 1555031417}
-  m_rankThreshold: 6400000040060000b80b000088130000
+  m_rankThreshold: 40060000b80b000088130000
   m_mapCalculation: 300
   m_victoryCalculation: 100
   m_sevenCalculation: 300

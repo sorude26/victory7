@@ -4710,7 +4710,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 4f82b392ee7ce834881573fcf5124d34, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4761,6 +4761,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2331369916915119570, guid: 492cb96472393ed4295f2f1ec66ce81f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2625325236155898183, guid: 492cb96472393ed4295f2f1ec66ce81f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4897,11 +4902,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fb7b7b96b1cf57d49933ed0b596c1c1f, type: 2}
-    - target: {fileID: 9186246878110036797, guid: 492cb96472393ed4295f2f1ec66ce81f,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 492cb96472393ed4295f2f1ec66ce81f, type: 3}
 --- !u!4 &993837306222639298 stripped
