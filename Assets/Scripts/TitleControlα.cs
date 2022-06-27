@@ -18,6 +18,8 @@ namespace victory7
         Transform[] m_cursorPos = default;
         [SerializeField]
         OptionControl m_control = default;
+        [SerializeField]
+        GameObject m_credit = default;
 
         private bool m_isStart = false;
         private bool m_isOption = false;
@@ -28,6 +30,7 @@ namespace victory7
             StartGame,
             Option,
             Quit,
+            Credit,
         }
         void Start()
         {
@@ -94,6 +97,10 @@ namespace victory7
                         SoundManager.StopBGM();
                         FadeController.Instance.StartFadeOut(Quit);
                         break;
+                    case SelectType.Credit:
+                        m_isOption = true;
+                        m_credit.gameObject.SetActive(true);
+                        break;
                     default:
                         break;
                 }
@@ -104,6 +111,7 @@ namespace victory7
             {
                 if (m_isOption)
                 {
+                    m_credit.gameObject.SetActive(false);
                     m_control.CancelAction();
                     return;
                 }
